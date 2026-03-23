@@ -856,24 +856,6 @@
       });
     })();
   </script>
-  <!-- 체류시간 측정 -->
-  <script>
-    (function () {
-      const start = Date.now();
-      function getVisitId() {
-        return document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith('visit_id='))?.split('=')[1];
-      }
-      function sendStay() {
-        const visit_id = getVisitId();
-        if (!visit_id) return;
-        const stay_seconds = Math.round((Date.now() - start) / 1000);
-        navigator.sendBeacon('/api/visit/end', JSON.stringify({ visit_id, stay_seconds }));
-      }
-      window.addEventListener('beforeunload', sendStay);
-      window.addEventListener('pagehide', sendStay);
-    })();
-  </script>
-
   <!-- 부정클릭 감시 배지 -->
   <div style="
     position: fixed;
