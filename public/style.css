@@ -3741,3 +3741,18 @@ button.svc-photo-chooser-label:focus-visible {
   .branch-info strong { font-size: 0.78rem; }
   .branch-info span { font-size: 0.67rem; }
 }
+
+/* ── 모바일: filter + background-clip 충돌 방지 ── */
+@media (max-width: 768px) {
+  .gallery-accent {
+    animation: gallery-accent-shine 5.5s linear infinite;
+    filter: none;
+  }
+  .hero-title-pop {
+    animation: hero-title-pop-float 2.4s ease-in-out infinite;
+    filter: none;
+  }
+  .hero-kicker-type {
+    filter: none;
+  }
+}
