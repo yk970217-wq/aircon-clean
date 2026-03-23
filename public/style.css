@@ -3742,17 +3742,33 @@ button.svc-photo-chooser-label:focus-visible {
   .branch-info span { font-size: 0.67rem; }
 }
 
-/* ── 모바일: filter + background-clip 충돌 방지 ── */
+/* ── 모바일: compositing layer 충돌 방지 ── */
 @media (max-width: 768px) {
-  .gallery-accent {
-    animation: gallery-accent-shine 5.5s linear infinite;
+  /* opacity 애니메이션이 background-clip:text 자식을 깨뜨리므로 제거 */
+  .hero-kicker {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .hero-kicker-type {
     filter: none;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
   .hero-title-pop {
     animation: hero-title-pop-float 2.4s ease-in-out infinite;
     filter: none;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
-  .hero-kicker-type {
+  .gallery-accent {
+    animation: gallery-accent-shine 5.5s linear infinite;
     filter: none;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  .hero-title-accent {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
 }
