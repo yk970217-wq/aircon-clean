@@ -1,13 +1,10 @@
 // ===== 히어로 키커 타이핑 (반복) =====
 (function () {
   const el = document.getElementById('heroKickerType');
-  const cursor = document.querySelector('.hero-kicker-cursor');
   if (!el) return;
 
   const full = '이런 불편함\n익숙해지셨나요?';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const PAUSE_AFTER_DONE_MS = 2800;
-  const GAP_BEFORE_RESTART_MS = 450;
   const START_DELAY_MS = 320;
 
   function render(text) {
@@ -16,11 +13,6 @@
 
   if (reduce) {
     render(full);
-    if (cursor) {
-      cursor.classList.add('is-done');
-      cursor.style.opacity = '0';
-      cursor.style.width = '0';
-    }
     return;
   }
 
@@ -28,7 +20,6 @@
   const baseDelay = 68;
 
   function restart() {
-    if (cursor) cursor.classList.remove('is-done');
     render('');
     i = 0;
     window.setTimeout(step, 500);
@@ -37,7 +28,6 @@
   function step() {
     render(full.slice(0, i));
     if (i >= full.length) {
-      if (cursor) cursor.classList.add('is-done');
       window.setTimeout(restart, 5000);
       return;
     }
@@ -227,17 +217,20 @@ window.addEventListener('scroll', () => {
     header.classList.remove('scrolled');
   }
 
-  if (window.scrollY > 400) {
-    scrollTopBtn.classList.add('visible');
-  } else {
-    scrollTopBtn.classList.remove('visible');
+  if (scrollTopBtn) {
+    if (window.scrollY > 400) {
+      scrollTopBtn.classList.add('visible');
+    } else {
+      scrollTopBtn.classList.remove('visible');
+    }
   }
 });
 
-// ===== 상단 이동 =====
-scrollTopBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+if (scrollTopBtn) {
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
 
 // ===== 모바일 메뉴 =====
 const hamburger = document.getElementById('hamburger');
@@ -618,17 +611,31 @@ if (phoneInput) {
     });
   }
 
-  function runStars() {
+  const sumNumWrap = sumNumEl.closest('.rv-sum-num');
+
+  function bumpSumNum() {
+    if (!sumNumWrap) return;
+    sumNumWrap.classList.remove('rv-sum-num-bump');
+    void sumNumWrap.offsetWidth;
+    sumNumWrap.classList.add('rv-sum-num-bump');
+  }
+
+  /** 별 1→5 순서 점등 + 숫자 1,2,3,4 → 최종 평점(소수) */
+  function runStarsWithSteps(targetRating) {
+    const finalStr = Number.isFinite(targetRating) ? targetRating.toFixed(1) : '4.9';
     return new Promise(resolve => {
       let i = 0;
-      function next() {
+      function step() {
         if (i < stars.length) {
           stars[i].classList.add('rv-star--lit');
+          sumNumEl.textContent = i < 4 ? String(i + 1) : finalStr;
+          bumpSumNum();
           i += 1;
-          setTimeout(next, 42);
+          setTimeout(step, 78);
         } else resolve();
       }
-      next();
+      stars.forEach(s => s.classList.remove('rv-star--lit'));
+      step();
     });
   }
 
@@ -659,9 +666,7 @@ if (phoneInput) {
     const DURATION_MS = 680;
 
     await Promise.all([
-      runStars(),
-      animateNumber(sumNumEl, 1, targetRating, DURATION_MS, (v, done) =>
-        (done ? targetRating : v).toFixed(1)),
+      runStarsWithSteps(targetRating),
       animateNumber(reviewsEl, 0, targetReviews, DURATION_MS, (v, done) =>
         String(done ? targetReviews : Math.round(v))),
       animateNumber(reuseEl, 0, targetReuse, DURATION_MS, (v, done) =>
