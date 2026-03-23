@@ -14,15 +14,18 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 async function sendTelegram(message) {
   const token = process.env.TELEGRAM_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
+  console.log('[TG] token:', !!token, 'chatId:', chatId);
   if (!token || !chatId) return;
   try {
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
     });
+    const json = await res.json();
+    console.log('[TG] 응답:', JSON.stringify(json));
   } catch (e) {
-    console.error('텔레그램 전송 오류:', e.message);
+    console.error('[TG] 오류:', e.message);
   }
 }
 
