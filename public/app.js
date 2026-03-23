@@ -4,7 +4,7 @@
   const cursor = document.querySelector('.hero-kicker-cursor');
   if (!el) return;
 
-  const full = '이런 불편함, 익숙해지셨나요?';
+  const full = '이런 불편함,\n익숙해지셨나요?';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const PAUSE_AFTER_DONE_MS = 2800;
   const GAP_BEFORE_RESTART_MS = 450;
@@ -52,7 +52,7 @@
   const nodes = document.querySelectorAll('.why-stat-num');
   if (!nodes.length) return;
 
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const statsBar = document.querySelector('.why-stats-bar');
   const DURATION_MS = 1500;
   const PAUSE_MS = 2600;
   const RESET_MS = 350;
@@ -76,10 +76,9 @@
     });
   }
 
-  if (reduce) {
-    setToFinal();
-    return;
-  }
+  let cycleTimer = null;
+  let resetTimer = null;
+  let started = false;
 
   function runCycle() {
     const t0 = performance.now();
@@ -93,27 +92,57 @@
         requestAnimationFrame(frame);
       } else {
         setToFinal();
-        window.setTimeout(() => {
+        cycleTimer = window.setTimeout(() => {
           setToZero();
-          window.setTimeout(runCycle, RESET_MS);
+          resetTimer = window.setTimeout(runCycle, RESET_MS);
         }, PAUSE_MS);
       }
     }
     requestAnimationFrame(frame);
   }
 
-  runCycle();
+  function startCycle() {
+    if (started) return;
+    started = true;
+    setToZero();
+    requestAnimationFrame(runCycle);
+  }
+
+  if (!statsBar) {
+    startCycle();
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    if (entries.some((entry) => entry.isIntersecting)) {
+      io.disconnect();
+      startCycle();
+    }
+  }, { threshold: 0.2 });
+
+  io.observe(statsBar);
+
+  requestAnimationFrame(() => {
+    const rect = statsBar.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      io.disconnect();
+      startCycle();
+    }
+  });
 })();
 
 // ===== 서비스 배너 자동 슬라이더 =====
 (function () {
   const slides = document.querySelectorAll('.svc-slide');
   const navBtns = document.querySelectorAll('.svc-nav-btn');
+  const banner = document.getElementById('svcBanner');
+  const nav = document.querySelector('.svc-nav');
   if (!slides.length) return;
 
   let current = 0;
   let timer = null;
   const INTERVAL = 15000;
+  const SWIPE_THRESHOLD = 44;
 
   function goTo(index) {
     slides[current].classList.remove('active');
@@ -135,6 +164,14 @@
         btn.style.transition = `all 0.2s`;
       });
     });
+
+    if (nav && window.matchMedia('(max-width: 600px)').matches) {
+      btn.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
   }
 
   function startAuto() {
@@ -154,8 +191,31 @@
     btn.addEventListener('mouseleave', startAuto);
   });
 
-  document.getElementById('svcBanner')?.addEventListener('mouseenter', stopAuto);
-  document.getElementById('svcBanner')?.addEventListener('mouseleave', startAuto);
+  banner?.addEventListener('mouseenter', stopAuto);
+  banner?.addEventListener('mouseleave', startAuto);
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  banner?.addEventListener('touchstart', (e) => {
+    const touch = e.changedTouches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+  }, { passive: true });
+
+  banner?.addEventListener('touchend', (e) => {
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - touchStartX;
+    const dy = touch.clientY - touchStartY;
+
+    if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) <= Math.abs(dy)) {
+      return;
+    }
+
+    stopAuto();
+    goTo(dx < 0 ? current + 1 : current - 1);
+    startAuto();
+  }, { passive: true });
 
   goTo(0);
   startAuto();
