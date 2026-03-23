@@ -843,7 +843,15 @@ img.emoji {
   .hero-pain-text {
     font-size: 1.04rem;
   }
-  .hero-title { letter-spacing: -0.02em; }
+  .hero-title {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+    letter-spacing: -0.02em;
+    word-break: keep-all;
+  }
+  .hero-kicker {
+    font-size: clamp(1.9rem, 8vw, 2.8rem);
+    min-height: 2.8em;
+  }
 
   .hero-sub {
     padding: 12px 20px 13px;
