@@ -92,10 +92,12 @@ app.use((req, res, next) => {
 
   ipCache.set(ip, now);
 
-  // Supabase에 방문 기록 저장 후 visit_id 쿠키 세팅
-  supabase.from('visitors').insert([{ ip, path: req.path }]).select().single().then(({ data }) => {
-    if (data) res.cookie('visit_id', data.id, { maxAge: 3600000, httpOnly: false });
-  });
+  // 랜덤 visit_id 생성 후 쿠키 세팅
+  const visitId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  res.cookie('visit_id', visitId, { maxAge: 3600000, httpOnly: false });
+
+  // Supabase에 방문 기록 저장 (비동기)
+  supabase.from('visitors').insert([{ ip, path: req.path, visit_id: visitId }]).then();
 
   next();
 });
@@ -191,7 +193,7 @@ app.post('/api/visit/end', express.text({ type: '*/*' }), async (req, res) => {
   } catch { return res.sendStatus(204); }
 
   if (!visit_id || !stay_seconds) return res.sendStatus(204);
-  await supabase.from('visitors').update({ stay_seconds }).eq('id', visit_id);
+  await supabase.from('visitors').update({ stay_seconds }).eq('visit_id', visit_id);
   res.sendStatus(204);
 });
 
