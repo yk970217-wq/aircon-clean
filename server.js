@@ -92,12 +92,8 @@ app.use((req, res, next) => {
 
   ipCache.set(ip, now);
 
-  // 랜덤 visit_id 생성 후 쿠키 세팅
-  const visitId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-  res.cookie('visit_id', visitId, { maxAge: 3600000, httpOnly: false });
-
   // Supabase에 방문 기록 저장 (비동기)
-  supabase.from('visitors').insert([{ ip, path: req.path, visit_id: visitId }]).then();
+  supabase.from('visitors').insert([{ ip, path: req.path }]).then();
 
   next();
 });
