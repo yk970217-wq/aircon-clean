@@ -3308,6 +3308,184 @@ button.svc-photo-chooser-label:focus-visible {
 .branch-more-btn:hover { background: rgba(255,255,255,0.28); }
 
 
+/* =====================================================
+   모바일 전체 재구성 (360~430px 기준)
+   ===================================================== */
+@media (max-width: 768px) {
+
+  /* ── 공통 ── */
+  section { padding: 60px 0; }
+  .container { padding: 0 16px; }
+  .section-header { margin-bottom: 32px; }
+  .section-header h2 { font-size: clamp(1.5rem, 6vw, 2rem); word-break: keep-all; }
+  .section-header p { font-size: 0.9rem; }
+  .section-tag { font-size: 0.7rem; }
+
+  /* ── 헤더 ── */
+  .nav-container { padding: 0 16px; height: 56px; }
+  .logo-img { height: 48px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .mobile-menu { padding: 12px 16px; gap: 8px; }
+  .mobile-menu a { padding: 12px 16px; font-size: 0.95rem; border-radius: 10px; }
+
+  /* ── 히어로 ── */
+  .hero-wrap { padding: 80px 20px 80px; }
+  .hero-kicker {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    min-height: 2.6em;
+    margin: 0 0 24px;
+  }
+  .hero-pain-list { gap: 8px; }
+  .hero-pain-list li {
+    padding: 12px 14px 12px 14px;
+    border-radius: 12px;
+    gap: 10px;
+  }
+  .hero-pain-list li::before { top: 10px; bottom: 10px; }
+  .hero-pain-icon { width: 1.7rem; height: 1.7rem; font-size: 0.9rem; }
+  .hero-pain-text { font-size: 0.95rem; }
+  .hero-sep { margin: 32px 0; }
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    word-break: keep-all;
+    margin: 0 0 16px;
+  }
+  .hero-sub {
+    font-size: 0.82rem;
+    padding: 10px 16px;
+    margin: 0 auto 28px;
+    line-height: 1.6;
+    text-align: center;
+  }
+  .hero-cta {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+  .hero-scroll { display: none; }
+
+  /* ── 서비스 ── */
+  .svc-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    padding: 5px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .svc-nav::-webkit-scrollbar { display: none; }
+  .svc-nav-btn {
+    flex: 0 0 auto;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  .svc-slide.active {
+    display: flex;
+    flex-direction: column;
+  }
+  .svc-slide-img {
+    padding: 24px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    min-height: 180px;
+  }
+  .svc-slide-img img { max-height: 160px; }
+  .svc-slide-info {
+    padding: 24px 20px;
+    gap: 10px;
+  }
+  .svc-slide-info h3 { font-size: 1.4rem; }
+  .svc-slide-price { font-size: 1.3rem; }
+  .svc-slide-list { grid-template-columns: 1fr; gap: 6px; }
+  .svc-slide-btn { width: 100%; text-align: center; }
+  .bulk-notice {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    align-items: flex-start;
+  }
+  .bulk-notice-right { align-self: flex-end; }
+
+  /* ── 갤러리 ── */
+  .gallery-accent {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+    padding: 0 0.15em;
+  }
+  .gallery-points-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.78rem;
+    justify-content: center;
+  }
+  .gpb-sep { display: none; }
+
+  /* ── 왜 클린베어 ── */
+  .why-card { flex: 0 0 85vw; }
+  .why-arrow--prev { left: 4px; }
+  .why-arrow--next { right: 4px; }
+  .why-stats-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px 12px;
+  }
+  .why-stat-item { flex: 1 1 40%; }
+  .why-stat-num { font-size: 1.6rem; }
+  .why-stat-label { font-size: 0.7rem; }
+
+  /* ── 후기 ── */
+  .rv-summary {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+  .rv-card { flex: 0 0 min(280px, calc(100vw - 64px)); }
+  .rv-score-big { font-size: 3rem; }
+
+  /* ── 가격 ── */
+  .pricing-cards { grid-template-columns: 1fr; gap: 16px; }
+  .price-card { padding: 24px 20px; }
+  .price-card-badge { font-size: 0.75rem; padding: 4px 12px; }
+
+  /* ── 지점 ── */
+  .branch-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    gap: 6px;
+  }
+  .branch-filters::-webkit-scrollbar { display: none; }
+  .branch-filter { flex: 0 0 auto; font-size: 0.82rem; padding: 8px 14px; }
+  .branch-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .branch-card { padding: 10px 12px; }
+
+  /* ── 플로팅 버튼 ── */
+  .floating-btns { bottom: 24px; right: 16px; gap: 10px; }
+  .float-btn { width: 48px; height: 48px; }
+  .float-tooltip { display: none; }
+
+  /* ── 팝업 ── */
+  .popup-box { margin: 16px; max-height: 90vh; overflow-y: auto; }
+  .popup-inner { padding: 28px 20px; }
+
+  /* ── 푸터 ── */
+  .footer { padding: 40px 16px; }
+  .footer-business { font-size: 0.75rem; }
+  .footer-compact { flex-direction: column; gap: 8px; align-items: center; text-align: center; }
+}
+
+
 
 
 
