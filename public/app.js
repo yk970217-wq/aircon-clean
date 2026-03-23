@@ -1,18 +1,22 @@
 // ===== 히어로 키커 타이핑 (반복) =====
 (function () {
   const el = document.getElementById('heroKickerType');
+  const cursor = document.querySelector('.hero-kicker-cursor');
   if (!el) return;
 
-  const full = '이런 불편함\n익숙해지셨나요?';
+  const full = '이런 불편함, 익숙해지셨나요?';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PAUSE_AFTER_DONE_MS = 2800;
+  const GAP_BEFORE_RESTART_MS = 450;
   const START_DELAY_MS = 320;
 
-  function render(text) {
-    el.innerHTML = text.replace(/\n/g, '<br>');
-  }
-
   if (reduce) {
-    render(full);
+    el.textContent = full;
+    if (cursor) {
+      cursor.classList.add('is-done');
+      cursor.style.opacity = '0';
+      cursor.style.width = '0';
+    }
     return;
   }
 
@@ -20,15 +24,17 @@
   const baseDelay = 68;
 
   function restart() {
-    render('');
+    if (cursor) cursor.classList.remove('is-done');
+    el.textContent = '';
     i = 0;
-    window.setTimeout(step, 500);
+    window.setTimeout(step, GAP_BEFORE_RESTART_MS);
   }
 
   function step() {
-    render(full.slice(0, i));
+    el.textContent = full.slice(0, i);
     if (i >= full.length) {
-      window.setTimeout(restart, 5000);
+      if (cursor) cursor.classList.add('is-done');
+      window.setTimeout(restart, PAUSE_AFTER_DONE_MS);
       return;
     }
     const ch = full[i];
@@ -217,20 +223,17 @@ window.addEventListener('scroll', () => {
     header.classList.remove('scrolled');
   }
 
-  if (scrollTopBtn) {
-    if (window.scrollY > 400) {
-      scrollTopBtn.classList.add('visible');
-    } else {
-      scrollTopBtn.classList.remove('visible');
-    }
+  if (window.scrollY > 400) {
+    scrollTopBtn.classList.add('visible');
+  } else {
+    scrollTopBtn.classList.remove('visible');
   }
 });
 
-if (scrollTopBtn) {
-  scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
+// ===== 상단 이동 =====
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
 // ===== 모바일 메뉴 =====
 const hamburger = document.getElementById('hamburger');
@@ -611,31 +614,17 @@ if (phoneInput) {
     });
   }
 
-  const sumNumWrap = sumNumEl.closest('.rv-sum-num');
-
-  function bumpSumNum() {
-    if (!sumNumWrap) return;
-    sumNumWrap.classList.remove('rv-sum-num-bump');
-    void sumNumWrap.offsetWidth;
-    sumNumWrap.classList.add('rv-sum-num-bump');
-  }
-
-  /** 별 1→5 순서 점등 + 숫자 1,2,3,4 → 최종 평점(소수) */
-  function runStarsWithSteps(targetRating) {
-    const finalStr = Number.isFinite(targetRating) ? targetRating.toFixed(1) : '4.9';
+  function runStars() {
     return new Promise(resolve => {
       let i = 0;
-      function step() {
+      function next() {
         if (i < stars.length) {
           stars[i].classList.add('rv-star--lit');
-          sumNumEl.textContent = i < 4 ? String(i + 1) : finalStr;
-          bumpSumNum();
           i += 1;
-          setTimeout(step, 78);
+          setTimeout(next, 42);
         } else resolve();
       }
-      stars.forEach(s => s.classList.remove('rv-star--lit'));
-      step();
+      next();
     });
   }
 
@@ -666,7 +655,9 @@ if (phoneInput) {
     const DURATION_MS = 680;
 
     await Promise.all([
-      runStarsWithSteps(targetRating),
+      runStars(),
+      animateNumber(sumNumEl, 1, targetRating, DURATION_MS, (v, done) =>
+        (done ? targetRating : v).toFixed(1)),
       animateNumber(reviewsEl, 0, targetReviews, DURATION_MS, (v, done) =>
         String(done ? targetReviews : Math.round(v))),
       animateNumber(reuseEl, 0, targetReuse, DURATION_MS, (v, done) =>
@@ -707,59 +698,3 @@ if (phoneInput) {
     if (r.top < window.innerHeight && r.bottom > 0) start();
   });
 })();
-
-// ===== 서비스 탭 모바일 자동 슬라이드 =====
-(function () {
-  const nav = document.querySelector('.svc-nav');
-  if (!nav) return;
-  if (window.innerWidth > 600) return;
-
-  let autoTimer = null;
-  let touched = false;
-
-  function smoothScrollTo(target, duration) {
-    const from = nav.scrollLeft;
-    const diff = target - from;
-    let start = null;
-
-    function step(ts) {
-      if (!start) start = ts;
-      const p = Math.min((ts - start) / duration, 1);
-      const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
-      nav.scrollLeft = from + diff * ease;
-      if (p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  function startAuto() {
-    autoTimer = setInterval(() => {
-      if (touched) return;
-      const maxScroll = nav.scrollWidth - nav.clientWidth;
-      if (maxScroll <= 0) return;
-
-      const next = nav.scrollLeft + nav.clientWidth * 0.55;
-      if (next >= maxScroll) {
-        smoothScrollTo(0, 600);
-      } else {
-        smoothScrollTo(next, 600);
-      }
-    }, 2200);
-  }
-
-  // 사용자가 터치하면 자동슬라이드 멈춤, 3초 후 재개
-  nav.addEventListener('touchstart', () => {
-    touched = true;
-    clearInterval(autoTimer);
-  }, { passive: true });
-
-  nav.addEventListener('touchend', () => {
-    setTimeout(() => {
-      touched = false;
-      startAuto();
-    }, 3000);
-  }, { passive: true });
-
-  setTimeout(startAuto, 1000);
-})();
-

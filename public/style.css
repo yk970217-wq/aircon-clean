@@ -519,6 +519,44 @@ img.emoji {
   word-break: keep-all;
 }
 
+.hero-kicker-cursor {
+  display: inline-block;
+  width: 0.06em;
+  min-width: 3px;
+  height: 0.85em;
+  margin-left: 0.06em;
+  background: linear-gradient(180deg, #ffe066, #ffb300);
+  border-radius: 1px;
+  vertical-align: -0.06em;
+  animation: hero-kicker-cursor-blink 0.85s step-end infinite;
+  box-shadow: 0 0 12px rgba(255, 224, 102, 0.5);
+}
+
+.hero-kicker-cursor.is-done {
+  animation: hero-kicker-cursor-soft 1.2s ease-in-out infinite;
+}
+
+@keyframes hero-kicker-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes hero-kicker-cursor-soft {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-kicker-cursor {
+    animation: none;
+    opacity: 0;
+    width: 0;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+}
+
 .hero-pain-list {
   list-style: none;
   padding: 0;
