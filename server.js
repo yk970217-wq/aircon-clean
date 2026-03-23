@@ -37,12 +37,19 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 부정클릭 감지 미들웨어
+// 부정클릭 감지 — 광고 클릭 ID가 있을 때만 동일 IP 연속 GET 제한 (헬스체크·일반 탐색은 제외)
 app.use((req, res, next) => {
   if (req.method !== 'GET' || req.path.startsWith('/api')) return next();
 
   const ip = getClientIP(req);
   const now = Date.now();
+  const adClick = /[?&](gclid|fbclid|msclkid|ttclid)=/i.test(req.originalUrl || '');
+
+  if (!adClick) {
+    supabase.from('visitors').insert([{ ip, path: req.path }]).then();
+    return next();
+  }
+
   const last = ipCache.get(ip);
 
   if (last && (now - last) < 10000) {
@@ -92,7 +99,6 @@ app.use((req, res, next) => {
 
   ipCache.set(ip, now);
 
-  // Supabase에 방문 기록 저장 (비동기)
   supabase.from('visitors').insert([{ ip, path: req.path }]).then();
 
   next();
@@ -211,6 +217,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`서버 실행 중: http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`서버 실행 중: port ${PORT} (bind 0.0.0.0)`);
 });
