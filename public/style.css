@@ -707,11 +707,9 @@ img.emoji {
     background-image: none;
     -webkit-background-clip: border-box;
     background-clip: border-box;
-    -webkit-text-fill-color: #ffe066;
-    color: #ffe066;
-    text-shadow:
-      0 0 18px rgba(255, 224, 102, 0.3),
-      0 2px 18px rgba(0, 0, 0, 0.28);
+    -webkit-text-fill-color: #ffffff;
+    color: #ffffff;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
     filter: none;
     animation: none;
   }
