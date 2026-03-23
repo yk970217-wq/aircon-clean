@@ -334,8 +334,6 @@ if (bookingForm && bookingResult) {
     track.appendChild(clone);
   });
 
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   function measureMarqueeDx() {
     const items = track.querySelectorAll('.gallery-marquee-item');
     const half = items.length / 2;
@@ -350,15 +348,13 @@ if (bookingForm && bookingResult) {
     track.style.setProperty('--gallery-marquee-dx', `-${dx}px`);
   }
 
-  if (!reduce) {
-    const schedule = () => requestAnimationFrame(measureMarqueeDx);
-    schedule();
-    if (typeof ResizeObserver !== 'undefined') {
-      new ResizeObserver(schedule).observe(track);
-    }
-    window.addEventListener('resize', schedule);
-    window.addEventListener('load', schedule, { once: true });
+  const schedule = () => requestAnimationFrame(measureMarqueeDx);
+  schedule();
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(schedule).observe(track);
   }
+  window.addEventListener('resize', schedule);
+  window.addEventListener('load', schedule, { once: true });
 })();
 
 // ===== 스크롤 애니메이션 =====

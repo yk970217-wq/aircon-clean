@@ -1813,6 +1813,8 @@ button.svc-photo-chooser-label:focus-visible {
   width: max-content;
   animation: gallery-marquee-scroll 85s linear infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .gallery-marquee:hover .gallery-marquee-track {
@@ -1833,13 +1835,6 @@ button.svc-photo-chooser-label:focus-visible {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gallery-marquee-track {
-    animation: none;
-    transform: translateX(0);
-  }
 }
 
 /* (구) 슬라이더·카운터 — 다른 페이지/레거시용 */
@@ -2518,6 +2513,8 @@ button.svc-photo-chooser-label:focus-visible {
   width: max-content;
   animation: rv-marquee-x 55s linear infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 .rv-stage--marquee:hover .rv-marquee-inner {
   animation-play-state: paused;
@@ -2526,12 +2523,6 @@ button.svc-photo-chooser-label:focus-visible {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .rv-marquee-inner {
-    animation: none;
-  }
-}
-
 /* 후기 카드 */
 .rv-card {
   flex: 0 0 clamp(260px, 28vw, 340px);
@@ -3724,6 +3715,13 @@ button.svc-photo-chooser-label:focus-visible {
   .branch-card { padding: 8px 10px; gap: 6px; }
   .branch-info strong { font-size: 0.78rem; }
   .branch-info span { font-size: 0.67rem; }
+}
+
+@media (hover: none) {
+  .gallery-marquee:hover .gallery-marquee-track,
+  .rv-stage--marquee:hover .rv-marquee-inner {
+    animation-play-state: running;
+  }
 }
 
 /* Mobile fallback for gradient-clipped text that renders unreliably on Android browsers. */
