@@ -2,20 +2,30 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { createClient } = require('@supabase/supabase-js');
 const fetch = require('node-fetch');
+const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase =
+  supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
+if (!supabase && process.env.NODE_ENV !== 'production') {
+  console.log('[Supabase] 비활성: SUPABASE_URL 또는 SUPABASE_KEY 없음');
+}
 
 // 텔레그램 알림
 async function sendTelegram(message) {
   const token = process.env.TELEGRAM_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
-  console.log('[TG] token:', !!token, 'chatId:', chatId);
-  if (!token || !chatId) return;
+  if (!token || !chatId) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('[TG] 비활성: TELEGRAM_TOKEN 또는 TELEGRAM_CHAT_ID 없음');
+    }
+    return;
+  }
   try {
     const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
@@ -23,14 +33,18 @@ async function sendTelegram(message) {
       body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
     });
     const json = await res.json();
-    console.log('[TG] 응답:', JSON.stringify(json));
+    if (!json.ok) console.error('[TG] API 오류:', json.description || json);
   } catch (e) {
     console.error('[TG] 오류:', e.message);
   }
 }
 
-// IP 빠른 조회용 메모리 캐시
-const ipCache = new Map();
+// 동일 IP+경로 빠른 연속 요청용 메모리 캐시 (CSS/JS 등 정적 파일은 제외)
+const visitThrottleCache = new Map();
+
+/** 브라우저가 함께 요청하는 정적 리소스 — 부정클릭 카운트에서 제외 */
+const STATIC_ASSET_PATH =
+  /\.(css|js|mjs|map|png|jpg|jpeg|gif|webp|svg|ico|woff2?|ttf|eot|json|xml|txt)(\?.*)?$/i;
 
 function getClientIP(req) {
   return (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.ip;
@@ -40,20 +54,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 부정클릭 감지 — 광고 클릭 ID가 있을 때만 동일 IP 연속 GET 제한 (헬스체크·일반 탐색은 제외)
+// 부정클릭 감지 미들웨어 (HTML 등 문서만 — 정적 파일은 제외 / 같은 URL만 짧은 간격 제한)
 app.use((req, res, next) => {
   if (req.method !== 'GET' || req.path.startsWith('/api')) return next();
+  if (STATIC_ASSET_PATH.test(req.path)) return next();
 
   const ip = getClientIP(req);
   const now = Date.now();
-  const adClick = /[?&](gclid|fbclid|msclkid|ttclid)=/i.test(req.originalUrl || '');
-
-  if (!adClick) {
-    supabase.from('visitors').insert([{ ip, path: req.path }]).then();
-    return next();
-  }
-
-  const last = ipCache.get(ip);
+  const throttleKey = `${ip}|${req.path}`;
+  const last = visitThrottleCache.get(throttleKey);
 
   if (last && (now - last) < 10000) {
     return res.status(429).send(`
@@ -100,63 +109,65 @@ app.use((req, res, next) => {
     `);
   }
 
-  ipCache.set(ip, now);
+  visitThrottleCache.set(throttleKey, now);
 
-  supabase.from('visitors').insert([{ ip, path: req.path }]).then();
+  if (supabase) {
+    supabase
+      .from('visitors')
+      .insert([{ ip, path: req.path }])
+      .catch((e) => console.error('[visitors] insert:', e.message));
+  }
 
   next();
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 예약 저장용 (실제 운영시 DB로 교체)
+const bookings = [];
+
 // 예약 API
-app.post('/api/booking', async (req, res) => {
+app.post('/api/booking', (req, res) => {
   const { name, phone, address, service, date, memo } = req.body;
 
   if (!name || !phone || !address || !service || !date) {
     return res.status(400).json({ success: false, message: '필수 항목을 모두 입력해주세요.' });
   }
 
-  const { data, error } = await supabase
-    .from('bookings')
-    .insert([{ name, phone, address, service, date, memo: memo || '' }])
-    .select()
-    .single();
+  const booking = {
+    id: Date.now(),
+    name,
+    phone,
+    address,
+    service,
+    date,
+    memo: memo || '',
+    createdAt: new Date().toISOString(),
+    status: '접수완료'
+  };
 
-  if (error) {
-    console.error('예약 저장 오류:', error);
-    return res.status(500).json({ success: false, message: '예약 저장 중 오류가 발생했습니다.' });
-  }
+  bookings.push(booking);
 
-  console.log('새 예약:', data);
+  console.log('새 예약:', booking);
 
   sendTelegram(`📅 <b>새 예약 접수!</b>\n👤 이름: ${name}\n📞 전화: ${phone}\n📍 주소: ${address}\n🔧 서비스: ${service}\n📆 날짜: ${date}${memo ? `\n📝 메모: ${memo}` : ''}`);
 
   res.json({
     success: true,
     message: '예약이 완료되었습니다. 빠른 시간 내에 연락드리겠습니다.',
-    bookingId: data.id
+    bookingId: booking.id
   });
 });
 
 // 문의 API
-app.post('/api/contact', async (req, res) => {
+app.post('/api/contact', (req, res) => {
   const { name, phone, message } = req.body;
 
   if (!name || !phone || !message) {
     return res.status(400).json({ success: false, message: '필수 항목을 모두 입력해주세요.' });
   }
 
-  const { error } = await supabase
-    .from('contacts')
-    .insert([{ name, phone, message }]);
-
-  if (error) {
-    console.error('문의 저장 오류:', error);
-    return res.status(500).json({ success: false, message: '문의 저장 중 오류가 발생했습니다.' });
-  }
-
-  console.log('문의 접수:', { name, phone, message });
+  console.log('문의 접수:', { name, phone, message, time: new Date().toISOString() });
 
   sendTelegram(`💬 <b>새 문의 접수!</b>\n👤 이름: ${name}\n📞 전화: ${phone}\n📝 내용: ${message}`);
 
@@ -167,21 +178,22 @@ app.post('/api/contact', async (req, res) => {
 });
 
 // 대량 견적 문의 API
-app.post('/api/bulk-inquiry', async (req, res) => {
-  const { phone, count, memo } = req.body;
+app.post('/api/bulk-inquiry', (req, res) => {
+  const { name, phone, company, type, count, date, address, memo } = req.body;
 
-  if (!phone || !count) {
+  if (!name || !phone || !company || !count || !address) {
     return res.status(400).json({ success: false, message: '필수 항목을 모두 입력해주세요.' });
   }
 
-  const { error } = await supabase
-    .from('bulk_inquiries')
-    .insert([{ phone, count: parseInt(count), memo: memo || '' }]);
+  const inquiry = {
+    id: Date.now(),
+    name, phone, company, type, count, date,
+    address, memo: memo || '',
+    createdAt: new Date().toISOString(),
+    status: '접수완료'
+  };
 
-  if (error) {
-    console.error('대량 견적 저장 오류:', error);
-    return res.status(500).json({ success: false, message: '견적 문의 저장 중 오류가 발생했습니다.' });
-  }
+  console.log('대량 견적 문의:', inquiry);
 
   sendTelegram(`🏢 <b>대량 견적 문의!</b>\n📞 전화: ${phone}\n🔢 대수: ${count}대${memo ? `\n📝 메모: ${memo}` : ''}`);
 
@@ -198,28 +210,27 @@ app.post('/api/visit/end', express.text({ type: '*/*' }), async (req, res) => {
   } catch { return res.sendStatus(204); }
 
   if (!visit_id || !stay_seconds) return res.sendStatus(204);
-  await supabase.from('visitors').update({ stay_seconds }).eq('visit_id', visit_id);
+  if (!supabase) return res.sendStatus(204);
+  try {
+    await supabase
+      .from('visitors')
+      .update({ stay_seconds })
+      .eq('visit_id', visit_id);
+  } catch (e) {
+    console.error('[visitors] update:', e.message);
+  }
   res.sendStatus(204);
 });
 
 // 예약 목록 (관리자용)
-app.get('/api/admin/bookings', async (req, res) => {
-  const { data, error } = await supabase
-    .from('bookings')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    return res.status(500).json({ success: false, message: '데이터 조회 오류' });
-  }
-
-  res.json(data);
+app.get('/api/admin/bookings', (req, res) => {
+  res.json(bookings);
 });
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`서버 실행 중: port ${PORT} (bind 0.0.0.0)`);
+app.listen(PORT, () => {
+  console.log(`서버 실행 중: http://localhost:${PORT}`);
 });
