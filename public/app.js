@@ -4,14 +4,18 @@
   const cursor = document.querySelector('.hero-kicker-cursor');
   if (!el) return;
 
-  const full = '이런 불편함, 익숙해지셨나요?';
+  const full = '이런 불편함\n익숙해지셨나요?';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const PAUSE_AFTER_DONE_MS = 2800;
   const GAP_BEFORE_RESTART_MS = 450;
   const START_DELAY_MS = 320;
 
+  function render(text) {
+    el.innerHTML = text.replace(/\n/g, '<br>');
+  }
+
   if (reduce) {
-    el.textContent = full;
+    render(full);
     if (cursor) {
       cursor.classList.add('is-done');
       cursor.style.opacity = '0';
@@ -25,16 +29,16 @@
 
   function restart() {
     if (cursor) cursor.classList.remove('is-done');
-    el.textContent = '';
+    render('');
     i = 0;
-    window.setTimeout(step, GAP_BEFORE_RESTART_MS);
+    window.setTimeout(step, 500);
   }
 
   function step() {
-    el.textContent = full.slice(0, i);
+    render(full.slice(0, i));
     if (i >= full.length) {
       if (cursor) cursor.classList.add('is-done');
-      window.setTimeout(restart, PAUSE_AFTER_DONE_MS);
+      window.setTimeout(restart, 5000);
       return;
     }
     const ch = full[i];
@@ -698,3 +702,59 @@ if (phoneInput) {
     if (r.top < window.innerHeight && r.bottom > 0) start();
   });
 })();
+
+// ===== 서비스 탭 모바일 자동 슬라이드 =====
+(function () {
+  const nav = document.querySelector('.svc-nav');
+  if (!nav) return;
+  if (window.innerWidth > 600) return;
+
+  let autoTimer = null;
+  let touched = false;
+
+  function smoothScrollTo(target, duration) {
+    const from = nav.scrollLeft;
+    const diff = target - from;
+    let start = null;
+
+    function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / duration, 1);
+      const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
+      nav.scrollLeft = from + diff * ease;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function startAuto() {
+    autoTimer = setInterval(() => {
+      if (touched) return;
+      const maxScroll = nav.scrollWidth - nav.clientWidth;
+      if (maxScroll <= 0) return;
+
+      const next = nav.scrollLeft + nav.clientWidth * 0.55;
+      if (next >= maxScroll) {
+        smoothScrollTo(0, 600);
+      } else {
+        smoothScrollTo(next, 600);
+      }
+    }, 2200);
+  }
+
+  // 사용자가 터치하면 자동슬라이드 멈춤, 3초 후 재개
+  nav.addEventListener('touchstart', () => {
+    touched = true;
+    clearInterval(autoTimer);
+  }, { passive: true });
+
+  nav.addEventListener('touchend', () => {
+    setTimeout(() => {
+      touched = false;
+      startAuto();
+    }, 3000);
+  }, { passive: true });
+
+  setTimeout(startAuto, 1000);
+})();
+
