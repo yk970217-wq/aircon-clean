@@ -700,6 +700,23 @@ img.emoji {
     hero-title-pop-shimmer 4s ease-in-out infinite;
 }
 
+/* Mobile browsers can misrender clipped gradient text as a solid block. */
+@media (max-width: 768px) {
+  .hero-title-pop {
+    background: none;
+    background-image: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-text-fill-color: #ffe066;
+    color: #ffe066;
+    text-shadow:
+      0 0 18px rgba(255, 224, 102, 0.3),
+      0 2px 18px rgba(0, 0, 0, 0.28);
+    filter: none;
+    animation: none;
+  }
+}
+
 @keyframes hero-title-pop-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
@@ -3709,4 +3726,27 @@ button.svc-photo-chooser-label:focus-visible {
   .branch-card { padding: 8px 10px; gap: 6px; }
   .branch-info strong { font-size: 0.78rem; }
   .branch-info span { font-size: 0.67rem; }
+}
+
+/* Mobile fallback for gradient-clipped text that renders unreliably on Android browsers. */
+@media (max-width: 768px) {
+  .hero-title-accent,
+  .gallery-accent,
+  .reviews-accent,
+  .popup-accent {
+    background: none;
+    background-image: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-text-fill-color: #ffe066;
+    color: #ffe066;
+    filter: none;
+    animation: none;
+  }
+
+  .gallery-accent {
+    text-shadow:
+      0 0 18px rgba(255, 224, 102, 0.3),
+      0 2px 18px rgba(0, 0, 0, 0.28);
+  }
 }
