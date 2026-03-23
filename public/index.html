@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>클린베어 - 전문 에어컨 청소 서비스</title>
+  <meta name="description" content="클린베어 전문 에어컨 청소 서비스 - 가정용, 스탠드형, 시스템 에어컨 전문 세척. 합리적인 가격, 전문 기사 파견">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header id="header">
+    <nav class="nav-container">
+      <div class="logo">
+        <a href="index.html" class="logo-link">
+          <img src="images/logo.png" alt="클린베어 로고" class="logo-img">
+          <span class="logo-home-mobile" aria-label="홈">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="26" height="26">
+              <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z"/>
+              <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a.375.375 0 0 1 .091-.086L12 5.43Z"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="bulk.html" class="nav-btn-bulk">대량견적문의</a></li>
+        <li><a href="booking.html" class="nav-btn">예약하기</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="bulk.html" onclick="closeMobileMenu()">대량견적문의</a>
+      <a href="booking.html" onclick="closeMobileMenu()">예약하기</a>
+    </div>
+  </header>
+
+  <!-- 히어로 섹션 -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-orb hero-orb--1"></div>
+      <div class="hero-orb hero-orb--2"></div>
+    </div>
+
+    <div class="hero-wrap">
+
+      <!-- 공감 -->
+      <div class="hero-top">
+        <p class="hero-kicker" aria-label="이런 불편함, 익숙해지셨나요?">
+          <span class="hero-kicker-type" id="heroKickerType"></span><span class="hero-kicker-cursor" aria-hidden="true"></span>
+        </p>
+        <ul class="hero-pain-list">
+          <li>
+            <span class="hero-pain-icon" aria-hidden="true">!</span>
+            <span class="hero-pain-text">에어컨 켤 때마다 나는 퀴퀴한 냄새</span>
+          </li>
+          <li>
+            <span class="hero-pain-icon" aria-hidden="true">!</span>
+            <span class="hero-pain-text">틀어도 시원하지 않은 약해진 냉기</span>
+          </li>
+          <li>
+            <span class="hero-pain-icon" aria-hidden="true">!</span>
+            <span class="hero-pain-text">목이 칼칼하고 재채기가 나오는 실내 공기</span>
+          </li>
+          <li>
+            <span class="hero-pain-icon" aria-hidden="true">!</span>
+            <span class="hero-pain-text">청소 업체 찾기 귀찮고, 믿을 수 있을지도 모르겠고</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 구분선 -->
+      <div class="hero-sep"></div>
+
+      <!-- 해결 -->
+      <div class="hero-bottom">
+        <h1 class="hero-title">
+          그 걱정<br>
+          <span class="hero-title-accent">클린베어</span>가<br>
+          <span class="hero-title-pop">해결해드립니다</span>
+        </h1>
+        <p class="hero-sub">빠른 일정 배정 &nbsp;·&nbsp; 전문 분해세척 &nbsp;·&nbsp; 재방문AS 보장</p>
+        <div class="hero-cta">
+          <a href="booking.html" class="btn-primary">지금 예약하기</a>
+          <a href="tel:0507-1304-6329" class="btn-secondary">전화 상담</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero-scroll">
+      <span>스크롤</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- 서비스 섹션 -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">SERVICE</span>
+        <h2>전문 청소 서비스</h2>
+        <p>가정용부터 상업용까지, 모든 에어컨을 전문적으로 청소합니다</p>
+      </div>
+
+      <!-- 서비스 탭 (위) -->
+      <div class="svc-nav">
+        <button class="svc-nav-btn active" data-index="0">벽걸이</button>
+        <button class="svc-nav-btn" data-index="1">스탠드 가정용</button>
+        <button class="svc-nav-btn" data-index="2">스탠드 업소용</button>
+        <button class="svc-nav-btn" data-index="3">천장형 1WAY</button>
+        <button class="svc-nav-btn" data-index="4">천장형 2WAY</button>
+        <button class="svc-nav-btn" data-index="5">천장형 4WAY</button>
+      </div>
+
+      <!-- 서비스 배너 슬라이더 -->
+      <div class="svc-banner" id="svcBanner">
+
+        <!-- 슬라이드 1: 벽걸이 -->
+        <div class="svc-slide active">
+          <div class="svc-slide-img">
+            <img src="images/svc-wall.png" alt="벽걸이 에어컨">
+          </div>
+          <div class="svc-slide-info">
+            <div class="svc-slide-tag">01 · 벽걸이형</div>
+            <h3>벽걸이 에어컨</h3>
+            <div class="svc-slide-price">80,000원~</div>
+            <p>가정에서 가장 많이 사용하는 벽걸이형 에어컨 내부를 분해 고압세척으로 새것처럼 청소합니다.</p>
+            <ul class="svc-slide-list">
+              <li>필터 세척 및 소독</li>
+              <li>열교환기 고압세척</li>
+              <li>케이스 분리 세척</li>
+              <li>드레인팬 청소</li>
+            </ul>
+            <a href="booking.html" class="svc-slide-btn">예약하기 →</a>
+          </div>
+        </div>
+
+        <!-- 슬라이드 2: 스탠드 가정용 -->
+        <div class="svc-slide">
+          <div class="svc-slide-img">
+            <img src="images/svc-stand-home.png" alt="스탠드 에어컨 가정용">
+          </div>
+          <div class="svc-slide-info">
+            <div class="svc-slide-tag">02 · 스탠드형 가정용</div>
+            <h3>스탠드 에어컨 <span class="svc-sub-label">가정용</span></h3>
+            <div class="svc-slide-price">130,000원~</div>
+            <p>가정용 스탠드 에어컨 내부 깊숙이 쌓인 먼지와 곰팡이를 분리세척으로 완벽하게 제거합니다.</p>
+            <ul class="svc-slide-list">
+              <li>상·하단 필터 세척</li>
+              <li>열교환기 고압세척</li>
+              <li>팬 분리 세척</li>
+              <li>내부 케이스 청소</li>
+            </ul>
+            <a href="booking.html" class="svc-slide-btn">예약하기 →</a>
+          </div>
+        </div>
+
+        <!-- 슬라이드 3: 스탠드 업소용 -->
+        <div class="svc-slide">
+          <div class="svc-slide-img">
+            <img src="images/svc-stand-biz.png" alt="스탠드 에어컨 업소용">
+          </div>
+          <div class="svc-slide-info">
+            <div class="svc-slide-tag">03 · 스탠드형 업소용</div>
+            <h3>스탠드 에어컨 <span class="svc-sub-label">업소용</span></h3>
+            <div class="svc-slide-price">130,000원~</div>
+            <p>업소용 대형 스탠드 에어컨을 전문 분해 후 고압세척합니다. 대형 필터·팬·열교환기까지 꼼꼼히 세척합니다.</p>
+            <ul class="svc-slide-list">
+              <li>대형 필터 전체 세척</li>
+              <li>열교환기 고압세척</li>
+              <li>팬·모터 분리 세척</li>
+              <li>내부 케이스 정밀 청소</li>
+            </ul>
+            <a href="bulk.html" class="svc-slide-btn">견적 문의 →</a>
+          </div>
+        </div>
+
+        <!-- 슬라이드 4: 천장형 1WAY -->
+        <div class="svc-slide">
+          <div class="svc-slide-img">
+            <img src="images/svc-ceil-1way.png" alt="천장형 1WAY">
+          </div>
+          <div class="svc-slide-info">
+            <div class="svc-slide-tag">04 · 천장형 카세트</div>
+            <h3>천장형 에어컨 <span class="svc-sub-label">1WAY</span></h3>
+            <div class="svc-slide-price">100,000원~</div>
+            <p>1WAY 천장 카세트형 에어컨을 전문 분해 후 고압세척합니다.</p>
+            <ul class="svc-slide-list">
+              <li>흡입구·토출구 청소</li>
+              <li>열교환기 고압세척</li>
+              <li>드레인팬 탈거세척</li>
+              <li>판넬 분리 세척</li>
+            </ul>
+            <a href="booking.html" class="svc-slide-btn">예약하기 →</a>
+          </div>
+        </div>
+
+        <!-- 슬라이드 5: 천장형 2WAY -->
+        <div class="svc-slide">
+          <div class="svc-slide-img">
+            <img src="images/svc-ceil-2way.png" alt="천장형 2WAY">
+          </div>
+          <div class="svc-slide-info">
+            <div class="svc-slide-tag">05 · 천장형 카세트</div>
+            <h3>천장형 에어컨 <span class="svc-sub-label">2WAY</span></h3>
+            <div class="svc-slide-price">110,000원~</div>
+            <p>2WAY 천장형 에어컨을 전문 분해 후 고압세척합니다.</p>
+            <ul class="svc-slide-list">
+              <li>흡입구·토출구 청소</li>
+              <li>열교환기 고압세척</li>
+              <li>드레인팬 탈거세척</li>
+              <li>팬 분리 세척</li>
+            </ul>
+            <a href="booking.html" class="svc-slide-btn">예약하기 →</a>
+          </div>
+        </div>
+
+        <!-- 슬라이드 6: 천장형 4WAY -->
+        <div class="svc-slide">
+          <div class="svc-slide-img">
+            <img src="images/svc-ceil-4way.png" alt="천장형 4WAY">
+          </div>
+          <div class="svc-slide-info">
+            <div class="svc-slide-tag">06 · 천장형 카세트</div>
+            <h3>천장형 에어컨 <span class="svc-sub-label">4WAY</span></h3>
+            <div class="svc-slide-price">130,000원~</div>
+            <p>4WAY 카세트형 에어컨을 전문 분해 후 고압세척합니다.</p>
+            <ul class="svc-slide-list">
+              <li>4방향 토출구 전체 청소</li>
+              <li>열교환기 고압세척</li>
+              <li>드레인팬 탈거세척</li>
+              <li>팬 분리 세척</li>
+            </ul>
+            <a href="booking.html" class="svc-slide-btn">예약하기 →</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 대량 할인 안내 -->
+      <a href="bulk.html" class="bulk-notice">
+        <div class="bulk-notice-left">
+          <span class="bulk-tag">B2B · B2G</span>
+          <div class="bulk-notice-text">
+            <strong>기업·관공서·학교 대량 할인</strong>
+            <span>5대 이상 에어컨 청소는 맞춤 견적으로 특별 할인 혜택을 드립니다</span>
+          </div>
+        </div>
+        <div class="bulk-notice-right">
+          <span class="bulk-notice-cta">견적 문의하기</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- 왜 클린베어인가 섹션 -->
+  <section class="why-us" id="why">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">WHY CLEANBEAR</span>
+        <h2>왜 클린베어인가요?</h2>
+        <p>수천 건의 시공 경험이 만든 차이</p>
+      </div>
+
+      <div class="why-grid">
+
+        <div class="why-slider-block">
+          <div class="why-slider-wrap">
+            <button type="button" class="why-arrow why-arrow--prev" id="whyPrev" aria-label="이전 카드">&#8249;</button>
+            <button type="button" class="why-arrow why-arrow--next" id="whyNext" aria-label="다음 카드">&#8250;</button>
+            <div class="why-slider-track" id="whyTrack">
+              <div class="why-card">
+                <img class="why-card-bg" src="images/why-equipment.jpg" alt="산업용 전문 장비">
+                <div class="why-card-overlay"></div>
+                <div class="why-card-content">
+                  <span class="why-card-num">01</span>
+                  <h3>산업용 전문 장비</h3>
+                  <p>가정용 청소기가 아닌 산업용 고압·스팀 장비를 사용합니다. 육안으로 보이지 않는 내부 오염까지 강력하게 제거합니다.</p>
+                </div>
+              </div>
+
+              <div class="why-card">
+                <img class="why-card-bg" src="images/why-expert.png" alt="숙련된 자격 기사">
+                <div class="why-card-overlay"></div>
+                <div class="why-card-content">
+                  <span class="why-card-num">02</span>
+                  <h3>숙련된 자격 기사</h3>
+                  <p>전문 교육 과정을 이수한 자격 보유 기사만 파견합니다. 수백 건의 현장 경험으로 기종별 최적 청소 방법을 적용합니다.</p>
+                </div>
+              </div>
+
+              <div class="why-card">
+                <img class="why-card-bg" src="images/why-eco.png" alt="친환경 인증 세정제">
+                <div class="why-card-overlay"></div>
+                <div class="why-card-content">
+                  <span class="why-card-num">03</span>
+                  <h3>친환경 인증 세정제</h3>
+                  <p>어린이·반려동물에게도 안전한 친환경 인증 세정제만 사용합니다. 강력한 세정력은 그대로, 유해 화학물질 걱정 없이.</p>
+                </div>
+              </div>
+
+              <div class="why-card">
+                <img class="why-card-bg" src="images/why-after.png" alt="확실한 사후 보장">
+                <div class="why-card-overlay"></div>
+                <div class="why-card-content">
+                  <span class="why-card-num">04</span>
+                  <h3>확실한 사후 보장</h3>
+                  <p>작업 완료 후 전·후 사진을 카카오톡으로 전송합니다. 청소 후 불만족 시 100% 무상 재방문을 보장합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="why-dots" id="whyDots" role="tablist" aria-label="클린베어 차별점 슬라이드"></div>
+        </div>
+
+        <!-- 통계 바 (카운트업: .why-stat-num + data-target) -->
+        <div class="why-stats-bar">
+          <div class="why-stat-item">
+            <strong><span class="why-stat-num" data-target="15000" data-format="comma">0</span><span class="why-stat-suffix">+</span></strong>
+            <span>누적 시공 건수</span>
+          </div>
+          <div class="why-stat-sep"></div>
+          <div class="why-stat-item">
+            <strong><span class="why-stat-num" data-target="23">0</span><span class="why-stat-suffix">개</span></strong>
+            <span>전국 지점</span>
+          </div>
+          <div class="why-stat-sep"></div>
+          <div class="why-stat-item">
+            <strong><span class="why-stat-num" data-target="98">0</span><span class="why-stat-suffix">%</span></strong>
+            <span>고객 만족도</span>
+          </div>
+          <div class="why-stat-sep"></div>
+          <div class="why-stat-item">
+            <strong><span class="why-stat-num" data-target="5">0</span><span class="why-stat-suffix">년+</span></strong>
+            <span>업력</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 지점 섹션 -->
+  <section class="branches" id="branches">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">전국지사</span>
+        <h2>전국 <span class="branch-count">23</span>개 지점 운영 중</h2>
+        <p>가까운 클린베어 지점에서 빠르게 서비스를 받아보세요</p>
+      </div>
+
+      <!-- 지역 필터 -->
+      <div class="branch-filters">
+        <button class="branch-filter active" data-region="all">전체</button>
+        <button class="branch-filter" data-region="서울">서울</button>
+        <button class="branch-filter" data-region="경기">경기</button>
+        <button class="branch-filter" data-region="인천">인천</button>
+        <button class="branch-filter" data-region="기타">기타</button>
+      </div>
+
+      <p class="branch-result-count" id="branchResultCount">23개 지점</p>
+
+      <div class="branch-grid" id="branchGrid">
+
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/1910163321" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어</strong>
+            <span>경기 고양시 덕양구</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/1403112575" target="_blank" data-region="서울">
+          <div class="branch-info">
+            <strong>클린베어 강서점</strong>
+            <span>서울 강서구 가양동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/1168786833" target="_blank" data-region="서울">
+          <div class="branch-info">
+            <strong>클린베어 서대문점</strong>
+            <span>서울 서대문구 창천동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/1475331880" target="_blank" data-region="서울">
+          <div class="branch-info">
+            <strong>클린베어 영등포점</strong>
+            <span>서울 영등포구 여의도동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/1632059394" target="_blank" data-region="서울">
+          <div class="branch-info">
+            <strong>클린베어 종로점</strong>
+            <span>서울 종로구 운니동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2001046188" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 광명점</strong>
+            <span>경기 광명시 하안동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/1714074162" target="_blank" data-region="서울">
+          <div class="branch-info">
+            <strong>클린베어 용산점</strong>
+            <span>서울 용산구 후암동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2033368250" target="_blank" data-region="인천">
+          <div class="branch-info">
+            <strong>클린베어 인천계양점</strong>
+            <span>인천 계양구 용종동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2028376926" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 부천점</strong>
+            <span>경기 부천시 원미동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2037523325" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 용인점</strong>
+            <span>경기 용인시 수지구</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <!-- 더보기 이하 숨김 -->
+        <div class="branch-more-wrap" id="branchMoreWrap" style="display:none; contents">
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2055401797" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 별내점</strong>
+            <span>경기 남양주시 별내동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2000506099" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 하남점</strong>
+            <span>경기 하남시 학암동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/1163661272" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 김포점</strong>
+            <span>경기 김포시 구래동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2091694599" target="_blank" data-region="인천">
+          <div class="branch-info">
+            <strong>클린베어 인천점</strong>
+            <span>인천 남동구 구월동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2031565768" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 파주점</strong>
+            <span>경기 파주시 와동동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2098967523" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 화성점</strong>
+            <span>경기 화성시 동탄구</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2026413549" target="_blank" data-region="인천">
+          <div class="branch-info">
+            <strong>클린베어 인천연수구점</strong>
+            <span>인천 연수구 송도동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2064157530" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 성남점</strong>
+            <span>경기 성남시 분당구</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/1415759719" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 남양주점</strong>
+            <span>경기 남양주시 화도읍</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2055264841" target="_blank" data-region="경기">
+          <div class="branch-info">
+            <strong>클린베어 안성점</strong>
+            <span>경기 안성시 서인동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2093276189" target="_blank" data-region="기타">
+          <div class="branch-info">
+            <strong>클린베어 광주점</strong>
+            <span>광주 광산구 운남동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2061744353" target="_blank" data-region="기타">
+          <div class="branch-info">
+            <strong>클린베어 세종점</strong>
+            <span>세종 반곡동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        <a class="branch-card" href="https://map.naver.com/p/entry/place/2040440975" target="_blank" data-region="기타">
+          <div class="branch-info">
+            <strong>클린베어 대전점</strong>
+            <span>대전 서구 탄방동</span>
+          </div>
+          <div class="branch-arrow">›</div>
+        </a>
+        </div><!-- /branchMoreWrap -->
+
+      </div>
+
+      <!-- 더보기 버튼 -->
+      <div class="branch-more-btn-wrap" id="branchMoreBtnWrap">
+        <button class="branch-more-btn" id="branchMoreBtn" onclick="toggleBranchMore()">
+          더보기 <span>+</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 실제 청소 사례 섹션 -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+
+      <div class="section-header">
+        <span class="section-tag">BEFORE &amp; AFTER</span>
+        <h2>클린베어가 하면<br><span class="gallery-accent">이렇게 다릅니다.</span></h2>
+        <p>청소로 믿음과 신뢰로 보답하겠습니다.</p>
+      </div>
+
+      <!-- 무한 가로 마퀴 (전·후 사례) -->
+      <div class="gallery-stage gallery-stage--marquee" aria-label="청소 전후 사례 이미지 흐름">
+        <div class="gallery-marquee">
+          <div class="gallery-marquee-viewport">
+            <div class="gallery-marquee-track" id="galleryMarqueeTrack">
+              <div class="gallery-marquee-item"><img src="images/gallery/124 (1).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/124 (2).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/124 (3).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/124 (5).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/124 (9).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1245 (11).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1245 (15).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1245 (2).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1325 (10).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1325 (11).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1325 (12).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1325 (13).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1325 (16).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1325 (19).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1325 (22).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1325 (31).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1325 (5).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/1325 (7).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/as (1).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+              <div class="gallery-marquee-item"><img src="images/gallery/as (3).png" alt="청소 사례" loading="lazy" decoding="async"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하단 포인트 -->
+      <div class="gallery-points-bar">
+        <span>전문 자격증 기사 직접 시공</span>
+        <span class="gpb-sep"></span>
+        <span>99% 세균·곰팡이 제거</span>
+        <span class="gpb-sep"></span>
+        <span>작업 전·후 사진 제공</span>
+        <span class="gpb-sep"></span>
+        <span>당일 완료</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 고객 후기 섹션 -->
+  <section class="reviews" id="reviews">
+    <div class="container">
+
+      <div class="section-header">
+        <span class="section-tag">CUSTOMER REVIEWS</span>
+        <h2>실제 고객님이<br><span class="reviews-accent">직접 남긴 후기</span></h2>
+        <p>과장 없이, 실제 이용 고객의 진짜 이야기입니다.</p>
+      </div>
+
+      <!-- 평점 요약 배너 (진입 시 숫자·별 애니메이션) -->
+      <div class="rv-summary" id="rvSummaryBanner">
+        <div class="rv-sum-score">
+          <span class="rv-sum-num"><span id="rvSumNum" data-target="4.9">1</span></span>
+          <div>
+            <div class="rv-sum-stars" id="rvSumStars" aria-label="평균 별점 5점 만점">
+              <span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span><span class="rv-star">★</span>
+            </div>
+            <span class="rv-sum-label">평균 별점</span>
+          </div>
+        </div>
+        <div class="rv-sum-sep"></div>
+        <div class="rv-sum-stat"><span class="rv-sn"><span id="rvCountReviews" data-target="320">0</span><sup>+</sup></span><span class="rv-sl">총 후기 수</span></div>
+        <div class="rv-sum-sep"></div>
+        <div class="rv-sum-stat"><span class="rv-sn"><span id="rvCountReuse" data-target="98">0</span>%</span><span class="rv-sl">재이용 의향</span></div>
+        <div class="rv-sum-sep"></div>
+        <div class="rv-sum-stat"><span class="rv-sn"><span id="rvCountSat" data-target="100">0</span>%</span><span class="rv-sl">만족 보장</span></div>
+      </div>
+
+      <!-- 후기 카드 — 가로 무한 스크롤 -->
+      <div class="rv-stage rv-stage--marquee">
+        <div class="rv-marquee-viewport">
+          <div class="rv-marquee-inner" id="rvMarqueeInner">
+        <div class="rv-track" id="rvTrack">
+
+          <div class="rv-card">
+            <div class="rv-quote-mark">"</div>
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">에어컨 켤 때마다 퀴퀴한 냄새가 났는데 청소 후 완전히 사라졌어요. 필터부터 내부까지 분해해서 사진도 찍어주시더라고요. 진짜 믿음직했습니다.</p>
+            <div class="rv-author">
+              <div class="rv-avatar">김</div>
+              <div class="rv-author-info">
+                <strong>김○○ 고객님</strong>
+                <span>서울 마포구 · 벽걸이 2대</span>
+              </div>
+              <span class="rv-platform rv-naver">네이버</span>
+            </div>
+          </div>
+
+          <div class="rv-card">
+            <div class="rv-quote-mark">"</div>
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">다른 업체 두 군데 써봤는데 클린베어가 확실히 달랐어요. 냉기가 훨씬 강해졌고 전기세도 줄었어요. 꼼꼼함이 남달랐습니다.</p>
+            <div class="rv-author">
+              <div class="rv-avatar">이</div>
+              <div class="rv-author-info">
+                <strong>이○○ 고객님</strong>
+                <span>경기 성남시 · 스탠드형 1대</span>
+              </div>
+              <span class="rv-platform rv-kakao">카카오</span>
+            </div>
+          </div>
+
+          <div class="rv-card">
+            <div class="rv-quote-mark">"</div>
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">당일 예약 가능해서 너무 좋았어요. 기사님이 오셔서 작업 전 상태 설명해주시고 이후에도 AS 보장해주신다고 하셔서 안심됐습니다.</p>
+            <div class="rv-author">
+              <div class="rv-avatar">박</div>
+              <div class="rv-author-info">
+                <strong>박○○ 고객님</strong>
+                <span>서울 송파구 · 시스템 에어컨</span>
+              </div>
+              <span class="rv-platform rv-google">구글</span>
+            </div>
+          </div>
+
+          <div class="rv-card">
+            <div class="rv-quote-mark">"</div>
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">3대 한꺼번에 했더니 할인까지 해주셨어요. 작업 시간도 생각보다 짧고 냄새도 없고 깔끔했습니다. 내년에도 꼭 재이용할 거예요.</p>
+            <div class="rv-author">
+              <div class="rv-avatar">최</div>
+              <div class="rv-author-info">
+                <strong>최○○ 고객님</strong>
+                <span>인천 부평구 · 벽걸이 3대</span>
+              </div>
+              <span class="rv-platform rv-naver">네이버</span>
+            </div>
+          </div>
+
+          <div class="rv-card">
+            <div class="rv-quote-mark">"</div>
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">청소 전후 사진 찍어주시는 거 진짜 신뢰가 갔어요. 보기만 해도 얼마나 더러웠는지 알 수 있었고, 그만큼 깨끗해져서 놀랐습니다.</p>
+            <div class="rv-author">
+              <div class="rv-avatar">정</div>
+              <div class="rv-author-info">
+                <strong>정○○ 고객님</strong>
+                <span>서울 강남구 · 벽걸이 1대</span>
+              </div>
+              <span class="rv-platform rv-kakao">카카오</span>
+            </div>
+          </div>
+
+          <div class="rv-card">
+            <div class="rv-quote-mark">"</div>
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">작년에도 이용했고 올해도 재방문했어요. 기사님 너무 친절하시고 꼼꼼하셔서 매년 부탁드릴 것 같아요. 주변 지인들한테도 다 추천했습니다.</p>
+            <div class="rv-author">
+              <div class="rv-avatar">한</div>
+              <div class="rv-author-info">
+                <strong>한○○ 고객님</strong>
+                <span>경기 수원시 · 스탠드형 2대</span>
+              </div>
+              <span class="rv-platform rv-google">구글</span>
+            </div>
+          </div>
+
+        </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-compact">
+        <p class="footer-compact-brand">클린<span class="accent">베어</span></p>
+
+        <div class="footer-business">
+          <p><span class="footer-business-k">대표자</span>김용광</p>
+          <p><span class="footer-business-k">사업자등록번호</span>801-40-01034</p>
+          <p><span class="footer-business-k">주소</span>서울 ○○구 ○○로 ○○</p>
+          <p><span class="footer-business-k">전화</span><a href="tel:0507-1304-6329">0507-1304-6329</a></p>
+          <p><span class="footer-business-k">이메일</span><a href="mailto:yb5954@naver.com">yb5954@naver.com</a></p>
+        </div>
+        <p class="footer-compact-legal">© 2024 클린베어 All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 봄맞이 할인 팝업 -->
+  <div class="popup-backdrop" id="popupBackdrop">
+    <div class="popup-box" id="popupBox" role="dialog" aria-modal="true" aria-label="봄맞이 할인 이벤트">
+      <!-- 닫기 -->
+      <button class="popup-close" id="popupClose" aria-label="닫기">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <!-- 배경 오브 -->
+      <div class="popup-orb popup-orb--1"></div>
+      <div class="popup-orb popup-orb--2"></div>
+
+      <!-- 콘텐츠 -->
+      <div class="popup-inner">
+        <span class="popup-tag">2026 SPRING EVENT</span>
+        <h2 class="popup-title">봄맞이 특별 할인<br><span class="popup-accent">최대 10% OFF</span></h2>
+        <p class="popup-desc">봄철 에어컨 시즌 전 미리 청소하면 더 저렴하게!<br>4월 4일까지 예약 시 할인 적용됩니다.</p>
+
+        <div class="popup-benefits">
+          <div class="popup-benefit">
+            <span class="pb-num">10%</span>
+            <span class="pb-label">2대 이상 할인</span>
+          </div>
+          <div class="popup-sep"></div>
+          <div class="popup-benefit">
+            <span class="pb-num">무료</span>
+            <span class="pb-label">방문 출장비</span>
+          </div>
+          <div class="popup-sep"></div>
+          <div class="popup-benefit">
+            <span class="pb-num">4/4</span>
+            <span class="pb-label">마감일</span>
+          </div>
+        </div>
+
+        <button class="popup-cta" id="popupCloseMain">닫기</button>
+
+        <button class="popup-skip" id="popupSkip">오늘 하루 보지 않기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 플로팅 버튼 -->
+  <div class="floating-btns">
+    <a href="tel:0507-1304-6329" class="float-btn phone-btn" aria-label="전화 상담">
+      <span class="float-tooltip">전화하기</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/>
+      </svg>
+    </a>
+    <a href="sms:0507-1304-6329" class="float-btn msg-btn" aria-label="문자 문의">
+      <span class="float-tooltip">문자 문의</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- 상단 이동 버튼 -->
+  <button class="scroll-top" id="scrollTop" title="상단으로">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M4.5 15.75l7.5-7.5 7.5 7.5"/>
+    </svg>
+  </button>
+
+  <!-- 팝업 JS -->
+  <script>
+    (function () {
+      const backdrop = document.getElementById('popupBackdrop');
+      const skipBtn  = document.getElementById('popupSkip');
+      const closeBtn = document.getElementById('popupClose');
+
+      function closePopup() {
+        backdrop.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      // 오늘 하루 안보기 체크
+      const today = new Date().toDateString();
+      if (localStorage.getItem('popupSkipDate') === today) {
+        backdrop.classList.add('hidden');
+      } else {
+        document.body.style.overflow = 'hidden';
+      }
+
+      closeBtn.addEventListener('click', closePopup);
+      document.getElementById('popupCloseMain').addEventListener('click', closePopup);
+      backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closePopup(); });
+
+      skipBtn.addEventListener('click', () => {
+        localStorage.setItem('popupSkipDate', today);
+        closePopup();
+      });
+    })();
+  </script>
+
+  <script src="app.js"></script>
+  <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    (function () {
+      if (typeof twemoji === 'undefined') return;
+      twemoji.parse(document.body, {
+        folder: 'svg',
+        ext: '.svg',
+        attributes: function () {
+          return { loading: 'lazy', decoding: 'async', draggable: 'false' };
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
