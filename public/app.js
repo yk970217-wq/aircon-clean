@@ -36,6 +36,24 @@
   window.setTimeout(step, START_DELAY_MS);
 })();
 
+(function () {
+  const popupTitle = document.querySelector('.popup-title');
+  const popupDesc = document.querySelector('.popup-desc');
+  const benefitNums = document.querySelectorAll('.popup-benefit .pb-num');
+  const benefitLabels = document.querySelectorAll('.popup-benefit .pb-label');
+  if (!popupTitle || !popupDesc || benefitNums.length < 3 || benefitLabels.length < 3) return;
+
+  popupTitle.innerHTML = '봄맞이 특별 할인<br><span class="popup-accent">최대 30% OFF</span>';
+  popupDesc.innerHTML = '봄철 에어컨 시즌 전 미리 신청하면 더 저렴하게<br>지금 아니면 이 가격 혜택은 받기 어렵습니다';
+
+  benefitNums[0].textContent = '30%';
+  benefitLabels[0].textContent = '최대 30% 할인';
+  benefitNums[1].textContent = '무료';
+  benefitLabels[1].textContent = '무료 방문 점검';
+  benefitNums[2].textContent = '4월/4일';
+  benefitLabels[2].textContent = '4월/4일 마감';
+})();
+
 // ===== 왜 클린베어 통계 숫자 카운트업 (반복) =====
 (function () {
   const nodes = document.querySelectorAll('.why-stat-num');

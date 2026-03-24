@@ -19,14 +19,13 @@
       align-items: start;
     }
 
-    /* 왼쪽 정보 */
     .bk-info {
       position: sticky;
       top: 100px;
     }
 
     .bk-info .section-tag {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.15);
       color: #7eb8ff;
     }
 
@@ -38,10 +37,12 @@
       line-height: 1.25;
     }
 
-    .bk-info h1 span { color: #ffe066; }
+    .bk-info h1 span {
+      color: #ffe066;
+    }
 
     .bk-info > p {
-      color: rgba(255,255,255,0.65);
+      color: rgba(255, 255, 255, 0.68);
       font-size: 1rem;
       line-height: 1.75;
       margin-bottom: 32px;
@@ -58,8 +59,8 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      background: rgba(255,255,255,0.08);
-      border: 1.5px solid rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
       border-radius: 14px;
       padding: 16px 20px;
       text-decoration: none;
@@ -68,12 +69,23 @@
     }
 
     .bk-contact-card:hover {
-      background: rgba(255,255,255,0.15);
-      border-color: rgba(255,255,255,0.3);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
     }
 
-    .bk-cc-icon { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-    .bk-cc-icon svg { width: 26px; height: 26px; }
+    .bk-cc-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bk-cc-icon svg {
+      width: 26px;
+      height: 26px;
+    }
 
     .bk-cc-info strong {
       display: block;
@@ -84,13 +96,13 @@
     .bk-cc-info span {
       display: block;
       font-size: 0.88rem;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255, 255, 255, 0.62);
       margin-top: 2px;
     }
 
     .bk-promise {
-      background: rgba(255,224,102,0.1);
-      border: 1.5px solid rgba(255,224,102,0.3);
+      background: rgba(255, 224, 102, 0.1);
+      border: 1.5px solid rgba(255, 224, 102, 0.3);
       border-radius: 14px;
       padding: 20px;
       display: flex;
@@ -103,25 +115,24 @@
       align-items: center;
       gap: 10px;
       font-size: 0.88rem;
-      color: rgba(255,255,255,0.85);
+      color: rgba(255, 255, 255, 0.85);
     }
 
     .bk-promise-item span:first-child {
       color: #ffe066;
       font-weight: 700;
       font-size: 0.8rem;
-      background: rgba(255,224,102,0.15);
+      background: rgba(255, 224, 102, 0.15);
       padding: 3px 10px;
       border-radius: 20px;
       white-space: nowrap;
     }
 
-    /* 오른쪽 폼 */
     .bk-form-card {
       background: #fff;
       border-radius: 24px;
       padding: 48px 44px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
 
     .bk-form-card h2 {
@@ -178,10 +189,43 @@
     .bk-group select:focus,
     .bk-group textarea:focus {
       border-color: #003fcc;
-      box-shadow: 0 0 0 3px rgba(0,63,204,0.1);
+      box-shadow: 0 0 0 3px rgba(0, 63, 204, 0.1);
     }
 
-    .bk-group textarea { resize: vertical; min-height: 100px; }
+    .bk-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .bk-count-selector {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .bk-count-btn {
+      border: 1.5px solid #d7e2f0;
+      background: #f6f9ff;
+      color: #37507a;
+      border-radius: 12px;
+      min-height: 48px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+    }
+
+    .bk-count-btn:hover {
+      border-color: #7aa2ff;
+      transform: translateY(-1px);
+    }
+
+    .bk-count-btn.active {
+      background: linear-gradient(135deg, #003fcc, #0060ff);
+      border-color: #003fcc;
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(0, 63, 204, 0.2);
+    }
 
     .bk-submit {
       background: linear-gradient(135deg, #003fcc, #0060ff);
@@ -197,8 +241,16 @@
       letter-spacing: 0.3px;
     }
 
-    .bk-submit:hover { opacity: 0.9; transform: translateY(-2px); }
-    .bk-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .bk-submit:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .bk-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
 
     .bk-result {
       margin-top: 16px;
@@ -210,8 +262,19 @@
       font-size: 0.95rem;
     }
 
-    .bk-result.success { display: block; background: #e6f9f0; color: #1a7a4a; border: 1.5px solid #a3dfc0; }
-    .bk-result.error   { display: block; background: #fff0f0; color: #c0392b; border: 1.5px solid #f5b7b1; }
+    .bk-result.success {
+      display: block;
+      background: #e6f9f0;
+      color: #1a7a4a;
+      border: 1.5px solid #a3dfc0;
+    }
+
+    .bk-result.error {
+      display: block;
+      background: #fff0f0;
+      color: #c0392b;
+      border: 1.5px solid #f5b7b1;
+    }
 
     .bk-form-footer {
       margin-top: 16px;
@@ -221,20 +284,37 @@
     }
 
     @media (max-width: 900px) {
-      .booking-page-inner { grid-template-columns: 1fr; }
-      .bk-info { position: static; }
-      .bk-info h1 { font-size: 1.8rem; }
-      .bk-form-card { padding: 32px 24px; }
+      .booking-page-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .bk-info {
+        position: static;
+      }
+
+      .bk-info h1 {
+        font-size: 1.8rem;
+      }
+
+      .bk-form-card {
+        padding: 32px 24px;
+      }
     }
 
     @media (max-width: 500px) {
-      .bk-row { grid-template-columns: 1fr; }
-      .booking-page { padding: 100px 0 60px; }
+      .bk-row {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-page {
+        padding: 100px 0 60px;
+      }
+
+      .bk-count-selector { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
 </head>
 <body>
-
   <header id="header">
     <nav class="nav-container">
       <div class="logo">
@@ -263,12 +343,10 @@
   <section class="booking-page">
     <div class="container">
       <div class="booking-page-inner">
-
-        <!-- 왼쪽 정보 -->
         <div class="bk-info">
           <span class="section-tag">BOOKING</span>
           <h1>지금 바로<br><span>예약하세요</span></h1>
-          <p>양식을 작성하시면 담당자가 확인 후<br>빠르게 연락드립니다. 평균 응답시간 30분 이내</p>
+          <p>간단한 정보만 남겨주시면 확인 후 빠르게 연락드립니다. 평균 응답 시간은 30분 이내입니다.</p>
 
           <div class="bk-contact-cards">
             <a href="tel:0507-1304-6329" class="bk-contact-card">
@@ -279,8 +357,8 @@
               </span>
               <div class="bk-cc-info">
                 <strong>전화 상담</strong>
-                <span>0507-1304-6329 (문자 가능)</span>
-                <span>평일 09:00–20:00 / 주말 09:00–18:00</span>
+                <span>0507-1304-6329</span>
+                <span>평일 · 주말 09:00 ~ 18:00</span>
               </div>
             </a>
             <a href="sms:0507-1304-6329" class="bk-contact-card">
@@ -298,13 +376,12 @@
           </div>
 
           <div class="bk-promise">
-            <div class="bk-promise-item"><span>당일 응답</span> 접수 후 30분 이내 연락</div>
-            <div class="bk-promise-item"><span>사진 제공</span> 전·후 사진 카카오로 전송</div>
-            <div class="bk-promise-item"><span>재방문 보장</span> 청소 불만족 시 무상 재방문</div>
+            <div class="bk-promise-item"><span>빠른 응답</span> 접수 후 30분 이내 연락</div>
+            <div class="bk-promise-item"><span>사진 제공</span> 작업 후 사진 카카오톡 전송</div>
+            <div class="bk-promise-item"><span>사후 보장</span> 청소 불만족 시 무상 재점검</div>
           </div>
         </div>
 
-        <!-- 오른쪽 폼 -->
         <div class="bk-form-card">
           <h2>예약 신청</h2>
           <p>* 표시 항목은 필수 입력 사항입니다</p>
@@ -337,7 +414,8 @@
                   <option value="천장형 1WAY">천장형 1WAY (100,000원~)</option>
                   <option value="천장형 2WAY">천장형 2WAY (110,000원~)</option>
                   <option value="천장형 4WAY">천장형 4WAY (130,000원~)</option>
-                  <option value="상담 후 결정">상담 후 결정</option>
+                  <option value="원형 360도">천장형 원형 360 (170,000원~)</option>
+                  <option value="상담후결정(2대~5대)">상담후결정(2대~5대)</option>
                 </select>
               </div>
               <div class="bk-group">
@@ -350,10 +428,19 @@
               <label>희망 시간대</label>
               <select id="timeSlot">
                 <option value="">선택하세요 (선택사항)</option>
-                <option>오전 (09:00–12:00)</option>
-                <option>오후 (12:00–18:00)</option>
-                <option>저녁 (18:00–20:00)</option>
+                <option value="오전 (09:00~12:00)">오전 (09:00~12:00)</option>
+                <option value="오후 (12:00~18:00)">오후 (12:00~18:00)</option>
+                <option value="저녁 (18:00~20:00)">저녁 (18:00~20:00)</option>
               </select>
+            </div>
+
+            <div class="bk-group">
+              <label>대수</label>
+              <input type="hidden" id="count" value="1">
+              <div class="bk-count-selector" id="bkCountSelector">
+                <button type="button" class="bk-count-btn active" data-count="1">1대</button>
+                <button type="button" class="bk-count-btn" data-count="2">2대~5대</button>
+              </div>
             </div>
 
             <div class="bk-group">
@@ -365,25 +452,47 @@
           </form>
 
           <div class="bk-result" id="bkResult"></div>
-          <p class="bk-form-footer">개인정보는 예약 처리 목적으로만 사용되며 제3자에게 제공되지 않습니다</p>
+          <p class="bk-form-footer">개인정보는 예약 처리 목적으로만 사용되며 제3자에게 제공되지 않습니다.</p>
         </div>
-
       </div>
     </div>
   </section>
 
-  <footer class="footer" style="display:none">
+  <footer class="footer footer--custom">
     <div class="container">
-      <div class="footer-compact">
-        <p class="footer-compact-brand">클린<span class="accent">베어</span></p>
-        <div class="footer-business">
-          <p><span class="footer-business-k">대표자</span>김용광</p>
-          <p><span class="footer-business-k">사업자등록번호</span>801-40-01034</p>
-          <p><span class="footer-business-k">주소</span>서울 ○○구 ○○로 ○○</p>
-          <p><span class="footer-business-k">전화</span><a href="tel:0507-1304-6329">0507-1304-6329</a></p>
-          <p><span class="footer-business-k">이메일</span><a href="mailto:yb5954@naver.com">yb5954@naver.com</a></p>
+      <div class="footer-custom-inner">
+        <div class="footer-custom-logo-wrap">
+          <img src="images/logo.png" alt="클린베어 로고" class="footer-custom-logo">
         </div>
-        <p class="footer-compact-legal">© 2024 클린베어 All rights reserved.</p>
+        <div class="footer-custom-main">
+          <p class="footer-custom-cs">고객센터</p>
+          <p class="footer-custom-phone"><a href="tel:0507-1304-6329">0507-1304-6329</a></p>
+          <p class="footer-custom-hours-label">영업시간</p>
+          <p class="footer-custom-hours">평일 · 주말 09:00 ~ 18:00</p>
+          <p class="footer-custom-line">상호 클린베어 | 대표 김영복</p>
+          <p class="footer-custom-line">주소 경기도 고양시 덕양구 중앙로 141번길 9</p>
+          <p class="footer-custom-copy">© 2024 클린베어 All rights reserved.</p>
+        </div>
+        <div class="footer-custom-policies">
+          <details class="footer-custom-policy">
+            <summary>개인정보처리방침</summary>
+            <div class="footer-custom-policy-body">
+              <p>클린베어는 상담 및 예약 접수, 고객 문의 응대를 위해 필요한 최소한의 개인정보만 수집합니다.</p>
+              <p>수집 항목은 이름, 연락처, 주소, 서비스 신청 내용이며 예약 처리와 고객 응대 목적 외에는 사용하지 않습니다.</p>
+              <p>개인정보는 관련 법령에 따라 보관이 필요한 경우를 제외하고 목적 달성 후 지체 없이 파기합니다.</p>
+              <p>개인정보 관련 문의는 대표번호 또는 이메일로 접수할 수 있습니다.</p>
+            </div>
+          </details>
+          <details class="footer-custom-policy">
+            <summary>이용약관</summary>
+            <div class="footer-custom-policy-body">
+              <p>클린베어 서비스 예약은 고객이 입력한 정보와 상담 내용을 바탕으로 접수됩니다.</p>
+              <p>서비스 일정과 금액은 현장 환경, 기기 종류, 추가 요청 사항에 따라 최종 확정될 수 있습니다.</p>
+              <p>예약 완료 후 일정 변경 또는 취소가 필요한 경우 가능한 빠르게 고객센터로 연락해 주셔야 합니다.</p>
+              <p>회사는 천재지변, 부득이한 일정 변경 등 불가항력 상황에서 서비스 일정을 조정할 수 있습니다.</p>
+            </div>
+          </details>
+        </div>
       </div>
     </div>
   </footer>
@@ -397,41 +506,55 @@
     hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
     function closeMobileMenu() { mobileMenu.classList.remove('open'); }
 
-    // 날짜 최솟값
     const dateInput = document.getElementById('date');
-    const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
     dateInput.min = tomorrow.toISOString().split('T')[0];
 
-    // URL 파라미터로 서비스 자동 선택
+    const serviceInput = document.getElementById('service');
     const params = new URLSearchParams(location.search);
     if (params.get('service')) {
-      const sel = document.getElementById('service');
-      [...sel.options].forEach(o => { if (o.value === params.get('service')) o.selected = true; });
+      [...serviceInput.options].forEach((option) => {
+        if (option.value === params.get('service')) option.selected = true;
+      });
     }
 
-    // 전화번호 자동 하이픈
     document.getElementById('phone').addEventListener('input', (e) => {
-      let v = e.target.value.replace(/\D/g, '');
-      if (v.length > 11) v = v.slice(0, 11);
-      if (v.length >= 7) v = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7);
-      else if (v.length >= 4) v = v.slice(0,3) + '-' + v.slice(3);
-      e.target.value = v;
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 11) value = value.slice(0, 11);
+      if (value.length >= 7) value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7);
+      else if (value.length >= 4) value = value.slice(0, 3) + '-' + value.slice(3);
+      e.target.value = value;
     });
 
-    // 폼 제출
+    const countInput = document.getElementById('count');
+
+    document.getElementById('bkCountSelector').addEventListener('click', (e) => {
+      const button = e.target.closest('.bk-count-btn');
+      if (!button) return;
+      countInput.value = button.dataset.count;
+      document.querySelectorAll('.bk-count-btn').forEach((node) => node.classList.toggle('active', node === button));
+    });
+
     document.getElementById('bookingForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('bkSubmit');
       const result = document.getElementById('bkResult');
-      btn.textContent = '처리 중...'; btn.disabled = true;
+      btn.textContent = '처리 중...';
+      btn.disabled = true;
 
+      const selectedCount = Number(countInput.value || 1);
+      const discountRate = selectedCount >= 2 ? 5 : 0;
       const data = {
         name: document.getElementById('name').value,
         phone: document.getElementById('phone').value,
         address: document.getElementById('address').value,
-        service: document.getElementById('service').value,
+        service: serviceInput.value,
         date: document.getElementById('date').value,
         timeSlot: document.getElementById('timeSlot').value,
+        count: selectedCount,
+        discountRate,
+        estimatedPrice: '',
         memo: document.getElementById('memo').value,
       };
 
@@ -444,14 +567,20 @@
         const json = await res.json();
         result.className = 'bk-result ' + (json.success ? 'success' : 'error');
         result.innerHTML = json.success
-          ? `예약이 완료되었습니다!<br><small style="opacity:0.7">예약번호: #${json.bookingId} · 곧 연락드리겠습니다</small>`
+          ? `예약이 완료되었습니다.<br><small style="opacity:0.7">예약번호: #${json.bookingId} · 곧 연락드리겠습니다</small>`
           : json.message;
-        if (json.success) document.getElementById('bookingForm').reset();
+
+        if (json.success) {
+          document.getElementById('bookingForm').reset();
+          countInput.value = '1';
+          document.querySelectorAll('.bk-count-btn').forEach((node, index) => node.classList.toggle('active', index === 0));
+        }
       } catch {
         result.className = 'bk-result error';
         result.innerHTML = '서버 연결에 실패했습니다. 전화로 문의해주세요.';
       } finally {
-        btn.textContent = '예약 신청하기'; btn.disabled = false;
+        btn.textContent = '예약 신청하기';
+        btn.disabled = false;
         result.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
