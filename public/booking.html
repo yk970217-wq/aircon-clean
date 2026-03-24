@@ -10,6 +10,7 @@
       background: linear-gradient(160deg, #0a0f2e 0%, #001a6e 55%, #003fcc 100%);
       min-height: 100vh;
       padding: 120px 0 80px;
+      overflow-x: clip;
     }
 
     .booking-page-inner {
@@ -17,11 +18,13 @@
       grid-template-columns: 1fr 1.4fr;
       gap: 48px;
       align-items: start;
+      min-width: 0;
     }
 
     .bk-info {
       position: sticky;
       top: 100px;
+      min-width: 0;
     }
 
     .bk-info .section-tag {
@@ -133,6 +136,9 @@
       border-radius: 24px;
       padding: 48px 44px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .bk-form-card h2 {
@@ -175,6 +181,8 @@
     .bk-group input,
     .bk-group select,
     .bk-group textarea {
+      width: 100%;
+      min-width: 0;
       padding: 13px 16px;
       border: 1.5px solid #e0e8f0;
       border-radius: 10px;
@@ -285,6 +293,8 @@
 
     .bk-bulk-link {
       display: block;
+      width: 100%;
+      min-width: 0;
       margin-top: 12px;
       text-decoration: none;
       border-radius: 12px;
@@ -335,10 +345,12 @@
     @media (max-width: 900px) {
       .booking-page-inner {
         grid-template-columns: 1fr;
+        gap: 28px;
       }
 
       .bk-info {
         position: static;
+        top: auto;
       }
 
       .bk-contact-cards {
@@ -356,12 +368,26 @@
     }
 
     @media (max-width: 500px) {
+      .booking-page .container {
+        padding-left: max(18px, env(safe-area-inset-left, 0px));
+        padding-right: max(18px, env(safe-area-inset-right, 0px));
+      }
+
       .bk-row {
         grid-template-columns: 1fr;
       }
 
       .booking-page {
         padding: 100px 0 60px;
+      }
+
+      .bk-form-card {
+        padding: 28px 18px;
+        border-radius: 20px;
+      }
+
+      .bk-bulk-link-inner {
+        align-items: flex-start;
       }
 
       .bk-count-selector { grid-template-columns: repeat(2, minmax(0, 1fr)); }
