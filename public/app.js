@@ -172,13 +172,6 @@
       });
     });
 
-    if (nav && window.matchMedia('(max-width: 600px)').matches) {
-      btn.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center',
-      });
-    }
   }
 
   function startAuto() {
@@ -369,7 +362,6 @@ if (bookingForm && bookingResult) {
     } finally {
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;
-      bookingResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   });
 }
