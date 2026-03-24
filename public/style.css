@@ -225,7 +225,6 @@
 html {
   scroll-behavior: smooth;
   overflow-x: clip;
-  forced-color-adjust: none;
 }
 
 body {
@@ -234,7 +233,6 @@ body {
   background: var(--white);
   line-height: 1.6;
   overflow-x: hidden;
-  forced-color-adjust: none;
 }
 
 /* Twemoji — 기기별 이모지 깨짐·톤 차이 완화 (SVG) */
@@ -3970,56 +3968,6 @@ button.svc-photo-chooser-label:focus-visible {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 16px;
-}
-
-/* Samsung Internet forced dark 완화 */
-body,
-#header,
-#header.scrolled,
-.svc-banner,
-.svc-slide,
-.svc-slide-img,
-.svc-slide-info,
-.bulk-notice,
-.popup-backdrop,
-.popup-box,
-.why-card,
-.why-card-overlay,
-.footer-custom-inner,
-.footer-custom-policy-body {
-  forced-color-adjust: none;
-}
-
-body,
-#header.scrolled,
-.svc-slide,
-.popup-box,
-.footer-custom-inner,
-.footer-custom-policy-body {
-  background-color: inherit;
-}
-
-.svc-slide-info h3,
-.svc-slide-info > p,
-.svc-slide-list li,
-.bulk-notice,
-.bulk-notice-text strong,
-.bulk-notice-text span,
-.popup-inner,
-.popup-title,
-.popup-sub,
-.popup-note,
-.why-card-content h3,
-.why-card-content p,
-.footer-custom-cs,
-.footer-custom-phone a,
-.footer-custom-hours-label,
-.footer-custom-hours,
-.footer-custom-line,
-.footer-custom-copy,
-.footer-custom-policy summary,
-.footer-custom-policy-body p {
-  -webkit-text-fill-color: currentColor;
 }
 .why-dot {
   width: 28px;
