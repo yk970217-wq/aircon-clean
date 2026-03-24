@@ -346,7 +346,7 @@
 </head>
 <body>
 
-  <header id="header">
+      <header id="header">
     <nav class="nav-container">
       <div class="logo">
         <a href="index.html" class="logo-link">
@@ -360,7 +360,7 @@
         </a>
       </div>
       <ul class="nav-links">
-        <li><a href="bulk.html" class="nav-btn-bulk active-page">대량견적문의</a></li>
+        <li><a href="bulk.html" class="nav-btn-bulk">대량 견적 문의</a></li>
         <li><a href="booking.html" class="nav-btn">예약하기</a></li>
       </ul>
       <button class="hamburger" id="hamburger">
@@ -368,7 +368,7 @@
       </button>
     </nav>
     <div class="mobile-menu" id="mobileMenu">
-      <a href="bulk.html" onclick="closeMobileMenu()">대량견적문의</a>
+      <a href="bulk.html" onclick="closeMobileMenu()">대량 견적 문의</a>
       <a href="booking.html" onclick="closeMobileMenu()">예약하기</a>
     </div>
   </header>
@@ -482,52 +482,41 @@
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-compact">
-        <p class="footer-compact-brand">클린<span class="accent">베어</span></p>
-        <div class="footer-business">
-          <p><span class="footer-business-k">영업시간</span><span>매일 09:00 - 18:00</span></p>
-          <p><span class="footer-business-k">대표자</span>김용광</p>
-          <p><span class="footer-business-k">사업자등록번호</span>801-40-01034</p>
-          <p><span class="footer-business-k">주소</span>서울 ○○구 ○○로 ○○</p>
-          <p><span class="footer-business-k">전화</span><a href="tel:0507-1304-6329">0507-1304-6329</a></p>
-          <p><span class="footer-business-k">이메일</span><a href="mailto:yb5954@naver.com">yb5954@naver.com</a></p>
-        </div>
-        <p class="footer-compact-legal">© 2024 클린베어 All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
+  
 
-  <script>
-    // 헤더 스크롤
+      <script>
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
+      if (!header) return;
       header.classList.toggle('scrolled', window.scrollY > 60);
     });
 
-    // 모바일 메뉴
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-    function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    }
 
-    // 전화번호 자동 하이픈
+    function closeMobileMenu() {
+      if (!mobileMenu) return;
+      mobileMenu.classList.remove('open');
+    }
+
     const bfPhone = document.getElementById('bfPhone');
     bfPhone.addEventListener('input', (e) => {
       let v = e.target.value.replace(/\D/g, '');
       if (v.length > 11) v = v.slice(0, 11);
-      if (v.length >= 7) v = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7);
-      else if (v.length >= 4) v = v.slice(0,3) + '-' + v.slice(3);
+      if (v.length >= 7) v = v.slice(0, 3) + '-' + v.slice(3, 7) + '-' + v.slice(7);
+      else if (v.length >= 4) v = v.slice(0, 3) + '-' + v.slice(3);
       e.target.value = v;
     });
 
-    // 폼 제출
     document.getElementById('bulkForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('bfSubmit');
       const result = document.getElementById('bfResult');
-      btn.textContent = '처리 중...'; btn.disabled = true;
+      btn.textContent = '처리 중..';
+      btn.disabled = true;
 
       const data = {
         phone: document.getElementById('bfPhone').value,
@@ -544,14 +533,15 @@
         const json = await res.json();
         result.className = 'bf-result ' + (json.success ? 'success' : 'error');
         result.innerHTML = json.success
-          ? '견적 문의가 접수되었습니다. 담당자가 빠른 시간 내에 연락드리겠습니다.'
+          ? '견적 문의가 접수되었습니다. 빠른 시간 안에 연락드리겠습니다.'
           : json.message;
         if (json.success) document.getElementById('bulkForm').reset();
       } catch {
         result.className = 'bf-result error';
         result.innerHTML = '서버 연결에 실패했습니다. 전화로 문의해주세요.';
       } finally {
-        btn.textContent = '대량 견적 문의하기'; btn.disabled = false;
+        btn.textContent = '대량 견적 문의하기';
+        btn.disabled = false;
         result.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });

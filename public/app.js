@@ -1,4 +1,4 @@
-// ===== 히어로 키커 타이핑 (반복) =====
+﻿// ===== 히어로 키커 타이핑 (반복) =====
 (function () {
   const el = document.getElementById('heroKickerType');
   const cursor = document.querySelector('.hero-kicker-cursor');
@@ -276,12 +276,13 @@ function switchCeil(type, btn) {
 const header = document.getElementById('header');
 
 window.addEventListener('scroll', () => {
+  if (!header) return;
+
   if (window.scrollY > 60) {
     header.classList.add('scrolled');
   } else {
     header.classList.remove('scrolled');
   }
-
 });
 
 // ===== 상단 이동 =====
@@ -290,11 +291,14 @@ window.addEventListener('scroll', () => {
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 
-hamburger.addEventListener('click', () => {
-  mobileMenu.classList.toggle('open');
-});
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+}
 
 function closeMobileMenu() {
+  if (!mobileMenu) return;
   mobileMenu.classList.remove('open');
 }
 
@@ -598,10 +602,16 @@ if (phoneInput) {
     }
   }, { passive: true });
 
-  mqNarrow.addEventListener('change', () => {
+  const handleMqChange = () => {
     onLayoutChange();
     startAuto();
-  });
+  };
+
+  if (typeof mqNarrow.addEventListener === 'function') {
+    mqNarrow.addEventListener('change', handleMqChange);
+  } else if (typeof mqNarrow.addListener === 'function') {
+    mqNarrow.addListener(handleMqChange);
+  }
 
   let resizeT;
   window.addEventListener('resize', () => {
