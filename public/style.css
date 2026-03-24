@@ -735,6 +735,7 @@ img.emoji {
 .hero-title-pop {
   position: relative;
   display: inline-block;
+  white-space: nowrap;
   padding: 0.2em 0.4em 0.24em;
   border-radius: 26px;
   border: 1px solid rgba(255, 224, 102, 0.34);
@@ -779,18 +780,6 @@ img.emoji {
   18%, 42% { transform: skewX(-22deg) translateX(420%); opacity: 0.95; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero-title-pop-wrap,
-  .hero-title-pop {
-    animation: none;
-  }
-
-  .hero-title-pop::before {
-    animation: none;
-    opacity: 0;
-  }
-}
-
 @media (max-width: 768px) {
   .hero-title-pop-wrap {
     gap: 8px;
@@ -805,6 +794,7 @@ img.emoji {
   }
 
   .hero-title-pop {
+    font-size: 0.88em;
     padding: 0.22em 0.36em 0.26em;
     border-radius: 20px;
     box-shadow:
@@ -936,9 +926,27 @@ img.emoji {
   .hero-title { letter-spacing: -0.02em; }
 
   .hero-sub {
+    display: block;
+    width: 100%;
+    max-width: 30rem;
     padding: 12px 20px 13px;
     font-size: 0.86rem;
     line-height: 1.5;
+    border-radius: 20px;
+  }
+
+  .hero-cta {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    max-width: 24rem;
+    padding: 15px 20px;
+    text-align: center;
   }
 
   .hero-scroll {
@@ -3459,30 +3467,7 @@ button.svc-photo-chooser-label:focus-visible {
   box-shadow: 0 12px 40px rgba(255,224,102,0.4);
 }
 
-.scroll-top {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 44px;
-  height: 44px;
-  background: rgba(15, 23, 50, 0.88);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  transition: var(--transition);
-  z-index: 999;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.scroll-top.visible { opacity: 1; pointer-events: all; }
-.scroll-top:hover { background: var(--primary-dark); transform: translateY(-3px); }
+.scroll-top { display: none !important; }
 
 /* ===== 반응형 ===== */
 @media (max-width: 1024px) {
@@ -3503,21 +3488,15 @@ button.svc-photo-chooser-label:focus-visible {
   .logo-home-mobile { display: block; }
 
   /* 햄버거 & 드롭다운 완전 숨김 */
-  .hamburger { display: none !important; }
-  .mobile-menu { display: none !important; }
+  .hamburger {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
 
   /* nav-links 모바일에서 직접 표시 */
-  .nav-links {
-    display: flex;
-    gap: 8px;
-  }
+  .nav-links { display: none; }
   .nav-links li { list-style: none; }
-  .nav-btn,
-  .nav-btn-bulk {
-    padding: 7px 12px !important;
-    font-size: 0.78rem !important;
-    white-space: nowrap;
-  }
 
   .nav-container {
     padding: 0 16px;
@@ -3996,6 +3975,11 @@ button.svc-photo-chooser-label:focus-visible {
   .branch-card { padding: 8px 10px; gap: 6px; }
   .branch-info strong { font-size: 0.78rem; }
   .branch-info span { font-size: 0.67rem; }
+}
+
+@media (max-width: 380px) {
+  .branch-grid { grid-template-columns: 1fr; }
+  .branch-card { padding: 10px 12px; }
 }
 
 @media (hover: none) {

@@ -5,20 +5,9 @@
   if (!el) return;
 
   const full = '이런 불편함,\n익숙해지셨나요?';
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const PAUSE_AFTER_DONE_MS = 2800;
   const GAP_BEFORE_RESTART_MS = 450;
   const START_DELAY_MS = 320;
-
-  if (reduce) {
-    el.textContent = full;
-    if (cursor) {
-      cursor.classList.add('is-done');
-      cursor.style.opacity = '0';
-      cursor.style.width = '0';
-    }
-    return;
-  }
 
   let i = 0;
   const baseDelay = 68;
@@ -274,7 +263,6 @@ function switchCeil(type, btn) {
 
 // ===== 헤더 스크롤 효과 =====
 const header = document.getElementById('header');
-const scrollTopBtn = document.getElementById('scrollTop');
 
 window.addEventListener('scroll', () => {
   if (window.scrollY > 60) {
@@ -283,17 +271,9 @@ window.addEventListener('scroll', () => {
     header.classList.remove('scrolled');
   }
 
-  if (window.scrollY > 400) {
-    scrollTopBtn.classList.add('visible');
-  } else {
-    scrollTopBtn.classList.remove('visible');
-  }
 });
 
 // ===== 상단 이동 =====
-scrollTopBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
 
 // ===== 모바일 메뉴 =====
 const hamburger = document.getElementById('hamburger');
