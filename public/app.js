@@ -50,8 +50,8 @@
   benefitLabels[0].textContent = '최대 30% 할인';
   benefitNums[1].textContent = '무료';
   benefitLabels[1].textContent = '무료 방문 점검';
-  benefitNums[2].textContent = '4월/4일';
-  benefitLabels[2].textContent = '4월/4일 마감';
+  benefitNums[2].textContent = '4/4';
+  benefitLabels[2].textContent = '4/4 마감';
 })();
 
 // ===== 왜 클린베어 통계 숫자 카운트업 (반복) =====
