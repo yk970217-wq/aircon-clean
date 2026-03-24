@@ -45,6 +45,7 @@ app.set('trust proxy', true);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use((req, res, next) => {
   const acceptHeader = req.headers.accept || '';
   const isHtmlRequest = acceptHeader.includes('text/html');
@@ -55,10 +56,12 @@ app.use((req, res, next) => {
   if (req.method === 'GET' && isHtmlRequest && !isApiRequest && isPageRequest) {
     supabase
       .from('visitors')
-      .insert([{
-        ip: getClientIp(req),
-        path: req.path || '/',
-      }])
+      .insert([
+        {
+          ip: getClientIp(req),
+          path: req.path || '/',
+        },
+      ])
       .then(({ error }) => {
         if (error) {
           console.error('Visitor log failed:', error);
@@ -71,24 +74,62 @@ app.use((req, res, next) => {
 
   next();
 });
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/api/booking', async (req, res) => {
-  const { name, phone, address, service, date, memo } = req.body;
+  const {
+    name,
+    phone,
+    address,
+    service,
+    date,
+    timeSlot,
+    count,
+    discountRate,
+    estimatedPrice,
+    memo,
+  } = req.body;
 
   if (!name || !phone || !address || !service || !date) {
-    return res.status(400).json({ success: false, message: '필수 항목을 모두 입력해주세요.' });
+    return res.status(400).json({
+      success: false,
+      message: '필수 항목을 모두 입력해주세요.',
+    });
   }
+
+  const bookingCount = Math.max(1, parseInt(count, 10) || 1);
+  const appliedDiscountRate = Number(discountRate) || 0;
+
+  const memoLines = [
+    timeSlot ? `희망 시간대: ${timeSlot}` : null,
+    `대수: ${bookingCount}대`,
+    `할인율: ${appliedDiscountRate}%`,
+    estimatedPrice ? `예상 견적: ${estimatedPrice}` : null,
+    memo ? `요청사항: ${memo}` : null,
+  ].filter(Boolean);
 
   const { data, error } = await supabase
     .from('bookings')
-    .insert([{ name, phone, address, service, date, memo: memo || '' }])
+    .insert([
+      {
+        name,
+        phone,
+        address,
+        service,
+        date,
+        memo: memoLines.join('\n'),
+      },
+    ])
     .select()
     .single();
 
   if (error) {
     console.error('Booking insert failed:', error);
-    return res.status(500).json({ success: false, message: '예약 저장 중 오류가 발생했습니다.' });
+    return res.status(500).json({
+      success: false,
+      message: '예약 처리 중 오류가 발생했습니다.',
+    });
   }
 
   await sendTelegramMessage([
@@ -97,14 +138,18 @@ app.post('/api/booking', async (req, res) => {
     `연락처: ${phone}`,
     `주소: ${address}`,
     `서비스: ${service}`,
-    `희망일: ${date}`,
-    `메모: ${memo || '-'}`,
+    `대수: ${bookingCount}대`,
+    `희망 날짜: ${date}`,
+    `희망 시간대: ${timeSlot || '-'}`,
+    `할인율: ${appliedDiscountRate}%`,
+    `예상 견적: ${estimatedPrice || '-'}`,
+    `요청사항: ${memo || '-'}`,
     `예약번호: ${data.id}`,
   ]);
 
   res.json({
     success: true,
-    message: '예약이 완료되었습니다. 빠른 시간 내에 연락드리겠습니다.',
+    message: '예약이 완료되었습니다. 빠른 시간 안에 연락드리겠습니다.',
     bookingId: data.id,
   });
 });
@@ -113,16 +158,20 @@ app.post('/api/contact', async (req, res) => {
   const { name, phone, message } = req.body;
 
   if (!name || !phone || !message) {
-    return res.status(400).json({ success: false, message: '필수 항목을 모두 입력해주세요.' });
+    return res.status(400).json({
+      success: false,
+      message: '필수 항목을 모두 입력해주세요.',
+    });
   }
 
-  const { error } = await supabase
-    .from('contacts')
-    .insert([{ name, phone, message }]);
+  const { error } = await supabase.from('contacts').insert([{ name, phone, message }]);
 
   if (error) {
     console.error('Contact insert failed:', error);
-    return res.status(500).json({ success: false, message: '문의 저장 중 오류가 발생했습니다.' });
+    return res.status(500).json({
+      success: false,
+      message: '문의 처리 중 오류가 발생했습니다.',
+    });
   }
 
   await sendTelegramMessage([
@@ -142,7 +191,10 @@ app.post('/api/bulk-inquiry', async (req, res) => {
   const { phone, count, memo } = req.body;
 
   if (!phone || !count) {
-    return res.status(400).json({ success: false, message: '필수 항목을 모두 입력해주세요.' });
+    return res.status(400).json({
+      success: false,
+      message: '필수 항목을 모두 입력해주세요.',
+    });
   }
 
   const { error } = await supabase
@@ -151,7 +203,10 @@ app.post('/api/bulk-inquiry', async (req, res) => {
 
   if (error) {
     console.error('Bulk inquiry insert failed:', error);
-    return res.status(500).json({ success: false, message: '견적 문의 저장 중 오류가 발생했습니다.' });
+    return res.status(500).json({
+      success: false,
+      message: '견적 문의 처리 중 오류가 발생했습니다.',
+    });
   }
 
   await sendTelegramMessage([
@@ -161,7 +216,10 @@ app.post('/api/bulk-inquiry', async (req, res) => {
     `메모: ${memo || '-'}`,
   ]);
 
-  res.json({ success: true, message: '견적 문의가 접수되었습니다.' });
+  res.json({
+    success: true,
+    message: '견적 문의가 접수되었습니다.',
+  });
 });
 
 app.get('/api/admin/bookings', async (req, res) => {
@@ -171,7 +229,10 @@ app.get('/api/admin/bookings', async (req, res) => {
     .order('created_at', { ascending: false });
 
   if (error) {
-    return res.status(500).json({ success: false, message: '데이터 조회 오류' });
+    return res.status(500).json({
+      success: false,
+      message: '데이터 조회 오류',
+    });
   }
 
   res.json(data);
