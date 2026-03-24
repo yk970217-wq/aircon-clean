@@ -7,9 +7,20 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+const hasSupabaseConfig = Boolean(process.env.SUPABASE_URL && process.env.SUPABASE_KEY);
+const supabase = hasSupabaseConfig
+  ? createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY)
+  : null;
 const telegramToken = process.env.TELEGRAM_TOKEN;
 const telegramChatId = process.env.TELEGRAM_CHAT_ID;
+
+function getSupabase() {
+  if (!supabase) {
+    throw new Error('Supabase is not configured.');
+  }
+
+  return supabase;
+}
 
 async function sendTelegramMessage(lines) {
   if (!telegramToken || !telegramChatId) return;
@@ -54,22 +65,24 @@ app.use((req, res, next) => {
   const isPageRequest = req.path === '/' || fileExtension === '.html';
 
   if (req.method === 'GET' && isHtmlRequest && !isApiRequest && isPageRequest) {
-    supabase
-      .from('visitors')
-      .insert([
-        {
-          ip: getClientIp(req),
-          path: req.path || '/',
-        },
-      ])
-      .then(({ error }) => {
-        if (error) {
+    if (supabase) {
+      supabase
+        .from('visitors')
+        .insert([
+          {
+            ip: getClientIp(req),
+            path: req.path || '/',
+          },
+        ])
+        .then(({ error }) => {
+          if (error) {
+            console.error('Visitor log failed:', error);
+          }
+        })
+        .catch((error) => {
           console.error('Visitor log failed:', error);
-        }
-      })
-      .catch((error) => {
-        console.error('Visitor log failed:', error);
-      });
+        });
+    }
   }
 
   next();
@@ -109,7 +122,14 @@ app.post('/api/booking', async (req, res) => {
     memo ? `요청사항: ${memo}` : null,
   ].filter(Boolean);
 
-  const { data, error } = await supabase
+  if (!supabase) {
+    return res.status(503).json({
+      success: false,
+      message: '예약 시스템 설정이 아직 완료되지 않았습니다.',
+    });
+  }
+
+  const { data, error } = await getSupabase()
     .from('bookings')
     .insert([
       {
@@ -164,7 +184,14 @@ app.post('/api/contact', async (req, res) => {
     });
   }
 
-  const { error } = await supabase.from('contacts').insert([{ name, phone, message }]);
+  if (!supabase) {
+    return res.status(503).json({
+      success: false,
+      message: '문의 시스템 설정이 아직 완료되지 않았습니다.',
+    });
+  }
+
+  const { error } = await getSupabase().from('contacts').insert([{ name, phone, message }]);
 
   if (error) {
     console.error('Contact insert failed:', error);
@@ -197,7 +224,14 @@ app.post('/api/bulk-inquiry', async (req, res) => {
     });
   }
 
-  const { error } = await supabase
+  if (!supabase) {
+    return res.status(503).json({
+      success: false,
+      message: '견적 시스템 설정이 아직 완료되지 않았습니다.',
+    });
+  }
+
+  const { error } = await getSupabase()
     .from('bulk_inquiries')
     .insert([{ phone, count: parseInt(count, 10), memo: memo || '' }]);
 
@@ -223,7 +257,14 @@ app.post('/api/bulk-inquiry', async (req, res) => {
 });
 
 app.get('/api/admin/bookings', async (req, res) => {
-  const { data, error } = await supabase
+  if (!supabase) {
+    return res.status(503).json({
+      success: false,
+      message: '관리자 조회 시스템 설정이 아직 완료되지 않았습니다.',
+    });
+  }
+
+  const { data, error } = await getSupabase()
     .from('bookings')
     .select('*')
     .order('created_at', { ascending: false });
@@ -243,5 +284,8 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
+  if (!hasSupabaseConfig) {
+    console.warn('Supabase env vars are missing. API writes are disabled until configured.');
+  }
   console.log(`Server running on http://localhost:${PORT}`);
 });
