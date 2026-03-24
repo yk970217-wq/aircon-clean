@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>예약하기 | 클린베어 에어컨 청소</title>
   <link rel="stylesheet" href="style.css">
   <style>
@@ -178,7 +178,7 @@
       padding: 13px 16px;
       border: 1.5px solid #e0e8f0;
       border-radius: 10px;
-      font-size: 0.95rem;
+      font-size: 16px;
       font-family: inherit;
       background: #fafcff;
       outline: none;
@@ -283,6 +283,55 @@
       color: #aaa;
     }
 
+    .bk-bulk-link {
+      display: block;
+      margin-top: 12px;
+      text-decoration: none;
+      border-radius: 12px;
+      border: 1.5px dashed rgba(30,136,229,0.35);
+      background: rgba(30,136,229,0.04);
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .bk-bulk-link:hover {
+      background: rgba(30,136,229,0.09);
+      border-color: rgba(30,136,229,0.6);
+    }
+
+    .bk-bulk-link-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 18px;
+    }
+
+    .bk-bulk-link-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .bk-bulk-link-text strong {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1e88e5;
+      letter-spacing: -0.1px;
+    }
+
+    .bk-bulk-link-text small {
+      font-size: 0.75rem;
+      color: #888;
+      font-weight: 400;
+    }
+
+    .bk-bulk-link-arr {
+      font-size: 1.2rem;
+      color: #1e88e5;
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
     @media (max-width: 900px) {
       .booking-page-inner {
         grid-template-columns: 1fr;
@@ -292,6 +341,10 @@
         position: static;
       }
 
+      .bk-contact-cards {
+        display: none;
+      }
+
       .bk-info h1 {
         font-size: 1.8rem;
       }
@@ -299,6 +352,7 @@
       .bk-form-card {
         padding: 32px 24px;
       }
+
     }
 
     @media (max-width: 500px) {
@@ -312,6 +366,7 @@
 
       .bk-count-selector { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
+
   </style>
 </head>
 <body>
@@ -455,6 +510,16 @@
 
           <div class="bk-result" id="bkResult"></div>
           <p class="bk-form-footer">개인정보는 예약 처리 목적으로만 사용되며 제3자에게 제공되지 않습니다.</p>
+
+          <a href="bulk.html" class="bk-bulk-link">
+            <span class="bk-bulk-link-inner">
+              <span class="bk-bulk-link-text">
+                <strong>5대 이상 대량 견적이 필요하신가요?</strong>
+                <small>기업 · 사무실 · 다가구 등 전용할인가 안내</small>
+              </span>
+              <span class="bk-bulk-link-arr">›</span>
+            </span>
+          </a>
         </div>
       </div>
     </div>
@@ -471,8 +536,8 @@
           <p class="footer-custom-phone"><a href="tel:0507-1304-6329">0507-1304-6329</a></p>
           <p class="footer-custom-hours-label">영업시간</p>
           <p class="footer-custom-hours">평일 · 주말 09:00 ~ 18:00</p>
-          <p class="footer-custom-line">상호 클린베어 | 대표 김영복</p>
-          <p class="footer-custom-line">주소 경기도 고양시 덕양구 중앙로 141번길 9</p>
+          <p class="footer-custom-line">상호 클린베어 | 대표 김용광 | 사업자등록번호 801-40-01034</p>
+          <p class="footer-custom-line">주소 경기도 고양시 덕양구 대덕로 141번길 9</p>
           <p class="footer-custom-copy">© 2024 클린베어 All rights reserved.</p>
         </div>
         <div class="footer-custom-policies">
@@ -501,17 +566,23 @@
 
   <script>
     const header = document.getElementById('header');
-    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60));
+    if (header) {
+      window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60));
+    }
 
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-    function closeMobileMenu() { mobileMenu.classList.remove('open'); }
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    }
+    function closeMobileMenu() { if (mobileMenu) mobileMenu.classList.remove('open'); }
 
     const dateInput = document.getElementById('date');
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    dateInput.min = tomorrow.toISOString().split('T')[0];
+    if (dateInput) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      dateInput.min = tomorrow.toISOString().split('T')[0];
+    }
 
     const serviceInput = document.getElementById('service');
     const params = new URLSearchParams(location.search);

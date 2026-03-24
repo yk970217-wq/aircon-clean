@@ -295,6 +295,7 @@ img.emoji {
 
 #header.scrolled {
   background: rgba(255,255,255,0.97);
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   box-shadow: 0 2px 20px rgba(0,0,0,0.1);
 }
@@ -440,6 +441,19 @@ img.emoji {
   font-weight: 700;
   box-shadow: 0 6px 20px rgba(30, 136, 229, 0.35);
   margin-top: 4px;
+}
+
+.mobile-menu a[href="bulk.html"] {
+  background: linear-gradient(135deg, #ff6b00, #ff9500);
+  color: #fff !important;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(255, 107, 0, 0.35);
+}
+
+.mobile-menu a[href="bulk.html"]:hover,
+.mobile-menu a[href="bulk.html"]:active {
+  filter: brightness(1.06);
+  color: #fff !important;
 }
 
 .mobile-menu a[href="booking.html"]:hover,
@@ -824,6 +838,7 @@ img.emoji {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.07);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.2),
@@ -943,6 +958,7 @@ img.emoji {
   .hero-cta {
     width: 100%;
     flex-direction: column;
+    align-items: center;
     gap: 10px;
   }
 
@@ -1072,6 +1088,7 @@ section { padding: 100px 0; }
   margin-bottom: 28px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.14);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   touch-action: pan-y;
 }
@@ -1305,6 +1322,7 @@ section { padding: 100px 0; }
   text-decoration: none;
   color: #fff;
   transition: background 0.25s, border-color 0.25s, transform 0.25s;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
@@ -1457,6 +1475,7 @@ section { padding: 100px 0; }
   bottom: 14px;
   right: 14px;
   background: rgba(0,0,0,0.55);
+  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   color: #fff;
   font-size: 0.85rem;
@@ -1613,6 +1632,7 @@ section { padding: 100px 0; }
   border: 1px solid rgba(25, 118, 210, 0.22);
   border-radius: 14px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   transition: border-radius 0.25s ease, padding 0.25s ease, box-shadow 0.25s ease;
 }
@@ -2109,6 +2129,7 @@ button.svc-photo-chooser-label:focus-visible {
   top: 18px; right: 20px;
   z-index: 10;
   background: rgba(0,0,0,0.5);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.12);
   color: #fff;
@@ -2163,6 +2184,7 @@ button.svc-photo-chooser-label:focus-visible {
   border-radius: 50%;
   border: 1px solid rgba(255,255,255,0.15);
   background: rgba(0,0,0,0.45);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   color: #fff;
   font-size: 1.8rem;
@@ -3365,6 +3387,7 @@ button.svc-photo-chooser-label:focus-visible {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.65);
+  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   z-index: 9000;
   display: flex;
@@ -3557,6 +3580,7 @@ button.svc-photo-chooser-label:focus-visible {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(8, 15, 39, 0.78);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   box-shadow:
     0 12px 32px rgba(0, 0, 0, 0.22),
@@ -3652,6 +3676,7 @@ button.svc-photo-chooser-label:focus-visible {
   top: 50%;
   transform: translateY(-50%) translateX(6px);
   background: rgba(10, 16, 40, 0.92);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.12);
   color: #fff;
@@ -3680,29 +3705,30 @@ button.svc-photo-chooser-label:focus-visible {
 }
 
 .phone-btn {
-  background: rgba(15, 23, 50, 0.88);
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.14);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  background: #fff;
+  color: #1a1a2e;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 .phone-btn:hover {
-  background: rgba(25, 38, 75, 0.95);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  background: #f5f5f5;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
 }
 
 .msg-btn {
-  background: #ffe066;
-  color: #001a6e;
-  border: 1px solid rgba(255,224,102,0.4);
-  box-shadow: 0 8px 32px rgba(255,224,102,0.25);
+  background: #00c471;
+  color: #fff;
+  border: 1px solid rgba(0,196,113,0.4);
+  box-shadow: 0 8px 32px rgba(0,196,113,0.3);
 }
 .msg-btn:hover {
-  background: #ffd700;
-  box-shadow: 0 12px 40px rgba(255,224,102,0.4);
+  background: #00b065;
+  box-shadow: 0 12px 40px rgba(0,196,113,0.45);
 }
 
 .scroll-top { display: none !important; }
+
+
 
 /* ===== 반응형 ===== */
 @media (max-width: 1024px) {
@@ -3809,6 +3835,7 @@ button.svc-photo-chooser-label:focus-visible {
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   color: #fff;
   font-size: 1.6rem;
@@ -4074,6 +4101,7 @@ button.svc-photo-chooser-label:focus-visible {
 
 .branch-card {
   background: rgba(255,255,255,0.1);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   border-radius: 14px;
   padding: 18px 16px;
