@@ -1997,31 +1997,43 @@ button.svc-photo-chooser-label:focus-visible {
   line-height: 1.12;
   white-space: nowrap;
   max-width: 100%;
-  background: linear-gradient(
-    110deg,
-    #fffef8 0%,
-    #fff4c4 18%,
-    #ffe066 35%,
-    #ffda44 50%,
-    #fff8e0 62%,
-    #ffe066 78%,
-    #ffc93c 100%
-  );
-  background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: gallery-accent-light 2.6s ease-in-out infinite,
-    gallery-accent-shine 5.5s linear infinite;
+  color: #ffe89a;
+  text-shadow:
+    0 0 10px rgba(255, 224, 102, 0.22),
+    0 0 28px rgba(255, 201, 60, 0.18);
+  animation: gallery-accent-light 2.6s ease-in-out infinite;
   will-change: transform, filter;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .gallery-accent {
+    background: linear-gradient(
+      110deg,
+      #fffef8 0%,
+      #fff4c4 18%,
+      #ffe066 35%,
+      #ffda44 50%,
+      #fff8e0 62%,
+      #ffe066 78%,
+      #ffc93c 100%
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: none;
+    animation: gallery-accent-light 2.6s ease-in-out infinite,
+      gallery-accent-shine 5.5s linear infinite;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .gallery-accent {
     animation: none;
-    background: linear-gradient(105deg, #fff8e0, #ffe066 45%, #ffcc33);
-    -webkit-text-fill-color: transparent;
+    color: #ffe89a;
+    background: none;
+    -webkit-text-fill-color: currentColor;
     filter: drop-shadow(0 0 14px rgba(255, 224, 102, 0.45));
     transform: none;
   }
@@ -4092,6 +4104,7 @@ button.svc-photo-chooser-label:focus-visible {
 
 .branch-info {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -4101,11 +4114,15 @@ button.svc-photo-chooser-label:focus-visible {
   font-size: 0.95rem;
   font-weight: 700;
   color: #fff;
+  line-height: 1.25;
+  word-break: keep-all;
 }
 
 .branch-info span {
   font-size: 0.78rem;
   color: rgba(255,255,255,0.65);
+  line-height: 1.35;
+  word-break: keep-all;
 }
 
 .branch-arrow {
@@ -4204,8 +4221,23 @@ button.svc-photo-chooser-label:focus-visible {
   .branch-filters {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .branch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .branch-card {
+    min-width: 0;
+    padding: 8px 9px;
+    gap: 5px;
+    border-radius: 12px;
+  }
+  .branch-info strong { font-size: 0.74rem; }
+  .branch-info span { font-size: 0.62rem; }
+  .branch-arrow { font-size: 0.92rem; }
+}
+
+@media (max-width: 340px) {
   .branch-grid { grid-template-columns: 1fr; }
   .branch-card { padding: 10px 12px; }
+  .branch-info strong { font-size: 0.78rem; }
+  .branch-info span { font-size: 0.67rem; }
 }
 
 @media (hover: none) {
@@ -4228,6 +4260,20 @@ button.svc-photo-chooser-label:focus-visible {
     color: #ffe066;
     filter: none;
     animation: none;
+  }
+
+  .gallery-accent {
+    background: none;
+    background-image: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-text-fill-color: #ffe89a;
+    color: #ffe89a;
+    text-shadow:
+      0 0 8px rgba(255, 224, 102, 0.26),
+      0 0 22px rgba(255, 201, 60, 0.18);
+    filter: drop-shadow(0 4px 14px rgba(255, 196, 56, 0.14));
+    animation: gallery-accent-light 2.6s ease-in-out infinite;
   }
 
 }
