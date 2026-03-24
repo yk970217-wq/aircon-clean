@@ -8,13 +8,71 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+const telegramToken = process.env.TELEGRAM_TOKEN;
+const telegramChatId = process.env.TELEGRAM_CHAT_ID;
 
+async function sendTelegramMessage(lines) {
+  if (!telegramToken || !telegramChatId) return;
+
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: telegramChatId,
+        text: lines.join('\n'),
+      }),
+    });
+
+    if (!response.ok) {
+      console.error('Telegram send failed:', await response.text());
+    }
+  } catch (error) {
+    console.error('Telegram send failed:', error);
+  }
+}
+
+function getClientIp(req) {
+  const forwardedFor = req.headers['x-forwarded-for'];
+  if (typeof forwardedFor === 'string' && forwardedFor.trim()) {
+    return forwardedFor.split(',')[0].trim();
+  }
+
+  return req.ip || req.socket?.remoteAddress || 'unknown';
+}
+
+app.set('trust proxy', true);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  const acceptHeader = req.headers.accept || '';
+  const isHtmlRequest = acceptHeader.includes('text/html');
+  const isApiRequest = req.path.startsWith('/api');
+  const fileExtension = path.extname(req.path);
+  const isPageRequest = req.path === '/' || fileExtension === '.html';
+
+  if (req.method === 'GET' && isHtmlRequest && !isApiRequest && isPageRequest) {
+    supabase
+      .from('visitors')
+      .insert([{
+        ip: getClientIp(req),
+        path: req.path || '/',
+      }])
+      .then(({ error }) => {
+        if (error) {
+          console.error('Visitor log failed:', error);
+        }
+      })
+      .catch((error) => {
+        console.error('Visitor log failed:', error);
+      });
+  }
+
+  next();
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 예약 API
 app.post('/api/booking', async (req, res) => {
   const { name, phone, address, service, date, memo } = req.body;
 
@@ -29,20 +87,28 @@ app.post('/api/booking', async (req, res) => {
     .single();
 
   if (error) {
-    console.error('예약 저장 오류:', error);
+    console.error('Booking insert failed:', error);
     return res.status(500).json({ success: false, message: '예약 저장 중 오류가 발생했습니다.' });
   }
 
-  console.log('새 예약:', data);
+  await sendTelegramMessage([
+    '[예약 접수]',
+    `이름: ${name}`,
+    `연락처: ${phone}`,
+    `주소: ${address}`,
+    `서비스: ${service}`,
+    `희망일: ${date}`,
+    `메모: ${memo || '-'}`,
+    `예약번호: ${data.id}`,
+  ]);
 
   res.json({
     success: true,
     message: '예약이 완료되었습니다. 빠른 시간 내에 연락드리겠습니다.',
-    bookingId: data.id
+    bookingId: data.id,
   });
 });
 
-// 문의 API
 app.post('/api/contact', async (req, res) => {
   const { name, phone, message } = req.body;
 
@@ -55,19 +121,23 @@ app.post('/api/contact', async (req, res) => {
     .insert([{ name, phone, message }]);
 
   if (error) {
-    console.error('문의 저장 오류:', error);
+    console.error('Contact insert failed:', error);
     return res.status(500).json({ success: false, message: '문의 저장 중 오류가 발생했습니다.' });
   }
 
-  console.log('문의 접수:', { name, phone, message });
+  await sendTelegramMessage([
+    '[일반 문의 접수]',
+    `이름: ${name}`,
+    `연락처: ${phone}`,
+    `문의내용: ${message}`,
+  ]);
 
   res.json({
     success: true,
-    message: '문의가 접수되었습니다. 24시간 내에 답변드리겠습니다.'
+    message: '문의가 접수되었습니다. 24시간 내에 답변드리겠습니다.',
   });
 });
 
-// 대량 견적 문의 API
 app.post('/api/bulk-inquiry', async (req, res) => {
   const { phone, count, memo } = req.body;
 
@@ -77,17 +147,23 @@ app.post('/api/bulk-inquiry', async (req, res) => {
 
   const { error } = await supabase
     .from('bulk_inquiries')
-    .insert([{ phone, count: parseInt(count), memo: memo || '' }]);
+    .insert([{ phone, count: parseInt(count, 10), memo: memo || '' }]);
 
   if (error) {
-    console.error('대량 견적 저장 오류:', error);
+    console.error('Bulk inquiry insert failed:', error);
     return res.status(500).json({ success: false, message: '견적 문의 저장 중 오류가 발생했습니다.' });
   }
+
+  await sendTelegramMessage([
+    '[대량 견적 문의 접수]',
+    `연락처: ${phone}`,
+    `수량: ${count}`,
+    `메모: ${memo || '-'}`,
+  ]);
 
   res.json({ success: true, message: '견적 문의가 접수되었습니다.' });
 });
 
-// 예약 목록 (관리자용)
 app.get('/api/admin/bookings', async (req, res) => {
   const { data, error } = await supabase
     .from('bookings')
@@ -106,5 +182,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`서버 실행 중: http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
