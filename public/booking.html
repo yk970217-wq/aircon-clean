@@ -305,43 +305,490 @@
       line-height: 1.45;
     }
 
-    .bk-detail-group {
-      display: none;
-      margin-top: 14px;
+    .bk-pick-area {
+      margin-top: 8px;
     }
 
-    .bk-detail-group.is-visible {
+    .bk-pick-strip {
       display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: auto;
+      padding: 4px 0 8px;
+      margin: 0 -2px;
+      padding-left: 2px;
+      padding-right: 2px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #c5d2e8 #f0f4fa;
+      scroll-snap-type: x proximity;
     }
 
-    .bk-count-selector {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
+    .bk-pick-strip::-webkit-scrollbar {
+      height: 5px;
     }
 
-    .bk-count-btn {
-      border: 1.5px solid #d7e2f0;
-      background: #f6f9ff;
-      color: #37507a;
-      border-radius: 12px;
-      min-height: 48px;
-      font-size: 0.95rem;
+    .bk-pick-strip::-webkit-scrollbar-thumb {
+      background: #b8c8de;
+      border-radius: 4px;
+    }
+
+    .bk-pick-group {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 6px;
+      flex: 0 0 auto;
+      padding-left: 8px;
+      margin-left: 8px;
+      border-left: 1px solid #dde6f0;
+    }
+
+    .bk-pick-group:first-child {
+      padding-left: 0;
+      margin-left: 0;
+      border-left: none;
+    }
+
+    .bk-pick-group-label {
+      flex: 0 0 auto;
+      align-self: center;
+      font-size: 0.65rem;
       font-weight: 800;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+      color: #3d5266;
+      padding: 6px 8px;
+      border-radius: 6px;
+      background: #e9f0f8;
+      line-height: 1.25;
+      text-align: center;
+      word-break: keep-all;
+      max-width: 3.6em;
     }
 
-    .bk-count-btn:hover {
-      border-color: #7aa2ff;
+    .bk-pick-card {
+      flex: 0 0 auto;
+      width: 104px;
+      max-width: 28vw;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      margin: 0;
+      padding: 0;
+      border: 1px solid #d8e2ee;
+      border-radius: 10px;
+      background: #fafcff;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      scroll-snap-align: start;
+    }
+
+    .bk-pick-card:hover {
+      border-color: #003fcc;
+      box-shadow: 0 4px 14px rgba(0, 63, 204, 0.1);
       transform: translateY(-1px);
     }
 
-    .bk-count-btn.active {
+    .bk-pick-wrap {
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #fff 0%, #f0f5ff 100%);
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+    }
+
+    .bk-pick-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 4px;
+    }
+
+    .bk-pick-meta {
+      padding: 6px 6px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: center;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .bk-pick-name {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1a2a3a;
+      line-height: 1.22;
+      text-align: center;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      overflow: hidden;
+      min-height: 2.5em;
+    }
+
+    .bk-pick-price-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bk-pick-price {
+      font-size: 0.7rem;
+      font-weight: 900;
+      color: #003fcc;
+    }
+
+    .bk-pick-discount {
+      font-size: 0.58rem;
+      font-weight: 800;
+      color: #8a6910;
+      background: rgba(255, 193, 7, 0.18);
+      padding: 1px 5px;
+      border-radius: 999px;
+    }
+
+    .bk-pick-add {
+      margin: 0 6px 7px;
+      padding: 6px 6px;
+      border: none;
+      border-radius: 6px;
       background: linear-gradient(135deg, #003fcc, #0060ff);
-      border-color: #003fcc;
       color: #fff;
-      box-shadow: 0 10px 24px rgba(0, 63, 204, 0.2);
+      font-size: 0.68rem;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .bk-pick-card:hover .bk-pick-add {
+      filter: brightness(1.06);
+    }
+
+    .bk-order-summary {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f4f7fc;
+      border: 1px solid #e0e8f0;
+      min-height: 48px;
+    }
+
+    .bk-order-heading {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #6f7f93;
+      margin: 0 0 6px;
+    }
+
+    .bk-order-quote {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 2px solid #d0dce8;
+    }
+
+    .bk-order-quote-headrow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px 12px;
+      margin-bottom: 8px;
+    }
+
+    .bk-order-quote-head {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #6f7f93;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+
+    .bk-order-quote-discount {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #0d5e3e;
+      background: rgba(16, 124, 82, 0.1);
+      border: 1px solid rgba(16, 124, 82, 0.25);
+      padding: 4px 8px;
+      border-radius: 6px;
+      line-height: 1.35;
+      max-width: 100%;
+      text-align: right;
+    }
+
+    .bk-order-quote-discount--muted {
+      color: #5a6b7c;
+      background: #eef2f7;
+      border-color: #dde4ee;
+    }
+
+    .bk-order-quote-urgent {
+      margin: 10px 0 0;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      color: #6b4a12;
+      background: rgba(255, 193, 7, 0.12);
+      border: 1px solid rgba(230, 170, 0, 0.35);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+
+    .bk-order-quote-urgent strong {
+      color: #4a3508;
+    }
+
+    .bk-order-quote-amount {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #003fcc;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    .bk-order-quote-amount--pending {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #4a5d72;
+    }
+
+    .bk-order-quote-sub {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #6f7f93;
+      margin-left: 4px;
+    }
+
+    .bk-order-quote-note {
+      margin: 8px 0 0;
+      font-size: 0.72rem;
+      color: #7a8494;
+      line-height: 1.45;
+    }
+
+    .bk-order-empty {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #8a96a8;
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    .bk-order-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #e0e8f0;
+    }
+
+    .bk-order-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .bk-order-row:first-child {
+      padding-top: 0;
+    }
+
+    .bk-order-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 1px solid #e8eef5;
+    }
+
+    .bk-order-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .bk-order-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .bk-order-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #1a2a3a;
+      line-height: 1.3;
+    }
+
+    .bk-order-qty {
+      display: flex;
+      align-items: stretch;
+      box-sizing: border-box;
+      border: 1.5px solid #e0e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      height: 40px;
+      flex-shrink: 0;
+    }
+
+    .bk-order-qty button {
+      flex: 0 0 34px;
+      width: 34px;
+      min-width: 34px;
+      align-self: stretch;
+      border: none;
+      background: #eef3fb;
+      color: #37507a;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .bk-order-qty-input-wrap {
+      flex: 0 0 auto;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      width: 44px;
+      min-height: 0;
+      background: #fff;
+    }
+
+    .bk-order-qty input[type='number'] {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      height: auto;
+      min-height: 0;
+      border: none;
+      border-radius: 0;
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      font-family: inherit;
+      line-height: 1.15;
+      padding: 0 4px;
+      margin: 0;
+      box-sizing: border-box;
+      background: transparent;
+      color: #1a2a3a;
+      -webkit-appearance: none;
+      appearance: textfield;
+      -moz-appearance: textfield;
+    }
+
+    .bk-order-qty input[type='number']::-webkit-outer-spin-button,
+    .bk-order-qty input[type='number']::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
+    }
+
+    .bk-order-remove {
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid #e8d7d7;
+      border-radius: 10px;
+      background: #fff8f8;
+      color: #b33;
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+      flex-shrink: 0;
+      font-family: inherit;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 500px) {
+      .bk-pick-group {
+        gap: 5px;
+        margin-left: 6px;
+        padding-left: 6px;
+      }
+
+      .bk-pick-group-label {
+        font-size: 0.58rem;
+        padding: 5px 6px;
+      }
+
+      .bk-pick-card {
+        width: 96px;
+      }
+
+      .bk-pick-wrap img {
+        padding: 3px;
+      }
+
+      .bk-pick-name {
+        font-size: 0.7rem;
+      }
+
+      .bk-pick-price {
+        font-size: 0.64rem;
+      }
+
+      .bk-pick-discount {
+        font-size: 0.52rem;
+        padding: 1px 4px;
+      }
+
+      .bk-pick-add {
+        margin: 0 5px 6px;
+        padding: 5px 4px;
+        font-size: 0.62rem;
+      }
+    }
+
+    .bk-cart-bulk-hint {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255, 224, 102, 0.15);
+      border: 1px solid rgba(255, 180, 0, 0.35);
+      font-size: 0.82rem;
+      color: #5c4a00;
+      line-height: 1.45;
+    }
+
+    .bk-cart-bulk-hint a {
+      color: #003fcc;
+      font-weight: 700;
+    }
+
+    .bk-order-quote .bk-cart-bulk-hint--in-quote {
+      margin-top: 12px;
+      margin-bottom: 0;
     }
 
     .bk-submit {
@@ -527,8 +974,6 @@
       .bk-bulk-link-inner {
         align-items: flex-start;
       }
-
-      .bk-count-selector { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
   </style>
@@ -616,6 +1061,17 @@
           <p>* 표시 항목은 필수 입력 사항입니다</p>
 
           <form class="bk-form" id="bookingForm">
+            <div class="bk-group">
+              <label>에어컨 종류 · 대수 *</label>
+              <p class="bk-inline-note">아래 카드를 눌러 담아주세요.</p>
+              <div class="bk-pick-area" id="bkPickGrid"></div>
+              <div class="bk-order-summary" id="bkOrderSummary" aria-live="polite"></div>
+              <span id="bkCartTotalQty" class="visually-hidden">0</span>
+              <p class="bk-cart-bulk-hint" id="bkCartBulkHint" hidden>5대 이상이시면 사무실·다가구 등 <a href="bulk.html">대량 견적 페이지</a>에서 더 유리한 안내를 받을 수 있습니다.</p>
+              <input type="hidden" id="service" value="">
+              <input type="hidden" id="count" value="1">
+            </div>
+
             <div class="bk-row">
               <div class="bk-group">
                 <label>이름 *</label>
@@ -632,51 +1088,20 @@
               <input type="text" id="address" placeholder="서울시 강남구 테헤란로 123" required>
             </div>
 
-            <div class="bk-group">
-              <label>대수</label>
-              <input type="hidden" id="count" value="1">
-              <div class="bk-count-selector" id="bkCountSelector">
-                <button type="button" class="bk-count-btn active" data-count="1">1대</button>
-                <button type="button" class="bk-count-btn" data-count="2">2대~4대</button>
-                <button type="button" class="bk-count-btn" data-count="5+">5대 이상</button>
-              </div>
-            </div>
-
             <div class="bk-row">
-              <div class="bk-group">
-                <label>에어컨 종류를 선택해주세요 *</label>
-                <select id="serviceCategory" required>
-                  <option value="">선택하세요</option>
-                  <option value="잘 모르겠어요 (상담 후 추천)">잘 모르겠어요 (상담 후 추천)</option>
-                  <option value="벽걸이형">벽걸이</option>
-                  <option value="스탠드형">스탠드</option>
-                  <option value="천장형">천장형</option>
-                  <option value="2in1 에어컨">2in1</option>
-                </select>
-                <input type="hidden" id="service" value="">
-                <p class="bk-inline-note">모르겠으면 잘 모르겠어요를 선택하시면 됩니다.</p>
-
-                <div class="bk-group bk-detail-group" id="serviceDetailGroup">
-                  <label>세부 종류 *</label>
-                  <select id="serviceDetail">
-                    <option value="">세부 종류를 선택하세요</option>
-                  </select>
-                </div>
-              </div>
               <div class="bk-group">
                 <label>희망 날짜 *</label>
                 <input type="date" id="date" required>
               </div>
-            </div>
-
-            <div class="bk-group">
-              <label>희망 시간대</label>
-              <select id="timeSlot">
-                <option value="">선택하세요 (선택사항)</option>
-                <option value="오전 (09:00~12:00)">오전 (09:00~12:00)</option>
-                <option value="오후 (12:00~18:00)">오후 (12:00~18:00)</option>
-                <option value="저녁 (18:00~20:00)">저녁 (18:00~20:00)</option>
-              </select>
+              <div class="bk-group">
+                <label>희망 시간대</label>
+                <select id="timeSlot">
+                  <option value="">선택하세요 (선택사항)</option>
+                  <option value="오전 (09:00~12:00)">오전 (09:00~12:00)</option>
+                  <option value="오후 (12:00~18:00)">오후 (12:00~18:00)</option>
+                  <option value="저녁 (18:00~20:00)">저녁 (18:00~20:00)</option>
+                </select>
+              </div>
             </div>
 
             <div class="bk-group">
@@ -764,90 +1189,497 @@
     }
 
     const serviceInput = document.getElementById('service');
-    const serviceCategoryInput = document.getElementById('serviceCategory');
-    const serviceDetailGroup = document.getElementById('serviceDetailGroup');
-    const serviceDetailInput = document.getElementById('serviceDetail');
-    const serviceDetailMap = {
-      '스탠드형': [
-        { value: '스탠드형 가정용', label: '가정용' },
-        { value: '스탠드형 업소용', label: '업소용' },
-      ],
-      '천장형': [
-        { value: '천장형 1WAY', label: '1WAY' },
-        { value: '천장형 2WAY', label: '2WAY' },
-        { value: '천장형 4WAY', label: '4WAY' },
-        { value: '원형 360도', label: '원형 360도' },
-      ],
+    const countInput = document.getElementById('count');
+    const bkPickGrid = document.getElementById('bkPickGrid');
+    const bkOrderSummary = document.getElementById('bkOrderSummary');
+    const bkCartTotalQty = document.getElementById('bkCartTotalQty');
+    const bkCartBulkHint = document.getElementById('bkCartBulkHint');
+
+    /** 메인 요금표와 동일: 최종 service 문자열(line) = 키 */
+    const serviceVisualByLine = {
+      '벽걸이형': {
+        src: 'images/svc-wall.png',
+        alt: '벽걸이형',
+        name: '벽걸이형',
+        price: '80,000원',
+        discount: '10% 할인',
+      },
+      '스탠드형 가정용': {
+        src: 'images/svc-stand-home.png',
+        alt: '스탠드형 가정용',
+        name: '스탠드형 가정용',
+        price: '130,000원',
+        discount: '15% 할인',
+      },
+      '스탠드형 업소용': {
+        src: 'images/업소용스탠드.png',
+        alt: '스탠드형 업소용',
+        name: '스탠드형 업소용',
+        price: '130,000원',
+        discount: '15% 할인',
+      },
+      '2in1 에어컨': {
+        src: 'images/2IN1에어컨.png',
+        alt: '2in1 에어컨',
+        name: '2in1 에어컨',
+        price: '180,000원',
+        discount: '20% 할인',
+      },
+      '천장형 1WAY': {
+        src: 'images/svc-ceil-1way.png',
+        alt: '천장형 1WAY',
+        name: '천장형 1WAY',
+        price: '100,000원',
+        discount: '10% 할인',
+      },
+      '천장형 2WAY': {
+        src: 'images/svc-ceil-2way.png',
+        alt: '천장형 2WAY',
+        name: '천장형 2WAY',
+        price: '110,000원',
+        discount: '15% 할인',
+      },
+      '천장형 4WAY': {
+        src: 'images/svc-ceil-4way.png',
+        alt: '천장형 4WAY',
+        name: '천장형 4WAY',
+        price: '130,000원',
+        discount: '15% 할인',
+      },
+      '원형 360도': {
+        src: 'images/원형360.png',
+        alt: '원형 360',
+        name: '원형 360',
+        price: '170,000원',
+        discount: '20% 할인',
+      },
+      '잘 모르겠어요 (상담 후 추천)': {
+        src: 'images/svc-wall.png',
+        alt: '상담 후 추천',
+        name: '잘 모르겠어요',
+        price: '상담 후 안내',
+        discount: '종류 추천',
+      },
     };
 
-    function setServiceOptions(category) {
-      const detailOptions = serviceDetailMap[category] || [];
-      serviceDetailInput.innerHTML = '<option value="">세부 종류를 선택하세요</option>';
+    const PICK_GROUPS = [
+      { title: '벽걸이', lines: ['벽걸이형'] },
+      { title: '스탠드', lines: ['스탠드형 가정용', '스탠드형 업소용', '2in1 에어컨'] },
+      { title: '천장형', lines: ['천장형 1WAY', '천장형 2WAY', '천장형 4WAY', '원형 360도'] },
+    ];
+    const PICK_UNKNOWN_LINE = '잘 모르겠어요 (상담 후 추천)';
 
-      if (!detailOptions.length) {
-        serviceDetailGroup.classList.remove('is-visible');
-        serviceDetailInput.required = false;
-        serviceDetailInput.value = '';
-        return;
+    let bookingCart = [];
+
+    function getVisual(line) {
+      return serviceVisualByLine[line];
+    }
+
+    function syncCartToHidden() {
+      const items = bookingCart.filter((x) => x.qty > 0);
+      const totalQty = items.reduce((s, x) => s + x.qty, 0);
+      if (bkCartTotalQty) bkCartTotalQty.textContent = String(totalQty);
+      countInput.value = String(Math.max(0, totalQty));
+      serviceInput.value = items.map((i) => `${i.line} ×${i.qty}`).join(', ');
+      if (bkCartBulkHint) {
+        bkCartBulkHint.hidden = true;
       }
+    }
 
-      detailOptions.forEach((item) => {
-        const option = document.createElement('option');
-        option.value = item.value;
-        option.textContent = item.label;
-        serviceDetailInput.appendChild(option);
+    function addLineToCart(line) {
+      if (!getVisual(line)) return;
+      const found = bookingCart.find((x) => x.line === line);
+      if (found) {
+        found.qty = Math.min(99, found.qty + 1);
+      } else {
+        bookingCart.push({ line, qty: 1 });
+      }
+      renderOrderSummary();
+      syncCartToHidden();
+    }
+
+    function setCartQty(line, qty) {
+      const n = Math.max(1, Math.min(99, parseInt(qty, 10) || 1));
+      const found = bookingCart.find((x) => x.line === line);
+      if (found) {
+        found.qty = n;
+        renderOrderSummary();
+        syncCartToHidden();
+      }
+    }
+
+    function removeLine(line) {
+      bookingCart = bookingCart.filter((x) => x.line !== line);
+      renderOrderSummary();
+      syncCartToHidden();
+    }
+
+    function parsePriceWon(priceStr) {
+      if (!priceStr || typeof priceStr !== 'string') return null;
+      const digits = priceStr.replace(/[^\d]/g, '');
+      if (!digits) return null;
+      const n = parseInt(digits, 10);
+      return Number.isFinite(n) ? n : null;
+    }
+
+    function formatWon(n) {
+      return `${n.toLocaleString('ko-KR')}원`;
+    }
+
+    /** 장바구니 전체 대수(T) 기준 배율. 1~4대 구간, 5대 이상은 4대 구간(85%) 고정 */
+    function volumeMultiplierFromTotal(totalQty) {
+      const t = Math.max(totalQty, 1);
+      const tier = Math.min(t, 4);
+      return Math.max(0.5, 1 - (tier - 1) * 0.05);
+    }
+
+    function unitPriceForBaseAndTotal(baseWon, cartTotalQty) {
+      if (baseWon == null) return null;
+      const mult = volumeMultiplierFromTotal(cartTotalQty);
+      return Math.round(baseWon * mult);
+    }
+
+    function lineSubtotalWon(line, lineQty, cartTotalQty) {
+      const v = getVisual(line);
+      if (!v) return null;
+      const base = parsePriceWon(v.price);
+      if (base === null) return null;
+      const unit = unitPriceForBaseAndTotal(base, cartTotalQty);
+      return unit * lineQty;
+    }
+
+    function sumBaseListTotal() {
+      let s = 0;
+      bookingCart
+        .filter((x) => x.qty > 0)
+        .forEach((it) => {
+          const v = getVisual(it.line);
+          if (!v) return;
+          const base = parsePriceWon(v.price);
+          if (base === null) return;
+          s += base * it.qty;
+        });
+      return s;
+    }
+
+    function computeBookingTotals() {
+      const items = bookingCart.filter((x) => x.qty > 0);
+      const cartTotalQty = items.reduce((s, x) => s + x.qty, 0);
+      let sumKnown = 0;
+      let hasUnknown = false;
+      items.forEach((it) => {
+        const v = getVisual(it.line);
+        if (!v) return;
+        const base = parsePriceWon(v.price);
+        if (base === null) hasUnknown = true;
+        else {
+          const sub = lineSubtotalWon(it.line, it.qty, cartTotalQty);
+          if (sub != null) sumKnown += sub;
+        }
       });
-      serviceDetailGroup.classList.add('is-visible');
-      serviceDetailInput.required = true;
+      return { sumKnown, hasUnknown, items, cartTotalQty };
     }
 
-    function syncServiceValue() {
-      const category = serviceCategoryInput.value;
-      const needsDetail = Boolean(serviceDetailMap[category]);
+    function renderOrderSummary() {
+      if (!bkOrderSummary) return;
+      bkOrderSummary.innerHTML = '';
+      const heading = document.createElement('p');
+      heading.className = 'bk-order-heading';
+      heading.textContent = '담은 항목';
+      bkOrderSummary.appendChild(heading);
 
-      if (!category) {
-        serviceInput.value = '';
+      const items = bookingCart.filter((x) => x.qty > 0);
+      if (!items.length) {
+        const empty = document.createElement('p');
+        empty.className = 'bk-order-empty';
+        empty.textContent = '아직 담긴 항목이 없습니다. 위 카드를 눌러 담아주세요.';
+        bkOrderSummary.appendChild(empty);
         return;
       }
 
-      if (needsDetail) {
-        serviceInput.value = serviceDetailInput.value;
-        return;
+      const cartTotalQty = items.reduce((s, x) => s + x.qty, 0);
+
+      items.forEach((it) => {
+        const v = getVisual(it.line);
+        if (!v) return;
+        const row = document.createElement('div');
+        row.className = 'bk-order-row';
+
+        const thumb = document.createElement('div');
+        thumb.className = 'bk-order-thumb';
+        const im = document.createElement('img');
+        im.src = v.src;
+        im.alt = v.alt || v.name;
+        thumb.appendChild(im);
+
+        const body = document.createElement('div');
+        body.className = 'bk-order-body';
+        const title = document.createElement('div');
+        title.className = 'bk-order-title';
+        title.textContent = v.name;
+        body.appendChild(title);
+
+        const qtyBox = document.createElement('div');
+        qtyBox.className = 'bk-order-qty';
+        const qDown = document.createElement('button');
+        qDown.type = 'button';
+        qDown.textContent = '−';
+        qDown.setAttribute('aria-label', '대수 감소');
+        const qIn = document.createElement('input');
+        qIn.type = 'number';
+        qIn.min = '1';
+        qIn.max = '99';
+        qIn.value = String(it.qty);
+        qIn.setAttribute('aria-label', '대수');
+        const qUp = document.createElement('button');
+        qUp.type = 'button';
+        qUp.textContent = '+';
+        qUp.setAttribute('aria-label', '대수 증가');
+        const lineRef = it.line;
+        qDown.addEventListener('click', () => {
+          const cur = bookingCart.find((x) => x.line === lineRef);
+          if (cur && cur.qty > 1) setCartQty(lineRef, cur.qty - 1);
+        });
+        qUp.addEventListener('click', () => {
+          const cur = bookingCart.find((x) => x.line === lineRef);
+          if (cur) setCartQty(lineRef, cur.qty + 1);
+        });
+        qIn.addEventListener('change', () => setCartQty(lineRef, qIn.value));
+        const qWrap = document.createElement('div');
+        qWrap.className = 'bk-order-qty-input-wrap';
+        qWrap.appendChild(qIn);
+        qtyBox.appendChild(qDown);
+        qtyBox.appendChild(qWrap);
+        qtyBox.appendChild(qUp);
+
+        const rm = document.createElement('button');
+        rm.type = 'button';
+        rm.className = 'bk-order-remove';
+        rm.setAttribute('aria-label', '항목 삭제');
+        rm.textContent = '×';
+        rm.addEventListener('click', () => removeLine(lineRef));
+
+        row.appendChild(thumb);
+        row.appendChild(body);
+        row.appendChild(qtyBox);
+        row.appendChild(rm);
+        bkOrderSummary.appendChild(row);
+      });
+
+      const totals = computeBookingTotals();
+      const sumKnown = totals.sumKnown;
+      const hasUnknown = totals.hasUnknown;
+      const sumBase = sumBaseListTotal();
+      const discountWon = Math.max(0, sumBase - sumKnown);
+      const discountPct =
+        sumBase > 0 ? Math.round((discountWon / sumBase) * 1000) / 10 : 0;
+
+      const quote = document.createElement('div');
+      quote.className = 'bk-order-quote';
+
+      const headRow = document.createElement('div');
+      headRow.className = 'bk-order-quote-headrow';
+      const qHead = document.createElement('div');
+      qHead.className = 'bk-order-quote-head';
+      qHead.textContent = '최종견적';
+      headRow.appendChild(qHead);
+
+      const qBadge = document.createElement('div');
+      qBadge.className = 'bk-order-quote-discount';
+      if (cartTotalQty >= 5 && sumBase > 0) {
+        qBadge.classList.add('bk-order-quote-discount--muted');
+        qBadge.textContent = '4대까지(전체 합산) 대당 할인 · 5대 이상은 아래 대량 견적';
+      } else if (cartTotalQty >= 5) {
+        qBadge.classList.add('bk-order-quote-discount--muted');
+        qBadge.textContent = '5대 이상은 대량 견적 안내';
+      } else if (sumBase > 0 && discountWon > 0) {
+        qBadge.textContent = `1대 기준가 대비 약 ${discountPct}% · ${formatWon(discountWon)} 절약`;
+      } else if (sumBase > 0) {
+        qBadge.classList.add('bk-order-quote-discount--muted');
+        qBadge.textContent = '2대 이상(종류 합산) 대당 할인 · 지금은 1대 기준가';
+      } else {
+        qBadge.classList.add('bk-order-quote-discount--muted');
+        qBadge.textContent = '금액 확정 항목 없음';
+      }
+      headRow.appendChild(qBadge);
+
+      const qAmt = document.createElement('div');
+      qAmt.className = 'bk-order-quote-amount';
+
+      if (hasUnknown && sumKnown === 0) {
+        qAmt.classList.add('bk-order-quote-amount--pending');
+        qAmt.textContent = '상담 후 안내';
+      } else if (hasUnknown && sumKnown > 0) {
+        qAmt.appendChild(document.createTextNode(formatWon(sumKnown)));
+        const sub = document.createElement('span');
+        sub.className = 'bk-order-quote-sub';
+        sub.textContent = '+ 상담 항목';
+        qAmt.appendChild(sub);
+      } else {
+        qAmt.textContent = formatWon(sumKnown);
       }
 
-      serviceInput.value = category;
+      quote.appendChild(headRow);
+      quote.appendChild(qAmt);
+
+      if (cartTotalQty >= 5) {
+        const bulkP = document.createElement('p');
+        bulkP.className = 'bk-cart-bulk-hint bk-cart-bulk-hint--in-quote';
+        bulkP.innerHTML =
+          '5대 이상이시면 사무실·다가구 등 <a href="bulk.html">대량 견적 페이지</a>에서 더 유리한 안내를 받을 수 있습니다.';
+        quote.appendChild(bulkP);
+      } else {
+        const urgent = document.createElement('p');
+        urgent.className = 'bk-order-quote-urgent';
+        urgent.innerHTML =
+          '<strong>지금 이 화면에서 예약 접수를 완료해야</strong> 위 견적·할인 조건이 적용됩니다. ' +
+          '<strong>접수 없이 나가거나 나중에 다시 찾아오시면</strong> 같은 금액·혜택을 받지 못할 수 있어요.';
+        quote.appendChild(urgent);
+      }
+
+      if (hasUnknown) {
+        const qNote = document.createElement('p');
+        qNote.className = 'bk-order-quote-note';
+        qNote.textContent =
+          '상담·현장 조건에 따라 최종 금액이 달라질 수 있습니다.';
+        quote.appendChild(qNote);
+      }
+      bkOrderSummary.appendChild(quote);
     }
 
-    serviceCategoryInput.addEventListener('change', () => {
-      setServiceOptions(serviceCategoryInput.value);
-      syncServiceValue();
-    });
+    function createPickCard(line) {
+      const v = getVisual(line);
+      if (!v) return null;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'bk-pick-card';
+      btn.setAttribute('aria-label', `${v.name} 담기`);
 
-    serviceDetailInput.addEventListener('change', syncServiceValue);
+      const wrap = document.createElement('div');
+      wrap.className = 'bk-pick-wrap';
+      const img = document.createElement('img');
+      img.src = v.src;
+      img.alt = v.alt || v.name;
+      wrap.appendChild(img);
 
-    const params = new URLSearchParams(location.search);
-    if (params.get('service')) {
-      const requestedService = params.get('service');
-      const matchedCategory = Object.keys(serviceDetailMap).find((category) =>
-        serviceDetailMap[category].some((item) => item.value === requestedService)
+      const meta = document.createElement('div');
+      meta.className = 'bk-pick-meta';
+      const nm = document.createElement('span');
+      nm.className = 'bk-pick-name';
+      nm.textContent = v.name;
+      const pr = document.createElement('span');
+      pr.className = 'bk-pick-price-row';
+      const price = document.createElement('span');
+      price.className = 'bk-pick-price';
+      price.textContent = v.price;
+      const disc = document.createElement('span');
+      disc.className = 'bk-pick-discount';
+      disc.textContent = v.discount;
+      pr.appendChild(price);
+      pr.appendChild(disc);
+      meta.appendChild(nm);
+      meta.appendChild(pr);
+
+      const add = document.createElement('span');
+      add.className = 'bk-pick-add';
+      add.textContent = '+ 담기';
+
+      btn.appendChild(wrap);
+      btn.appendChild(meta);
+      btn.appendChild(add);
+      btn.addEventListener('click', () => addLineToCart(line));
+      return btn;
+    }
+
+    function buildPickGrid() {
+      if (!bkPickGrid) return;
+      bkPickGrid.innerHTML = '';
+      bkPickGrid.className = 'bk-pick-area';
+
+      const strip = document.createElement('div');
+      strip.className = 'bk-pick-strip';
+      strip.setAttribute('role', 'region');
+      strip.setAttribute('aria-label', '에어컨 종류별 담기');
+
+      function appendGroup(title, lines) {
+        const group = document.createElement('div');
+        group.className = 'bk-pick-group';
+        const lab = document.createElement('span');
+        lab.className = 'bk-pick-group-label';
+        lab.textContent = title;
+        group.appendChild(lab);
+        lines.forEach((line) => {
+          const card = createPickCard(line);
+          if (card) group.appendChild(card);
+        });
+        strip.appendChild(group);
+      }
+
+      PICK_GROUPS.forEach((g) => appendGroup(g.title, g.lines));
+      appendGroup('기타', [PICK_UNKNOWN_LINE]);
+
+      bkPickGrid.appendChild(strip);
+      setupPickStripAutoScroll(strip);
+    }
+
+    function setupPickStripAutoScroll(strip) {
+      if (!strip) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      let dir = 1;
+      let paused = false;
+      let resumeTimer = null;
+
+      function pause(ms) {
+        paused = true;
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(() => {
+          paused = false;
+        }, ms);
+      }
+
+      strip.addEventListener(
+        'pointerdown',
+        () => {
+          pause(3500);
+        },
+        { passive: true }
+      );
+      strip.addEventListener(
+        'wheel',
+        () => {
+          pause(3000);
+        },
+        { passive: true }
       );
 
-      if (matchedCategory) {
-        serviceCategoryInput.value = matchedCategory;
-        setServiceOptions(matchedCategory);
-        serviceDetailInput.value = requestedService;
-        syncServiceValue();
-      } else {
-        serviceCategoryInput.value = requestedService;
-        setServiceOptions(requestedService);
-        syncServiceValue();
+      function tick() {
+        requestAnimationFrame(tick);
+        if (paused || document.hidden) return;
+        if (strip.scrollWidth <= strip.clientWidth + 2) return;
+        const max = strip.scrollWidth - strip.clientWidth;
+        strip.scrollLeft += dir * 0.45;
+        if (strip.scrollLeft >= max - 0.5) dir = -1;
+        else if (strip.scrollLeft <= 0.5) dir = 1;
       }
+
+      requestAnimationFrame(tick);
     }
 
-    if (!params.get('service')) {
-      setServiceOptions('');
-      syncServiceValue();
+    function initFromUrl() {
+      const params = new URLSearchParams(location.search);
+      const q = params.get('service');
+      if (q && getVisual(q)) {
+        bookingCart = [{ line: q, qty: 1 }];
+      } else {
+        bookingCart = [];
+      }
+      renderOrderSummary();
+      syncCartToHidden();
     }
+
+    buildPickGrid();
+    initFromUrl();
 
     document.getElementById('phone').addEventListener('input', (e) => {
       let value = e.target.value.replace(/\D/g, '');
@@ -857,44 +1689,31 @@
       e.target.value = value;
     });
 
-    const countInput = document.getElementById('count');
-
-    document.getElementById('bkCountSelector').addEventListener('click', (e) => {
-      const button = e.target.closest('.bk-count-btn');
-      if (!button) return;
-      if (button.dataset.count === '5+') {
-        window.location.href = 'bulk.html';
-        return;
-      }
-      countInput.value = button.dataset.count;
-      document.querySelectorAll('.bk-count-btn').forEach((node) => node.classList.toggle('active', node === button));
-    });
-
     document.getElementById('bookingForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('bkSubmit');
       const result = document.getElementById('bkResult');
-      syncServiceValue();
+      syncCartToHidden();
 
-      if (!serviceCategoryInput.value) {
+      const items = bookingCart.filter((x) => x.qty > 0);
+      if (items.length === 0) {
         result.className = 'bk-result error';
-        result.innerHTML = '에어컨 종류를 선택해주세요.';
-        serviceCategoryInput.focus();
-        return;
-      }
-
-      if (serviceDetailGroup.classList.contains('is-visible') && !serviceDetailInput.value) {
-        result.className = 'bk-result error';
-        result.innerHTML = '세부 종류를 선택해주세요.';
-        serviceDetailInput.focus();
+        result.innerHTML = '에어컨 종류를 카드에서 최소 1개 이상 담아주세요.';
+        if (bkPickGrid && bkPickGrid.querySelector('.bk-pick-card')) {
+          bkPickGrid.querySelector('.bk-pick-card').focus();
+        }
         return;
       }
 
       btn.textContent = '처리 중...';
       btn.disabled = true;
 
-      const selectedCount = Number(countInput.value || 1);
-      const discountRate = selectedCount >= 2 ? 5 : 0;
+      const selectedCount = Math.max(1, items.reduce((s, x) => s + x.qty, 0));
+      const t = computeBookingTotals();
+      let estimatedPrice = '';
+      if (t.hasUnknown && t.sumKnown === 0) estimatedPrice = '상담 후 안내';
+      else if (t.hasUnknown && t.sumKnown > 0) estimatedPrice = `${formatWon(t.sumKnown)} + 상담 항목`;
+      else estimatedPrice = formatWon(t.sumKnown);
       const data = {
         name: document.getElementById('name').value,
         phone: document.getElementById('phone').value,
@@ -903,9 +1722,14 @@
         date: document.getElementById('date').value,
         timeSlot: document.getElementById('timeSlot').value,
         count: selectedCount,
-        discountRate,
-        estimatedPrice: '',
+        discountRate: 0,
+        estimatedPrice,
         memo: document.getElementById('memo').value,
+        serviceItems: items.map((it) => ({
+          label: (getVisual(it.line) && getVisual(it.line).name) || it.line,
+          line: it.line,
+          qty: it.qty,
+        })),
       };
 
       try {
@@ -922,10 +1746,11 @@
 
         if (json.success) {
           document.getElementById('bookingForm').reset();
-          setServiceOptions('');
           serviceInput.value = '';
           countInput.value = '1';
-          document.querySelectorAll('.bk-count-btn').forEach((node, index) => node.classList.toggle('active', index === 0));
+          bookingCart = [];
+          renderOrderSummary();
+          syncCartToHidden();
         }
       } catch {
         result.className = 'bk-result error';
