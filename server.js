@@ -92,6 +92,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/api/booking', async (req, res) => {
   const {
+    name,
     phone,
     address,
     service,
@@ -104,7 +105,7 @@ app.post('/api/booking', async (req, res) => {
     serviceItems,
   } = req.body;
 
-  if (!phone || !address || !service || !date) {
+  if (!name || !phone || !address || !service || !date) {
     return res.status(400).json({
       success: false,
       message: '필수 항목을 모두 입력해주세요.',
@@ -146,11 +147,16 @@ app.post('/api/booking', async (req, res) => {
     .from('bookings')
     .insert([
       {
+        name: String(name).trim(),
         phone,
         address,
         service,
         date,
         memo: memoLines.join('\n'),
+        time_slot: timeSlot || '',
+        count: bookingCount,
+        discount_rate: appliedDiscountRate,
+        estimated_price: estimatedPrice ? String(estimatedPrice) : '',
       },
     ])
     .select()
@@ -167,6 +173,7 @@ app.post('/api/booking', async (req, res) => {
   await sendTelegramMessage(
     [
       '[예약 접수]',
+      `이름: ${name}`,
       `연락처: ${phone}`,
       `주소: ${address}`,
       `서비스: ${service}`,
