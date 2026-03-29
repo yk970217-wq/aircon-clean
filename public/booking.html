@@ -143,6 +143,97 @@
       overflow: hidden;
     }
 
+    .bk-offer-banner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 20px;
+      margin-bottom: 22px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 224, 102, 0.34), transparent 42%),
+        linear-gradient(135deg, #0d2f8b, #0056d6 58%, #1f88ff);
+      box-shadow: 0 18px 34px rgba(0, 63, 204, 0.22);
+      overflow: hidden;
+      animation: bk-offer-float 2.8s ease-in-out infinite;
+    }
+
+    .bk-offer-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.22) 48%, transparent 100%);
+      transform: translateX(-120%);
+      animation: bk-offer-shine 3.6s ease-in-out infinite;
+    }
+
+    .bk-offer-icon {
+      position: relative;
+      z-index: 1;
+      width: 46px;
+      height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffe066;
+      font-size: 1.25rem;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+    }
+
+    .bk-offer-copy {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      color: #fff;
+    }
+
+    .bk-offer-kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.72);
+      text-transform: uppercase;
+    }
+
+    .bk-offer-copy strong {
+      font-size: 1.08rem;
+      font-weight: 900;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    .bk-offer-copy strong span {
+      color: #ffe066;
+    }
+
+    .bk-offer-mobile-break {
+      display: none;
+    }
+
+    .bk-offer-copy p {
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    @keyframes bk-offer-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    @keyframes bk-offer-shine {
+      0%, 22% { transform: translateX(-120%); }
+      45%, 100% { transform: translateX(120%); }
+    }
+
     .bk-form-card h2 {
       font-size: 1.4rem;
       font-weight: 800;
@@ -202,9 +293,25 @@
       box-shadow: 0 0 0 3px rgba(0, 63, 204, 0.1);
     }
 
-    .bk-group textarea {
+            .bk-group textarea {
       resize: vertical;
       min-height: 100px;
+    }
+
+    .bk-inline-note {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #6f7f93;
+      line-height: 1.45;
+    }
+
+    .bk-detail-group {
+      display: none;
+      margin-top: 14px;
+    }
+
+    .bk-detail-group.is-visible {
+      display: flex;
     }
 
     .bk-count-selector {
@@ -367,6 +474,10 @@
         padding: 32px 24px;
       }
 
+      .bk-offer-banner {
+        margin-bottom: 18px;
+      }
+
     }
 
     @media (max-width: 500px) {
@@ -386,6 +497,31 @@
       .bk-form-card {
         padding: 28px 18px;
         border-radius: 20px;
+      }
+
+      .bk-offer-banner {
+        align-items: flex-start;
+        padding: 16px;
+        border-radius: 16px;
+      }
+
+      .bk-offer-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+      }
+
+      .bk-offer-copy strong {
+        font-size: 0.98rem;
+      }
+
+      .bk-offer-mobile-break {
+        display: block;
+      }
+
+      .bk-offer-copy p {
+        font-size: 0.77rem;
       }
 
       .bk-bulk-link-inner {
@@ -468,6 +604,14 @@
         </div>
 
         <div class="bk-form-card">
+          <div class="bk-offer-banner" aria-label="2대 이상 추가 할인 안내">
+            <div class="bk-offer-icon" aria-hidden="true">%</div>
+            <div class="bk-offer-copy">
+              <span class="bk-offer-kicker">MULTI DISCOUNT</span>
+              <strong>예약 전에 확인하세요.<br class="bk-offer-mobile-break"><span>2대 이상 추가 할인</span><br>최대 10%~30% 혜택</strong>
+            </div>
+          </div>
+
           <h2>예약 신청</h2>
           <p>* 표시 항목은 필수 입력 사항입니다</p>
 
@@ -488,22 +632,36 @@
               <input type="text" id="address" placeholder="서울시 강남구 테헤란로 123" required>
             </div>
 
+            <div class="bk-group">
+              <label>대수</label>
+              <input type="hidden" id="count" value="1">
+              <div class="bk-count-selector" id="bkCountSelector">
+                <button type="button" class="bk-count-btn active" data-count="1">1대</button>
+                <button type="button" class="bk-count-btn" data-count="2">2대~4대</button>
+                <button type="button" class="bk-count-btn" data-count="5+">5대 이상</button>
+              </div>
+            </div>
+
             <div class="bk-row">
               <div class="bk-group">
-                <label>서비스 종류 *</label>
-                <select id="service" required>
+                <label>에어컨 종류를 선택해주세요 *</label>
+                <select id="serviceCategory" required>
                   <option value="">선택하세요</option>
-                  <option value="벽걸이형">벽걸이형</option>
-                  <option value="스탠드형 가정용">스탠드형 가정용</option>
-                  <option value="스탠드형 업소용">스탠드형 업소용</option>
-                  <option value="2in1 에어컨">2in1 에어컨</option>
-                  <option value="천장형 1WAY">천장형 1WAY</option>
-                  <option value="천장형 2WAY">천장형 2WAY</option>
-                  <option value="천장형 4WAY">천장형 4WAY</option>
-                  <option value="원형 360도">천장형 원형 360도</option>
-                  <option value="상담후결정(2대~4대)">상담후 결정(2대~4대) [추가할인]</option>
-                  <option value="5대 이상 (대량 견적)">5대이상 대량견적 [추가할인]</option>
+                  <option value="잘 모르겠어요 (상담 후 추천)">잘 모르겠어요 (상담 후 추천)</option>
+                  <option value="벽걸이형">벽걸이</option>
+                  <option value="스탠드형">스탠드</option>
+                  <option value="천장형">천장형</option>
+                  <option value="2in1 에어컨">2in1</option>
                 </select>
+                <input type="hidden" id="service" value="">
+                <p class="bk-inline-note">모르겠으면 잘 모르겠어요를 선택하시면 됩니다.</p>
+
+                <div class="bk-group bk-detail-group" id="serviceDetailGroup">
+                  <label>세부 종류 *</label>
+                  <select id="serviceDetail">
+                    <option value="">세부 종류를 선택하세요</option>
+                  </select>
+                </div>
               </div>
               <div class="bk-group">
                 <label>희망 날짜 *</label>
@@ -519,16 +677,6 @@
                 <option value="오후 (12:00~18:00)">오후 (12:00~18:00)</option>
                 <option value="저녁 (18:00~20:00)">저녁 (18:00~20:00)</option>
               </select>
-            </div>
-
-            <div class="bk-group">
-              <label>대수</label>
-              <input type="hidden" id="count" value="1">
-              <div class="bk-count-selector" id="bkCountSelector">
-                <button type="button" class="bk-count-btn active" data-count="1">1대</button>
-                <button type="button" class="bk-count-btn" data-count="2">2대~4대</button>
-                <button type="button" class="bk-count-btn" data-count="5+">5대 이상</button>
-              </div>
             </div>
 
             <div class="bk-group">
@@ -616,17 +764,89 @@
     }
 
     const serviceInput = document.getElementById('service');
-    serviceInput.addEventListener('change', () => {
-      if (serviceInput.value === '5대 이상 (대량 견적)') {
-        window.location.href = 'bulk.html';
+    const serviceCategoryInput = document.getElementById('serviceCategory');
+    const serviceDetailGroup = document.getElementById('serviceDetailGroup');
+    const serviceDetailInput = document.getElementById('serviceDetail');
+    const serviceDetailMap = {
+      '스탠드형': [
+        { value: '스탠드형 가정용', label: '가정용' },
+        { value: '스탠드형 업소용', label: '업소용' },
+      ],
+      '천장형': [
+        { value: '천장형 1WAY', label: '1WAY' },
+        { value: '천장형 2WAY', label: '2WAY' },
+        { value: '천장형 4WAY', label: '4WAY' },
+        { value: '원형 360도', label: '원형 360도' },
+      ],
+    };
+
+    function setServiceOptions(category) {
+      const detailOptions = serviceDetailMap[category] || [];
+      serviceDetailInput.innerHTML = '<option value="">세부 종류를 선택하세요</option>';
+
+      if (!detailOptions.length) {
+        serviceDetailGroup.classList.remove('is-visible');
+        serviceDetailInput.required = false;
+        serviceDetailInput.value = '';
+        return;
       }
+
+      detailOptions.forEach((item) => {
+        const option = document.createElement('option');
+        option.value = item.value;
+        option.textContent = item.label;
+        serviceDetailInput.appendChild(option);
+      });
+      serviceDetailGroup.classList.add('is-visible');
+      serviceDetailInput.required = true;
+    }
+
+    function syncServiceValue() {
+      const category = serviceCategoryInput.value;
+      const needsDetail = Boolean(serviceDetailMap[category]);
+
+      if (!category) {
+        serviceInput.value = '';
+        return;
+      }
+
+      if (needsDetail) {
+        serviceInput.value = serviceDetailInput.value;
+        return;
+      }
+
+      serviceInput.value = category;
+    }
+
+    serviceCategoryInput.addEventListener('change', () => {
+      setServiceOptions(serviceCategoryInput.value);
+      syncServiceValue();
     });
+
+    serviceDetailInput.addEventListener('change', syncServiceValue);
 
     const params = new URLSearchParams(location.search);
     if (params.get('service')) {
-      [...serviceInput.options].forEach((option) => {
-        if (option.value === params.get('service')) option.selected = true;
-      });
+      const requestedService = params.get('service');
+      const matchedCategory = Object.keys(serviceDetailMap).find((category) =>
+        serviceDetailMap[category].some((item) => item.value === requestedService)
+      );
+
+      if (matchedCategory) {
+        serviceCategoryInput.value = matchedCategory;
+        setServiceOptions(matchedCategory);
+        serviceDetailInput.value = requestedService;
+        syncServiceValue();
+      } else {
+        serviceCategoryInput.value = requestedService;
+        setServiceOptions(requestedService);
+        syncServiceValue();
+      }
+    }
+
+    if (!params.get('service')) {
+      setServiceOptions('');
+      syncServiceValue();
     }
 
     document.getElementById('phone').addEventListener('input', (e) => {
@@ -654,6 +874,22 @@
       e.preventDefault();
       const btn = document.getElementById('bkSubmit');
       const result = document.getElementById('bkResult');
+      syncServiceValue();
+
+      if (!serviceCategoryInput.value) {
+        result.className = 'bk-result error';
+        result.innerHTML = '에어컨 종류를 선택해주세요.';
+        serviceCategoryInput.focus();
+        return;
+      }
+
+      if (serviceDetailGroup.classList.contains('is-visible') && !serviceDetailInput.value) {
+        result.className = 'bk-result error';
+        result.innerHTML = '세부 종류를 선택해주세요.';
+        serviceDetailInput.focus();
+        return;
+      }
+
       btn.textContent = '처리 중...';
       btn.disabled = true;
 
@@ -686,6 +922,8 @@
 
         if (json.success) {
           document.getElementById('bookingForm').reset();
+          setServiceOptions('');
+          serviceInput.value = '';
           countInput.value = '1';
           document.querySelectorAll('.bk-count-btn').forEach((node, index) => node.classList.toggle('active', index === 0));
         }
