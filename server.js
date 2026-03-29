@@ -92,7 +92,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/api/booking', async (req, res) => {
   const {
-    name,
     phone,
     address,
     service,
@@ -102,9 +101,10 @@ app.post('/api/booking', async (req, res) => {
     discountRate,
     estimatedPrice,
     memo,
+    serviceItems,
   } = req.body;
 
-  if (!name || !phone || !address || !service || !date) {
+  if (!phone || !address || !service || !date) {
     return res.status(400).json({
       success: false,
       message: '필수 항목을 모두 입력해주세요.',
@@ -114,8 +114,21 @@ app.post('/api/booking', async (req, res) => {
   const bookingCount = Math.max(1, parseInt(count, 10) || 1);
   const appliedDiscountRate = Number(discountRate) || 0;
 
+  let itemsLine = null;
+  if (Array.isArray(serviceItems) && serviceItems.length > 0) {
+    itemsLine = serviceItems
+      .map((row) => {
+        const label = typeof row.label === 'string' && row.label.trim() ? row.label.trim() : row.line || '';
+        const q = Math.max(1, parseInt(row.qty, 10) || 1);
+        return label ? `${label} ×${q}대` : null;
+      })
+      .filter(Boolean)
+      .join(', ');
+  }
+
   const memoLines = [
     timeSlot ? `희망 시간대: ${timeSlot}` : null,
+    itemsLine ? `에어컨 내역: ${itemsLine}` : null,
     `대수: ${bookingCount}대`,
     `할인율: ${appliedDiscountRate}%`,
     estimatedPrice ? `예상 견적: ${estimatedPrice}` : null,
@@ -133,7 +146,6 @@ app.post('/api/booking', async (req, res) => {
     .from('bookings')
     .insert([
       {
-        name,
         phone,
         address,
         service,
@@ -152,20 +164,22 @@ app.post('/api/booking', async (req, res) => {
     });
   }
 
-  await sendTelegramMessage([
-    '[예약 접수]',
-    `이름: ${name}`,
-    `연락처: ${phone}`,
-    `주소: ${address}`,
-    `서비스: ${service}`,
-    `대수: ${bookingCount}대`,
-    `희망 날짜: ${date}`,
-    `희망 시간대: ${timeSlot || '-'}`,
-    `할인율: ${appliedDiscountRate}%`,
-    `예상 견적: ${estimatedPrice || '-'}`,
-    `요청사항: ${memo || '-'}`,
-    `예약번호: ${data.id}`,
-  ]);
+  await sendTelegramMessage(
+    [
+      '[예약 접수]',
+      `연락처: ${phone}`,
+      `주소: ${address}`,
+      `서비스: ${service}`,
+      itemsLine ? `에어컨 내역: ${itemsLine}` : '',
+      `대수: ${bookingCount}대`,
+      `희망 날짜: ${date}`,
+      `희망 시간대: ${timeSlot || '-'}`,
+      `할인율: ${appliedDiscountRate}%`,
+      `예상 견적: ${estimatedPrice || '-'}`,
+      `요청사항: ${memo || '-'}`,
+      `예약번호: ${data.id}`,
+    ].filter((line) => line !== '')
+  );
 
   res.json({
     success: true,
