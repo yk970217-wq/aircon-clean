@@ -242,11 +242,11 @@ function switchStand(type, btn) {
   const desc  = document.getElementById('standDesc');
   if (type === 'home') {
     switchPhoto(img, 'images/svc-stand-home.png');
-    price.textContent = '130,000원~';
+    price.textContent = '130,000원';
     desc.textContent  = '가정용 스탠드 에어컨 내부 깊숙이 쌓인 먼지와 곰팡이를 분리세척으로 완벽하게 제거합니다.';
   } else {
     switchPhoto(img, 'images/svc-stand-biz.png');
-    price.textContent = '130,000원~';
+    price.textContent = '130,000원';
     desc.textContent  = '업소용 대형 스탠드 에어컨을 전문 분해 후 고압세척합니다. 현장 규모에 맞게 맞춤 견적을 제공합니다.';
   }
 }
@@ -262,9 +262,9 @@ function switchCeil(type, btn) {
   const price = document.getElementById('ceilPrice');
   const desc  = document.getElementById('ceilDesc');
   const map = {
-    '1way': { src: 'images/svc-ceil-1way.png', price: '100,000원~',   desc: '1WAY 천장 카세트형 에어컨을 전문 분해 후 고압세척합니다.' },
-    '2way': { src: 'images/svc-ceil-2way.png', price: '110,000원~',  desc: '2WAY 천장형 에어컨을 전문 분해 후 고압세척합니다.' },
-    '4way': { src: 'images/svc-ceil-4way.png', price: '130,000원~',  desc: '4WAY 카세트형 에어컨을 전문 분해 후 고압세척합니다.' },
+    '1way': { src: 'images/svc-ceil-1way.png', price: '100,000원',   desc: '1WAY 천장 카세트형 에어컨을 전문 분해 후 고압세척합니다.' },
+    '2way': { src: 'images/svc-ceil-2way.png', price: '110,000원',  desc: '2WAY 천장형 에어컨을 전문 분해 후 고압세척합니다.' },
+    '4way': { src: 'images/svc-ceil-4way.png', price: '130,000원',  desc: '4WAY 카세트형 에어컨을 전문 분해 후 고압세척합니다.' },
   };
   const d = map[type];
   switchPhoto(img, d.src);

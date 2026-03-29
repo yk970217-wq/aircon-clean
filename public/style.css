@@ -4339,3 +4339,480 @@ button.svc-photo-chooser-label:focus-visible {
   }
 
 }
+
+/* ===== 가격 안내 섹션 ===== */
+.pricing {
+  background: #060c20;
+  padding: 100px 0 80px;
+}
+
+.pricing .section-tag { background: rgba(255,255,255,0.1); color: #7eb8ff; }
+.pricing .section-header h2 { color: #fff; }
+.pricing .section-header p  { color: rgba(255,255,255,0.45); }
+
+/* 테이블 래퍼 */
+.pricing-table-wrap {
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 16px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+}
+
+/* 헤더 */
+.pricing-thead {
+  display: grid;
+  grid-template-columns: 4px 1fr 150px 110px;
+  align-items: center;
+  background: rgba(0,40,140,0.7);
+  padding: 10px 20px 10px 20px;
+  gap: 16px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.pricing-thead > :first-child { visibility: hidden; }
+
+/* 행 */
+.pt-row {
+  display: grid;
+  grid-template-columns: 4px 1fr 150px 110px;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px 0 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.015);
+  transition: background 0.15s;
+  min-height: 56px;
+}
+
+.pt-row:hover { background: rgba(255,255,255,0.045); }
+
+/* 왼쪽 컬러 바 */
+.pt-accent-bar {
+  align-self: stretch;
+  width: 4px;
+  min-height: 56px;
+}
+
+.pt-row--home   .pt-accent-bar { background: #4caf50; }
+.pt-row--biz    .pt-accent-bar { background: #ff9800; }
+.pt-row--2in1   .pt-accent-bar { background: #2979ff; }
+.pt-row--ceil   .pt-accent-bar { background: #ab47bc; }
+
+/* 서비스명 */
+.pt-col-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+}
+
+.pt-col-name strong {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.pt-col-name em {
+  font-style: normal;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.38);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* 배지 */
+.pt-badge {
+  display: inline-block;
+  font-size: 0.67rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pt-badge--home { background: rgba(76,175,80,0.15); color: #81c784; border: 1px solid rgba(76,175,80,0.3); }
+.pt-badge--biz  { background: rgba(255,152,0,0.15);  color: #ffb74d; border: 1px solid rgba(255,152,0,0.3); }
+.pt-badge--2in1 { background: rgba(41,121,255,0.18); color: #82b1ff; border: 1px solid rgba(41,121,255,0.35); }
+.pt-badge--ceil { background: rgba(171,71,188,0.15); color: #ce93d8; border: 1px solid rgba(171,71,188,0.3); }
+
+/* 정가 + 이벤트가 묶음 */
+.pt-col-price-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.pt-original {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.28);
+  text-decoration: line-through;
+  text-decoration-color: rgba(255,255,255,0.2);
+  white-space: nowrap;
+}
+
+.pt-price {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #ffe066;
+  white-space: nowrap;
+  letter-spacing: -0.5px;
+}
+
+/* 버튼 */
+.pt-col-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 0;
+}
+
+.pt-urgency-text {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #ff8a80;
+  text-align: center;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.pt-btn {
+  display: inline-block;
+  padding: 9px 18px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #003fcc, #0060ff);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.pt-btn:hover { opacity: 0.82; transform: translateY(-1px); }
+
+.pt-btn--outline {
+  background: transparent;
+  border: 1.5px solid rgba(100,160,255,0.4);
+  color: #82b1ff;
+}
+
+.pt-btn--outline:hover { background: rgba(0,63,204,0.18); opacity: 1; }
+
+/* 안내 */
+.pricing-notice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 13px 18px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.6;
+}
+
+.pricing-notice svg { flex-shrink: 0; color: #7eb8ff; }
+.pricing-notice a { color: #7eb8ff; font-weight: 700; text-decoration: none; }
+.pricing-notice a:hover { text-decoration: underline; }
+
+/* 이미지 예약 카드 그리드 */
+.pricing-img-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.pricing-img-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 16px 12px 14px;
+  text-decoration: none;
+  gap: 10px;
+  transition: background 0.18s, transform 0.18s, border-color 0.18s;
+}
+
+.pricing-img-card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,224,102,0.35);
+  transform: translateY(-3px);
+}
+
+.pricing-img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pricing-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pricing-img-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  text-align: center;
+}
+
+.pricing-img-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.pricing-img-price {
+  font-size: 0.88rem;
+  font-weight: 900;
+  color: #ffe066;
+}
+
+.pricing-img-price-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pricing-img-discount {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 224, 102, 0.16);
+  border: 1px solid rgba(255, 224, 102, 0.28);
+  color: #ffe066;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.pricing-img-btn {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ffe066, #ffb300);
+  color: #0a1832;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
+  margin-top: auto;
+}
+
+@media (max-width: 900px) {
+  .pricing-img-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+}
+
+@media (max-width: 600px) {
+  .pricing-img-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .pricing-img-card { padding: 12px 10px; }
+  .pricing-img-name { font-size: 0.78rem; }
+  .pricing-img-price-row { gap: 6px; }
+  .pricing-img-discount { font-size: 0.68rem; padding: 3px 7px; }
+}
+
+/* 긴급성 배너 */
+.pricing-urgency-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(255,44,44,0.18), rgba(255,100,60,0.12));
+  border: 1.5px solid rgba(255,80,60,0.55);
+  border-radius: 12px;
+  padding: 15px 28px;
+  margin-bottom: 32px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #ff6b6b;
+  text-align: center;
+  letter-spacing: 0.2px;
+  box-shadow: 0 0 24px rgba(255,50,50,0.12), inset 0 1px 0 rgba(255,120,100,0.15);
+  animation: urgency-banner-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes urgency-banner-pulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(255,50,50,0.15), inset 0 1px 0 rgba(255,120,100,0.15); border-color: rgba(255,80,60,0.55); }
+  50% { box-shadow: 0 0 36px rgba(255,50,50,0.35), inset 0 1px 0 rgba(255,120,100,0.2); border-color: rgba(255,80,60,0.9); }
+}
+
+.urgency-mobile { display: none; text-align: center; line-height: 1.6; }
+.urgency-pc { display: inline; }
+
+
+/* 헤드라인 강조 */
+.pricing-headline-accent {
+  color: #ffe066;
+}
+
+.pricing-headline-break {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .urgency-pc { display: none; }
+  .urgency-mobile { display: inline; }
+  .pricing-headline-break { display: block; }
+}
+
+/* 신뢰 바 */
+.pricing-trust-bar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-bottom: 28px;
+}
+
+.pricing-trust-bar span {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.55);
+  font-weight: 600;
+}
+
+/* BEST 배지 */
+.pt-best-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 900;
+  background: #ffe066;
+  color: #0a1a3a;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.8px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* BEST 행 강조 */
+.pt-row--best {
+  background: rgba(255,224,102,0.04);
+}
+.pt-row--best:hover {
+  background: rgba(255,224,102,0.08);
+}
+.pt-row--best .pt-accent-bar {
+  background: #4caf50 !important;
+}
+
+/* 신뢰 한줄 설명 */
+.pt-trust-line {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.32);
+  font-weight: 400;
+  width: 100%;
+  margin-top: 2px;
+}
+
+/* 할인율 라벨 */
+.pt-discount-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #6fcf72;
+  white-space: nowrap;
+}
+
+/* CTA 버튼 강조 */
+.pt-btn--cta {
+  background: linear-gradient(135deg, #ffe066, #ffb300);
+  color: #0a1832;
+  font-size: 0.78rem;
+  padding: 10px 14px;
+  border-radius: 9px;
+  box-shadow: 0 4px 16px rgba(255,200,0,0.25);
+  white-space: normal;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.pt-btn--cta:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255,200,0,0.35);
+}
+
+/* ── 반응형 ── */
+@media (max-width: 720px) {
+  .pricing-thead { display: none; }
+
+  .pt-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    min-height: unset;
+    padding: 0;
+    gap: 0;
+  }
+
+  .pt-accent-bar {
+    flex: 0 0 4px;
+    min-height: 100%;
+  }
+
+  .pt-col-name {
+    flex: 1 1 auto;
+    padding: 14px 10px 14px 14px;
+    flex-wrap: wrap;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  .pt-col-name strong { font-size: 0.92rem; }
+
+  .pt-col-price-group {
+    flex: 0 0 auto;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 14px 10px;
+  }
+
+  .pt-price { font-size: 1.05rem; }
+
+  .pt-col-action {
+    flex: 0 0 auto;
+    align-items: center;
+    padding: 14px 14px 14px 4px;
+  }
+
+  .pt-btn { padding: 9px 12px; font-size: 0.75rem; }
+  .pt-btn--cta { padding: 9px 12px; font-size: 0.74rem; }
+  .pricing-trust-bar { gap: 6px 14px; }
+}
+
+@media (max-width: 480px) {
+  .pricing { padding: 72px 0 56px; }
+  .pricing-table-wrap { border-radius: 14px; }
+  .pt-original { display: none; }
+  .pt-discount-label { display: none; }
+  .pt-trust-line { display: none; }
+  .pt-col-name { gap: 4px; }
+  .pt-best-badge { display: none; }
+  .pt-col-name em { display: none; }
+  .pt-urgency-text { display: none; }
+}
