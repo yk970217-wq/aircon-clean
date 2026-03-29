@@ -496,11 +496,13 @@
                   <option value="벽걸이형">벽걸이형 (80,000원~)</option>
                   <option value="스탠드형 가정용">스탠드형 가정용 (130,000원~)</option>
                   <option value="스탠드형 업소용">스탠드형 업소용 (130,000원~)</option>
+                  <option value="2in1 에어컨">2in1 에어컨 (180,000원~)</option>
                   <option value="천장형 1WAY">천장형 1WAY (100,000원~)</option>
                   <option value="천장형 2WAY">천장형 2WAY (110,000원~)</option>
                   <option value="천장형 4WAY">천장형 4WAY (130,000원~)</option>
                   <option value="원형 360도">천장형 원형 360 (170,000원~)</option>
                   <option value="상담후결정(2대~5대)">상담후결정(2대~5대)</option>
+                  <option value="5대 이상 (대량 견적)">5대 이상 (대량 견적 문의)</option>
                 </select>
               </div>
               <div class="bk-group">
@@ -613,6 +615,12 @@
     }
 
     const serviceInput = document.getElementById('service');
+    serviceInput.addEventListener('change', () => {
+      if (serviceInput.value === '5대 이상 (대량 견적)') {
+        window.location.href = 'bulk.html';
+      }
+    });
+
     const params = new URLSearchParams(location.search);
     if (params.get('service')) {
       [...serviceInput.options].forEach((option) => {
