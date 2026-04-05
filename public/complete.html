@@ -44,11 +44,11 @@
         </svg>
       </div>
 
-      <h1 style="font-size:clamp(1.8rem,5vw,2.4rem); font-weight:900; color:#fff; margin-bottom:16px; letter-spacing:-0.5px;">예약이 완료되었습니다</h1>
+      <h1 id="completeTitle" style="font-size:clamp(1.8rem,5vw,2.4rem); font-weight:900; color:#fff; margin-bottom:16px; letter-spacing:-0.5px;">예약이 완료되었습니다</h1>
 
       <p id="bookingIdMsg" style="display:none; font-size:0.9rem; color:rgba(255,255,255,0.5); margin-bottom:10px;"></p>
 
-      <p style="font-size:1rem; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:40px;">
+      <p id="completeDesc" style="font-size:1rem; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:40px;">
         접수된 예약 내용을 확인 후<br>빠른 시간 안에 연락드리겠습니다.
       </p>
 
@@ -88,10 +88,17 @@
     (function () {
       const params = new URLSearchParams(window.location.search);
       const id = params.get('id');
+      const type = params.get('type');
+      const title = document.getElementById('completeTitle');
+      const desc = document.getElementById('completeDesc');
       if (id) {
         const el = document.getElementById('bookingIdMsg');
         el.textContent = '예약번호: #' + id;
         el.style.display = 'block';
+      }
+      if (type === 'bulk') {
+        if (title) title.textContent = '맞춤 견적 문의가 완료되었습니다';
+        if (desc) desc.innerHTML = '접수된 견적 문의 내용을 확인 후<br>빠른 시간 안에 연락드리겠습니다.';
       }
     })();
 

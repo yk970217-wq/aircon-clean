@@ -1782,7 +1782,7 @@
           <div class="emb-bulk-benefit">
             <span class="emb-bulk-benefit-num">01</span>
             <h4>대량 할인 적용</h4>
-            <p>5대 이상부터 최대 30% 특별 할인</p>
+            <p>10대 초과부터 특별 할인</p>
           </div>
           <div class="emb-bulk-benefit">
             <span class="emb-bulk-benefit-num">02</span>
@@ -1798,7 +1798,7 @@
 
         <div class="emb-bulk-form-wrap">
           <div class="emb-bulk-form-card">
-            <h2>10대 초과 맞춤 견적 문의</h2>
+            <h2>기업·관공서 등 견적 문의</h2>
             <p>아래 양식을 작성해 주시면 빠르게 맞춤 견적을 드리겠습니다.</p>
 
             <form class="bk-form" id="bulkEmbForm">
@@ -1963,12 +1963,13 @@
             wcs.trans({ type: 'lead' });
             console.log('[Naver WCS] 전환 이벤트 전송 (lead)');
           }
+          window.location.href = 'complete.html?type=bulk';
         }
       } catch {
         result.className = 'bk-result error';
         result.innerHTML = '서버 연결에 실패했습니다. 전화로 문의해주세요.';
       } finally {
-        btn.textContent = '대량 견적 문의하기';
+        btn.textContent = '맞춤 견적 문의하기';
         btn.disabled = false;
         result.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
