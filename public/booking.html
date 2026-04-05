@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="color-scheme" content="only light">
   <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <title>예약하기 | 클린베어 에어컨 청소</title>
   <link rel="stylesheet" href="style.css">
   <style>
@@ -1181,6 +1182,16 @@
     }
 
   </style>
+  <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+  <script type="text/javascript">
+  if (!wcs_add) var wcs_add={};
+  wcs_add["wa"] = "s_1b723e4c2eb4";
+  if (!_nasa) var _nasa={};
+  if(window.wcs){
+    wcs.inflow();
+    wcs_do();
+  }
+  </script>
 </head>
 <body>
       <header id="header">
@@ -1993,12 +2004,9 @@
           : json.message;
 
         if (json.success) {
-          document.getElementById('bookingForm').reset();
-          serviceInput.value = '';
-          countInput.value = '1';
-          bookingCart = [];
-          renderOrderSummary();
-          syncCartToHidden();
+          const bookingId = (json.bookingId != null && json.bookingId !== '') ? String(json.bookingId) : '';
+          const redirectUrl = bookingId ? 'complete.html?id=' + encodeURIComponent(bookingId) : 'complete.html';
+          window.location.href = redirectUrl;
         }
       } catch {
         result.className = 'bk-result error';

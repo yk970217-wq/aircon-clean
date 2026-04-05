@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="only light">
+  <meta name="robots" content="noindex">
+  <title>예약 완료 | 클린베어</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+  <script type="text/javascript">
+  if (!wcs_add) var wcs_add={};
+  wcs_add["wa"] = "s_1b723e4c2eb4";
+  if (!_nasa) var _nasa={};
+  if(window.wcs){
+    wcs.inflow();
+    wcs_do();
+  }
+  </script>
+</head>
+<body>
+
+  <header id="header">
+    <nav class="nav-container">
+      <div class="logo">
+        <a href="index.html" class="logo-link">
+          <img src="images/logo.png" alt="클린베어 로고" class="logo-img">
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="bulk.html" class="nav-btn-bulk">대량 견적 문의</a></li>
+        <li><a href="booking.html" class="nav-btn">예약하기</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main style="min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,#0a0f2e 0%,#001a6e 55%,#003fcc 100%); padding:120px 20px 80px;">
+    <div style="max-width:520px; width:100%; text-align:center;">
+
+      <div style="width:80px; height:80px; background:rgba(3,199,90,0.12); border:2px solid rgba(3,199,90,0.35); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 28px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#03c75a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+
+      <h1 style="font-size:clamp(1.8rem,5vw,2.4rem); font-weight:900; color:#fff; margin-bottom:16px; letter-spacing:-0.5px;">예약이 완료되었습니다</h1>
+
+      <p id="bookingIdMsg" style="display:none; font-size:0.9rem; color:rgba(255,255,255,0.5); margin-bottom:10px;"></p>
+
+      <p style="font-size:1rem; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:40px;">
+        접수된 예약 내용을 확인 후<br>빠른 시간 안에 연락드리겠습니다.
+      </p>
+
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+        <a href="index.html" style="background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.2); padding:14px 28px; border-radius:10px; font-weight:700; font-size:0.95rem; text-decoration:none; transition:background 0.2s;">
+          홈으로
+        </a>
+        <a href="tel:0507-1304-6329" style="background:#03c75a; color:#fff; padding:14px 28px; border-radius:10px; font-weight:800; font-size:0.95rem; text-decoration:none; transition:background 0.2s;">
+          전화 문의
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer footer--custom">
+    <div class="container">
+      <div class="footer-custom-inner">
+        <div class="footer-custom-logo-wrap">
+          <img src="images/logo.png" alt="클린베어 로고" class="footer-custom-logo">
+        </div>
+        <div class="footer-custom-main">
+          <p class="footer-custom-cs">고객센터</p>
+          <p class="footer-custom-phone"><a href="tel:0507-1304-6329">0507-1304-6329</a></p>
+          <p class="footer-custom-hours-label">영업시간</p>
+          <p class="footer-custom-hours">평일 · 주말 09:00 ~ 18:00</p>
+          <p class="footer-custom-line">상호 클린베어 | 대표 김용광 | 사업자등록번호 801-40-01034</p>
+          <p class="footer-custom-line">주소 경기도 고양시 덕양구 대덕로 141번길 9</p>
+          <p class="footer-custom-copy">© 2024 클린베어 All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 예약번호 표시
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (id) {
+        const el = document.getElementById('bookingIdMsg');
+        el.textContent = '예약번호: #' + id;
+        el.style.display = 'block';
+      }
+    })();
+
+    // 네이버 전환 추적 — 중복 실행 방지
+    (function () {
+      if (sessionStorage.getItem('_naverConvFired')) return;
+      sessionStorage.setItem('_naverConvFired', '1');
+
+      function fireConversion() {
+        if (window.wcs && typeof wcs.trans === 'function') {
+          var _conv = { type: 'purchase' };
+          wcs.trans(_conv);
+          console.log('네이버 전환 발생');
+        } else {
+          console.warn('[Naver WCS] wcs 미로드 — 전환 이벤트 미실행');
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', fireConversion);
+      } else {
+        fireConversion();
+      }
+    })();
+
+    // 헤더 스크롤
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', function () {
+      if (!header) return;
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    });
+  </script>
+
+</body>
+</html>

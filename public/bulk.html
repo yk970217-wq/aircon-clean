@@ -5,8 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="only light">
   <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <title>B2B·B2G 대량 견적 문의 | 클린베어</title>
   <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+  <script type="text/javascript">
+  if (!wcs_add) var wcs_add={};
+  wcs_add["wa"] = "s_1b723e4c2eb4";
+  if (!_nasa) var _nasa={};
+  if(window.wcs){
+    wcs.inflow();
+    wcs_do();
+  }
+  </script>
   <style>
     /* ===== 대량견적 전용 — 다크 프리미엄 ===== */
     *, *::before, *::after { box-sizing: border-box; }
@@ -538,7 +549,16 @@
         result.innerHTML = json.success
           ? '견적 문의가 접수되었습니다. 빠른 시간 안에 연락드리겠습니다.'
           : json.message;
-        if (json.success) document.getElementById('bulkForm').reset();
+        if (json.success) {
+          document.getElementById('bulkForm').reset();
+          if (window.wcs && typeof wcs.trans === 'function') {
+            var _convBulk = { type: 'lead' };
+            console.log('[Naver WCS] 전환 이벤트 전송 (lead)', _convBulk);
+            wcs.trans(_convBulk);
+          } else {
+            console.warn('[Naver WCS] wcs.trans 미실행 — wcs 미로드 또는 trans 없음');
+          }
+        }
       } catch {
         result.className = 'bf-result error';
         result.innerHTML = '서버 연결에 실패했습니다. 전화로 문의해주세요.';
