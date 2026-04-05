@@ -406,172 +406,165 @@
       margin-top: 8px;
     }
 
-    .bk-pick-strip {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      align-items: stretch;
-      gap: 0;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-behavior: auto;
-      padding: 4px 0 8px;
-      margin: 0 -2px;
-      padding-left: 2px;
-      padding-right: 2px;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: #c5d2e8 #f0f4fa;
-      scroll-snap-type: x proximity;
-    }
-
-    .bk-pick-strip::-webkit-scrollbar {
-      height: 5px;
-    }
-
-    .bk-pick-strip::-webkit-scrollbar-thumb {
-      background: #b8c8de;
-      border-radius: 4px;
-    }
-
-    .bk-pick-group {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      align-items: stretch;
-      gap: 6px;
-      flex: 0 0 auto;
-      padding-left: 8px;
-      margin-left: 8px;
-      border-left: 1px solid #dde6f0;
-    }
-
-    .bk-pick-group:first-child {
-      padding-left: 0;
-      margin-left: 0;
-      border-left: none;
-    }
-
-    .bk-pick-group-label {
-      flex: 0 0 auto;
-      align-self: center;
-      font-size: 0.65rem;
-      font-weight: 800;
-      color: #3d5266;
-      padding: 6px 8px;
-      border-radius: 6px;
-      background: #e9f0f8;
-      line-height: 1.25;
-      text-align: center;
-      word-break: keep-all;
-      max-width: 3.6em;
-    }
-
-    .bk-pick-card {
-      flex: 0 0 auto;
-      width: 104px;
-      max-width: 28vw;
-      min-width: 0;
+    /* 카테고리 탭 선택 */
+    /* ── 아코디언 카테고리 ── */
+    .bk-acc-list {
       display: flex;
       flex-direction: column;
-      align-items: stretch;
-      margin: 0;
-      padding: 0;
-      border: 1px solid #d8e2ee;
-      border-radius: 10px;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .bk-acc-item {
+      border: 1.5px solid #e4ecf5;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.18s;
+    }
+    .bk-acc-item.is-open {
+      border-color: #003fcc;
+    }
+    .bk-acc-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
       background: #fafcff;
+      border: none;
       cursor: pointer;
       font-family: inherit;
       text-align: left;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-      scroll-snap-align: start;
+      transition: background 0.18s;
+    }
+    .bk-acc-item.is-open .bk-acc-header {
+      background: #f0f5ff;
+    }
+    .bk-acc-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid #c8d6e4;
+      flex-shrink: 0;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .bk-acc-item.is-open .bk-acc-dot {
+      background: #003fcc;
+      border-color: #003fcc;
+    }
+    .bk-acc-title {
+      flex: 1;
+      font-size: 0.93rem;
+      font-weight: 700;
+      color: #1a2a3a;
+      transition: color 0.18s;
+    }
+    .bk-acc-item.is-open .bk-acc-title {
+      color: #003fcc;
+    }
+    .bk-acc-chevron {
+      flex-shrink: 0;
+      color: #c8d6e4;
+      transition: transform 0.22s, color 0.18s;
+      display: flex;
+      align-items: center;
+    }
+    .bk-acc-item.is-open .bk-acc-chevron {
+      transform: rotate(90deg);
+      color: #003fcc;
+    }
+    .bk-acc-body {
+      display: none;
+      padding: 0 12px 12px;
+      background: #fafcff;
+    }
+    .bk-acc-body.is-open {
+      display: block;
+      animation: accOpen 0.2s ease;
+    }
+    @keyframes accOpen {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .bk-acc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding-top: 8px;
+    }
+
+    .bk-pick-card {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border: 1.5px solid #e4ecf5;
+      border-radius: 14px;
+      background: #fff;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      overflow: hidden;
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.15s;
     }
 
     .bk-pick-card:hover {
       border-color: #003fcc;
-      box-shadow: 0 4px 14px rgba(0, 63, 204, 0.1);
-      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(0, 63, 204, 0.12);
+      transform: translateY(-2px);
     }
 
-    .bk-pick-wrap {
+    .bk-pick-img-wrap {
       aspect-ratio: 1 / 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(180deg, #fff 0%, #f0f5ff 100%);
-      border-radius: 8px 8px 0 0;
+      background: linear-gradient(180deg, #f8faff 0%, #edf2ff 100%);
       overflow: hidden;
     }
 
-    .bk-pick-wrap img {
-      width: 100%;
-      height: 100%;
+    .bk-pick-img-wrap img {
+      width: 80%;
+      height: 80%;
       object-fit: contain;
-      padding: 4px;
     }
 
-    .bk-pick-meta {
-      padding: 6px 6px 4px;
+    .bk-pick-info {
+      padding: 8px 10px 4px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      align-items: center;
-      flex: 1;
-      min-height: 0;
+      gap: 2px;
     }
 
     .bk-pick-name {
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       font-weight: 800;
       color: #1a2a3a;
-      line-height: 1.22;
-      text-align: center;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
+      line-height: 1.3;
+      white-space: nowrap;
       overflow: hidden;
-      min-height: 2.5em;
-    }
-
-    .bk-pick-price-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 3px;
-      align-items: center;
-      justify-content: center;
+      text-overflow: ellipsis;
     }
 
     .bk-pick-price {
-      font-size: 0.7rem;
-      font-weight: 900;
+      font-size: 0.78rem;
+      font-weight: 700;
       color: #003fcc;
     }
 
-    .bk-pick-discount {
-      font-size: 0.58rem;
-      font-weight: 800;
-      color: #8a6910;
-      background: rgba(255, 193, 7, 0.18);
-      padding: 1px 5px;
-      border-radius: 999px;
-    }
-
     .bk-pick-add {
-      margin: 0 6px 7px;
-      padding: 6px 6px;
-      border: none;
-      border-radius: 6px;
+      margin: 5px 8px 8px;
+      padding: 8px 0;
+      border-radius: 8px;
       background: linear-gradient(135deg, #003fcc, #0060ff);
       color: #fff;
-      font-size: 0.68rem;
+      font-size: 0.78rem;
       font-weight: 800;
-      cursor: pointer;
-      font-family: inherit;
+      text-align: center;
+      pointer-events: none;
+      letter-spacing: 0.2px;
     }
 
     .bk-pick-card:hover .bk-pick-add {
-      filter: brightness(1.06);
+      background: linear-gradient(135deg, #0035b0, #004ee0);
     }
 
     .bk-order-summary {
@@ -866,28 +859,6 @@
     }
 
     @media (max-width: 500px) {
-      .bk-pick-group {
-        gap: 5px;
-        margin-left: 6px;
-        padding-left: 6px;
-      }
-
-      .bk-pick-group-label {
-        font-size: 0.58rem;
-        padding: 5px 6px;
-      }
-
-      .bk-pick-card {
-        width: 96px;
-      }
-
-      .bk-pick-wrap img {
-        padding: 3px;
-      }
-
-      .bk-pick-name {
-        font-size: 0.7rem;
-      }
 
       .bk-pick-price {
         font-size: 0.64rem;
@@ -1181,6 +1152,377 @@
       }
     }
 
+    /* ════════════════════════════════════════
+       고객 유형 선택 UI  — 앱 스타일
+    ════════════════════════════════════════ */
+    .type-sel-wrap {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 0 60px;
+    }
+    .type-sel-inner {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .type-sel-step {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .type-sel-title {
+      font-size: clamp(1.55rem, 4vw, 1.95rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: -0.4px;
+      line-height: 1.3;
+    }
+    .type-sel-sub {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 36px;
+      line-height: 1.5;
+    }
+    .type-sel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .type-sel-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 22px 22px 22px 20px;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      color: inherit;
+      transition: background 0.18s, border-color 0.18s, transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .type-sel-card:active {
+      transform: scale(0.985);
+    }
+    .type-sel-card--personal:hover,
+    .type-sel-card--personal:focus-visible {
+      background: rgba(30, 90, 220, 0.28);
+      border-color: rgba(100, 160, 255, 0.5);
+    }
+    .type-sel-card--bulk:hover,
+    .type-sel-card--bulk:focus-visible {
+      background: rgba(255, 200, 0, 0.1);
+      border-color: rgba(255, 220, 80, 0.45);
+    }
+    .type-sel-dot {
+      flex-shrink: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      align-self: center;
+      margin-top: 1px;
+    }
+    .type-sel-card--personal .type-sel-dot { background: #5b9eff; }
+    .type-sel-card--bulk    .type-sel-dot { background: #ffe066; }
+    .type-sel-text {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+    }
+    .type-sel-card-title {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.2px;
+      line-height: 1.35;
+    }
+    .type-sel-card-desc {
+      display: block;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.42);
+      line-height: 1.45;
+    }
+    .type-sel-arrow {
+      flex-shrink: 0;
+      color: rgba(255,255,255,0.25);
+      transition: color 0.18s, transform 0.18s;
+      display: flex;
+      align-items: center;
+    }
+    .type-sel-card:hover .type-sel-arrow {
+      color: rgba(255,255,255,0.65);
+      transform: translateX(3px);
+    }
+
+    @media (max-width: 480px) {
+      .type-sel-card {
+        align-items: center;
+        gap: 12px;
+        padding: 18px 16px;
+      }
+
+      .type-sel-dot {
+        margin-top: 0;
+      }
+
+      .type-sel-card-title {
+        font-size: 0.98rem;
+      }
+
+      .type-sel-card-desc {
+        font-size: 0.78rem;
+      }
+
+      .type-sel-arrow {
+        margin-left: auto;
+        padding-top: 2px;
+      }
+    }
+
+    /* ── 섹션 뒤로 버튼 ── */
+    .bk-type-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      color: rgba(255,255,255,0.72);
+      padding: 9px 20px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      margin-bottom: 28px;
+    }
+    .bk-type-back-btn:hover {
+      background: rgba(255,255,255,0.14);
+      color: #fff;
+      border-color: rgba(255,255,255,0.28);
+    }
+
+    /* ── 타입 전환 애니메이션 ── */
+    .type-anim { animation: typeReveal 0.3s ease; }
+    @keyframes typeReveal {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── 기업 폼 임베디드 ── */
+    .emb-bulk-benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .emb-bulk-benefit {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 22px 18px;
+    }
+    .emb-bulk-benefit-num {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #ffe066;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .emb-bulk-benefit h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .emb-bulk-benefit p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.42);
+      line-height: 1.6;
+    }
+    .emb-bulk-form-wrap {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .emb-bulk-form-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 40px 36px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .emb-bulk-form-card h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #1a2a3a;
+      margin-bottom: 6px;
+    }
+    .emb-bulk-form-card > p {
+      color: #888;
+      font-size: 0.88rem;
+      margin-bottom: 28px;
+    }
+    .emb-bulk-call-bar {
+      margin-top: 16px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: #f4f7fc;
+      border: 1px solid #e0e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .emb-bulk-call-bar-text p:first-child {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1a2a3a;
+      margin-bottom: 3px;
+    }
+    .emb-bulk-call-bar-text p:last-child { font-size: 0.78rem; color: #888; }
+    .emb-bulk-call-btn {
+      background: linear-gradient(135deg, #003fcc, #0060ff);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .emb-bulk-call-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+    @media (max-width: 600px) {
+      .emb-bulk-benefits { grid-template-columns: 1fr; }
+      .emb-bulk-form-card { padding: 28px 20px; }
+      .emb-bulk-call-bar { flex-direction: column; }
+      .emb-bulk-call-btn { width: 100%; text-align: center; display: block; }
+    }
+    @media (min-width: 601px) and (max-width: 900px) {
+      .emb-bulk-benefits { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── 멀티스텝 인디케이터 ── */
+    .bk-steps-wrap { margin-bottom: 28px; }
+    .bk-steps {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .bk-step-node {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      transition: background 0.25s, color 0.25s;
+      background: #e8eef6;
+      color: #9aabb8;
+    }
+    .bk-step-node.is-active { background: #003fcc; color: #fff; }
+    .bk-step-node.is-done   { background: #00b359; color: #fff; }
+    .bk-step-conn {
+      flex: 1;
+      height: 2px;
+      background: #e0e8f0;
+      transition: background 0.3s;
+    }
+    .bk-step-conn.is-done { background: #00b359; }
+    .bk-step-labels {
+      display: flex;
+      justify-content: space-between;
+    }
+    .bk-step-lbl {
+      font-size: 0.65rem;
+      color: #b0bec8;
+      font-weight: 600;
+      flex: 1;
+      text-align: center;
+    }
+    .bk-step-lbl:first-child { text-align: left; }
+    .bk-step-lbl:last-child  { text-align: right; }
+    .bk-step-lbl.is-active   { color: #003fcc; font-weight: 700; }
+    .bk-step-lbl.is-done     { color: #00b359; }
+
+    /* ── 스텝 패널 ── */
+    .bk-step-panel            { display: none; }
+    .bk-step-panel.is-active  { display: block; animation: bkStepIn 0.22s ease; }
+    @keyframes bkStepIn {
+      from { opacity: 0; transform: translateX(10px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── 스텝 에러 ── */
+    .bk-step-err {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #fff0f0;
+      color: #c0392b;
+      border: 1.5px solid #f5b7b1;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: none;
+    }
+    .bk-step-err.visible { display: block; }
+
+    /* ── 스텝 네비게이션 ── */
+    .bk-step-nav {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .bk-step-back-btn {
+      flex-shrink: 0;
+      background: #f0f4fa;
+      color: #4a5d72;
+      border: 1.5px solid #e0e8f0;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s;
+    }
+    .bk-step-back-btn:hover { background: #e4ecf7; }
+    .bk-step-fwd-btn {
+      flex: 1;
+      background: linear-gradient(135deg, #003fcc, #0060ff);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      font-weight: 800;
+      font-size: 0.97rem;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.15px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .bk-step-fwd-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .bk-step-fwd-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
   </style>
   <script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
   <script type="text/javascript">
@@ -1208,7 +1550,6 @@
         </a>
       </div>
       <ul class="nav-links">
-        <li><a href="bulk.html" class="nav-btn-bulk">대량 견적 문의</a></li>
         <li><a href="booking.html" class="nav-btn">예약하기</a></li>
       </ul>
       <button class="hamburger" id="hamburger">
@@ -1216,15 +1557,53 @@
       </button>
     </nav>
     <div class="mobile-menu" id="mobileMenu">
-      <a href="bulk.html" onclick="closeMobileMenu()">대량 견적 문의</a>
       <a href="booking.html" onclick="closeMobileMenu()">예약하기</a>
     </div>
   </header>
 
   <section class="booking-page">
     <div class="container">
-      <div class="booking-page-inner">
-        <div class="bk-info">
+
+      <!-- ════ 고객 유형 선택 ════ -->
+      <div id="typeSel" class="type-sel-wrap">
+        <div class="type-sel-inner">
+          <p class="type-sel-step">예약 · 견적 접수</p>
+          <h2 class="type-sel-title">어떤 예약이신가요?</h2>
+          <p class="type-sel-sub">에어컨 대수에 맞는 견적 방식을 선택해 주세요.</p>
+          <div class="type-sel-list">
+            <button class="type-sel-card type-sel-card--personal" onclick="selectType('personal')">
+              <span class="type-sel-dot"></span>
+              <span class="type-sel-text">
+                <span class="type-sel-card-title">개인 고객 / 소규모 사업장</span>
+                <span class="type-sel-card-desc">10대 이하 자동견적</span>
+              </span>
+              <span class="type-sel-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </span>
+            </button>
+            <button class="type-sel-card type-sel-card--bulk" onclick="selectType('bulk')">
+              <span class="type-sel-dot"></span>
+              <span class="type-sel-text">
+                <span class="type-sel-card-title">기업·단체 고객</span>
+                <span class="type-sel-card-desc">10대 초과 맞춤견적</span>
+              </span>
+              <span class="type-sel-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════ 개인 고객 섹션 ════ -->
+      <div id="personalSec" style="display:none">
+        <button class="bk-type-back-btn" onclick="showTypeSelector()">← 유형 다시 선택</button>
+        <div class="booking-page-inner">
+          <div class="bk-info">
           <span class="section-tag">BOOKING</span>
           <h1>지금 바로<br><span>예약하세요</span></h1>
           <p>간단한 정보만 남겨주시면 확인 후 빠르게 연락드립니다. 평균 응답 시간은 30분 이내입니다.</p>
@@ -1263,7 +1642,7 @@
           </div>
         </div>
 
-        <div class="bk-form-card">
+        <div class="bk-form-card" id="bkFormCard">
           <div class="bk-offer-banner" aria-label="2대 이상 추가 할인 안내">
             <div class="bk-offer-icon" aria-hidden="true">%</div>
             <div class="bk-offer-copy">
@@ -1273,89 +1652,192 @@
           </div>
 
           <h2>예약 신청</h2>
-          <p>* 표시 항목은 필수 입력 사항입니다</p>
+
+          <!-- 스텝 인디케이터 -->
+          <div class="bk-steps-wrap">
+            <div class="bk-steps">
+              <div class="bk-step-node is-active" id="bkNode1">1</div>
+              <div class="bk-step-conn" id="bkConn1"></div>
+              <div class="bk-step-node" id="bkNode2">2</div>
+              <div class="bk-step-conn" id="bkConn2"></div>
+              <div class="bk-step-node" id="bkNode3">3</div>
+              <div class="bk-step-conn" id="bkConn3"></div>
+              <div class="bk-step-node" id="bkNode4">4</div>
+            </div>
+            <div class="bk-step-labels">
+              <span class="bk-step-lbl is-active" id="bkLbl1">종류·대수</span>
+              <span class="bk-step-lbl" id="bkLbl2">이름·연락처</span>
+              <span class="bk-step-lbl" id="bkLbl3">주소</span>
+              <span class="bk-step-lbl" id="bkLbl4">날짜·일정</span>
+            </div>
+          </div>
 
           <form class="bk-form" id="bookingForm">
-            <div class="bk-group">
-              <label>에어컨 종류 · 대수 *</label>
-              <p class="bk-inline-note">아래 카드를 눌러 담아주세요.</p>
-              <div class="bk-cta-strip" id="bkCtaStrip" aria-live="polite">
-                <div class="bk-cta-row bk-cta-row--head">
-                  <span class="bk-cta-badge">오늘 마감</span>
-                  <strong>지금 예약 안 하면 손해</strong>
-                  <span class="bk-cta-sep">·</span>
-                  <span>선착순 마감 시 동일 조건 재접수 어려움</span>
+
+            <!-- ── STEP 1 : 에어컨 종류 · 대수 ── -->
+            <div class="bk-step-panel is-active" id="bkStep1">
+              <div class="bk-group">
+                <label>에어컨 종류 · 대수 *</label>
+                <p class="bk-inline-note">아래 카드를 눌러 담아주세요.</p>
+                <div class="bk-cta-strip" id="bkCtaStrip" aria-live="polite">
+                  <div class="bk-cta-row bk-cta-row--head">
+                    <span class="bk-cta-badge">오늘 마감</span>
+                    <strong>지금 예약 안 하면 손해</strong>
+                    <span class="bk-cta-sep">·</span>
+                    <span>선착순 마감 시 동일 조건 재접수 어려움</span>
+                  </div>
+                  <div class="bk-cta-row bk-cta-row--slots">
+                    <span class="bk-cta-slots-label">남은 접수 가능</span>
+                    <strong class="bk-cta-slots-num" id="bkSlotsLeft">—</strong>
+                    <span class="bk-cta-slots-unit">건</span>
+                  </div>
+                  <p class="bk-cta-hint">대수를 바꿀 때마다 <strong>실시간으로 견적이 갱신</strong>됩니다.(enter 후에) (아래 최종견적확인)</p>
                 </div>
-                <div class="bk-cta-row bk-cta-row--slots">
-                  <span class="bk-cta-slots-label">남은 접수 가능</span>
-                  <strong class="bk-cta-slots-num" id="bkSlotsLeft">—</strong>
-                  <span class="bk-cta-slots-unit">건</span>
+                <div class="bk-pick-area" id="bkPickGrid"></div>
+                <div class="bk-order-summary" id="bkOrderSummary" aria-live="polite"></div>
+                <span id="bkCartTotalQty" class="visually-hidden">0</span>
+<input type="hidden" id="service" value="">
+                <input type="hidden" id="count" value="1">
+              </div>
+              <p class="bk-step-err" id="bkErr1"></p>
+              <div class="bk-step-nav">
+                <button type="button" class="bk-step-fwd-btn" onclick="goToStep(2)">다음 · 정보 입력 →</button>
+              </div>
+            </div>
+
+            <!-- ── STEP 2 : 이름 · 연락처 ── -->
+            <div class="bk-step-panel" id="bkStep2">
+              <div class="bk-row">
+                <div class="bk-group">
+                  <label>이름 *</label>
+                  <input type="text" id="name" placeholder="홍길동">
                 </div>
-                <p class="bk-cta-hint">대수를 바꿀 때마다 <strong>실시간으로 견적이 갱신</strong>됩니다. (아래 최종견적 확인)</p>
+                <div class="bk-group">
+                  <label>연락처 *</label>
+                  <input type="tel" id="phone" placeholder="010-0000-0000">
+                </div>
               </div>
-              <div class="bk-pick-area" id="bkPickGrid"></div>
-              <div class="bk-order-summary" id="bkOrderSummary" aria-live="polite"></div>
-              <span id="bkCartTotalQty" class="visually-hidden">0</span>
-              <p class="bk-cart-bulk-hint" id="bkCartBulkHint" hidden>5대 이상이시면 사무실·다가구 등 <a href="bulk.html">대량 견적 페이지</a>에서 더 유리한 안내를 받을 수 있습니다.</p>
-              <input type="hidden" id="service" value="">
-              <input type="hidden" id="count" value="1">
+              <p class="bk-step-err" id="bkErr2"></p>
+              <div class="bk-step-nav">
+                <button type="button" class="bk-step-back-btn" onclick="goToStep(1)">← 이전</button>
+                <button type="button" class="bk-step-fwd-btn" onclick="goToStep(3)">다음 · 주소 입력 →</button>
+              </div>
             </div>
 
-            <div class="bk-row">
+            <!-- ── STEP 3 : 주소 ── -->
+            <div class="bk-step-panel" id="bkStep3">
               <div class="bk-group">
-                <label>이름 *</label>
-                <input type="text" id="name" placeholder="홍길동" required>
+                <label>주소 *</label>
+                <input type="text" id="address" placeholder="서울시 강남구 테헤란로 123">
+              </div>
+              <p class="bk-step-err" id="bkErr3"></p>
+              <div class="bk-step-nav">
+                <button type="button" class="bk-step-back-btn" onclick="goToStep(2)">← 이전</button>
+                <button type="button" class="bk-step-fwd-btn" onclick="goToStep(4)">다음 · 일정 선택 →</button>
+              </div>
+            </div>
+
+            <!-- ── STEP 4 : 날짜 · 시간 · 요청사항 ── -->
+            <div class="bk-step-panel" id="bkStep4">
+              <div class="bk-row">
+                <div class="bk-group">
+                  <label>희망 날짜 *</label>
+                  <input type="date" id="date">
+                </div>
+                <div class="bk-group">
+                  <label>희망 시간대</label>
+                  <select id="timeSlot">
+                    <option value="">선택하세요 (선택사항)</option>
+                    <option value="오전 (09:00~12:00)">오전 (09:00~12:00)</option>
+                    <option value="오후 (12:00~18:00)">오후 (12:00~18:00)</option>
+                    <option value="저녁 (18:00~20:00)">저녁 (18:00~20:00)</option>
+                  </select>
+                </div>
               </div>
               <div class="bk-group">
-                <label>연락처 *</label>
-                <input type="tel" id="phone" placeholder="010-0000-0000" required>
+                <label>요청사항</label>
+                <textarea id="memo" placeholder="에어컨 기종, 설치 환경, 특이사항 등을 자유롭게 입력해주세요"></textarea>
+              </div>
+              <p class="bk-step-err" id="bkErr4"></p>
+              <div class="bk-step-nav">
+                <button type="button" class="bk-step-back-btn" onclick="goToStep(3)">← 이전</button>
+                <button type="submit" class="bk-step-fwd-btn" id="bkSubmit">예약 접수하기</button>
               </div>
             </div>
 
-            <div class="bk-group">
-              <label>주소 *</label>
-              <input type="text" id="address" placeholder="서울시 강남구 테헤란로 123" required>
-            </div>
-
-            <div class="bk-row">
-              <div class="bk-group">
-                <label>희망 날짜 *</label>
-                <input type="date" id="date" required>
-              </div>
-              <div class="bk-group">
-                <label>희망 시간대</label>
-                <select id="timeSlot">
-                  <option value="">선택하세요 (선택사항)</option>
-                  <option value="오전 (09:00~12:00)">오전 (09:00~12:00)</option>
-                  <option value="오후 (12:00~18:00)">오후 (12:00~18:00)</option>
-                  <option value="저녁 (18:00~20:00)">저녁 (18:00~20:00)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="bk-group">
-              <label>요청사항</label>
-              <textarea id="memo" placeholder="에어컨 기종, 설치 환경, 특이사항 등을 자유롭게 입력해주세요"></textarea>
-            </div>
-
-            <button type="submit" class="bk-submit" id="bkSubmit">오늘 마감 전 · 지금 바로 예약 접수</button>
           </form>
 
           <div class="bk-result" id="bkResult"></div>
           <p class="bk-form-footer">개인정보는 예약 처리 목적으로만 사용되며 제3자에게 제공되지 않습니다.</p>
 
-          <a href="bulk.html" class="bk-bulk-link">
-            <span class="bk-bulk-link-inner">
-              <span class="bk-bulk-link-text">
-                <strong>5대 이상 대량 견적이 필요하신가요?</strong>
-                <small>기업 · 사무실 · 다가구 등 전용할인가 안내</small>
-              </span>
-              <span class="bk-bulk-link-arr">›</span>
-            </span>
-          </a>
         </div>
-      </div>
-    </div>
+        </div><!-- /.booking-page-inner -->
+      </div><!-- /#personalSec -->
+
+      <!-- ════ 기업·단체 고객 섹션 ════ -->
+      <div id="bulkSec" style="display:none">
+        <button class="bk-type-back-btn" onclick="showTypeSelector()">← 유형 다시 선택</button>
+
+        <div class="emb-bulk-benefits">
+          <div class="emb-bulk-benefit">
+            <span class="emb-bulk-benefit-num">01</span>
+            <h4>대량 할인 적용</h4>
+            <p>5대 이상부터 최대 30% 특별 할인</p>
+          </div>
+          <div class="emb-bulk-benefit">
+            <span class="emb-bulk-benefit-num">02</span>
+            <h4>전담팀 일괄 처리</h4>
+            <p>전담 청소팀 배정, 빠른 일괄 처리</p>
+          </div>
+          <div class="emb-bulk-benefit">
+            <span class="emb-bulk-benefit-num">03</span>
+            <h4>세금계산서 발행</h4>
+            <p>견적서·완료 보고서 발행 가능</p>
+          </div>
+        </div>
+
+        <div class="emb-bulk-form-wrap">
+          <div class="emb-bulk-form-card">
+            <h2>10대 초과 맞춤 견적 문의</h2>
+            <p>아래 양식을 작성해 주시면 빠르게 맞춤 견적을 드리겠습니다.</p>
+
+            <form class="bk-form" id="bulkEmbForm">
+              <div class="bk-group">
+                <label for="bef-phone">연락처 <span style="color:#e53">*</span></label>
+                <input type="tel" id="bef-phone" placeholder="010-0000-0000" required>
+              </div>
+              <div class="bk-group">
+                <label for="bef-count">에어컨 대수(예상) <span style="color:#e53">*</span></label>
+                <select id="bef-count" required>
+                  <option value="">선택해 주세요</option>
+                  <option>11~20대</option>
+                  <option>21~50대</option>
+                  <option>51~100대</option>
+                  <option>100대 이상</option>
+                </select>
+              </div>
+              <div class="bk-group">
+                <label for="bef-memo">추가 요청사항</label>
+                <textarea id="bef-memo" placeholder="현장 위치, 희망 일정, 기종·대수 관련 메모 등 (없으면 비워두셔도 됩니다)"></textarea>
+              </div>
+              <button type="submit" class="bk-submit" id="bef-submit">맞춤 견적 문의하기</button>
+            </form>
+
+            <div class="bk-result" id="befResult"></div>
+            <p class="bk-form-footer">개인정보는 견적 처리 목적으로만 사용됩니다.</p>
+
+            <div class="emb-bulk-call-bar">
+              <div class="emb-bulk-call-bar-text">
+                <p>빠른 전화 상담</p>
+                <p>전화로 문의하시면 바로 견적 안내가 가능합니다.</p>
+              </div>
+              <a href="tel:0507-1304-6329" class="emb-bulk-call-btn">0507-1304-6329</a>
+            </div>
+          </div>
+        </div>
+      </div><!-- /#bulkSec -->
+
+    </div><!-- /.container -->
   </section>
 
   <footer class="footer footer--custom">
@@ -1398,6 +1880,101 @@
   </footer>
 
   <script>
+    /* ════ 고객 유형 전환 ════ */
+    function selectType(type) {
+      const typeSel = document.getElementById('typeSel');
+      const personalSec = document.getElementById('personalSec');
+      const bulkSec = document.getElementById('bulkSec');
+      typeSel.style.display = 'none';
+      if (type === 'personal') {
+        personalSec.style.display = 'block';
+        personalSec.classList.remove('type-anim');
+        void personalSec.offsetWidth; // reflow for re-trigger
+        personalSec.classList.add('type-anim');
+        bulkSec.style.display = 'none';
+      } else {
+        bulkSec.style.display = 'block';
+        bulkSec.classList.remove('type-anim');
+        void bulkSec.offsetWidth;
+        bulkSec.classList.add('type-anim');
+        personalSec.style.display = 'none';
+      }
+      const url = new URL(location.href);
+      url.searchParams.set('type', type);
+      history.replaceState(null, '', url.toString());
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showTypeSelector() {
+      document.getElementById('typeSel').style.display = '';
+      document.getElementById('personalSec').style.display = 'none';
+      document.getElementById('bulkSec').style.display = 'none';
+      const url = new URL(location.href);
+      url.searchParams.delete('type');
+      history.replaceState(null, '', url.toString());
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* URL 파라미터로 초기 상태 결정 */
+    (function initTypeFromUrl() {
+      const params = new URLSearchParams(location.search);
+      const type = params.get('type');
+      if (type === 'bulk') {
+        selectType('bulk');
+      } else if (type === 'personal' || params.get('service')) {
+        selectType('personal');
+      }
+    })();
+
+    /* ════ 기업 폼 ════ */
+    document.getElementById('bef-phone').addEventListener('input', function(e) {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.slice(0, 11);
+      if (v.length >= 7) v = v.slice(0, 3) + '-' + v.slice(3, 7) + '-' + v.slice(7);
+      else if (v.length >= 4) v = v.slice(0, 3) + '-' + v.slice(3);
+      e.target.value = v;
+    });
+
+    document.getElementById('bulkEmbForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('bef-submit');
+      const result = document.getElementById('befResult');
+      btn.textContent = '처리 중...';
+      btn.disabled = true;
+      const data = {
+        phone: document.getElementById('bef-phone').value,
+        count: document.getElementById('bef-count').value,
+        memo: document.getElementById('bef-memo').value,
+      };
+      try {
+        const res = await fetch('/api/bulk-inquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const json = await res.json();
+        result.className = 'bk-result ' + (json.success ? 'success' : 'error');
+        result.innerHTML = json.success
+          ? '견적 문의가 접수되었습니다. 빠른 시간 안에 연락드리겠습니다.'
+          : json.message;
+        if (json.success) {
+          document.getElementById('bulkEmbForm').reset();
+          if (window.wcs && typeof wcs.trans === 'function') {
+            wcs.trans({ type: 'lead' });
+            console.log('[Naver WCS] 전환 이벤트 전송 (lead)');
+          }
+        }
+      } catch {
+        result.className = 'bk-result error';
+        result.innerHTML = '서버 연결에 실패했습니다. 전화로 문의해주세요.';
+      } finally {
+        btn.textContent = '대량 견적 문의하기';
+        btn.disabled = false;
+        result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    /* ════ 헤더 / 공통 ════ */
     const header = document.getElementById('header');
     if (header) {
       window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 60));
@@ -1422,7 +1999,6 @@
     const bkPickGrid = document.getElementById('bkPickGrid');
     const bkOrderSummary = document.getElementById('bkOrderSummary');
     const bkCartTotalQty = document.getElementById('bkCartTotalQty');
-    const bkCartBulkHint = document.getElementById('bkCartBulkHint');
 
     /** 메인 요금표와 동일: 최종 service 문자열(line) = 키 */
     const serviceVisualByLine = {
@@ -1508,8 +2084,13 @@
       const totalQty = items.reduce((s, x) => s + x.qty, 0);
       const d = new Date();
       const seed = d.getDate() * 17 + d.getMonth() * 13 + d.getHours() * 7 + Math.floor(d.getMinutes() / 10);
-      let n = 4 + (seed % 5);
-      n = Math.max(2, n - Math.min(3, totalQty));
+      let n = 12 + (seed % 4);
+      if (totalQty > 0) {
+        if (totalQty <= 2) n -= totalQty;
+        else if (totalQty <= 10) n -= (2 + totalQty);
+        else n -= (10 + Math.floor((totalQty - 10) * 0.6));
+      }
+      n = Math.max(2, n);
       el.textContent = String(n);
     }
 
@@ -1523,9 +2104,6 @@
       if (bkCartTotalQty) bkCartTotalQty.textContent = String(totalQty);
       countInput.value = String(Math.max(0, totalQty));
       serviceInput.value = items.map((i) => `${i.line} ×${i.qty}`).join(', ');
-      if (bkCartBulkHint) {
-        bkCartBulkHint.hidden = true;
-      }
     }
 
     function addLineToCart(line) {
@@ -1568,11 +2146,16 @@
       return `${n.toLocaleString('ko-KR')}원`;
     }
 
-    /** 장바구니 전체 대수(T) 기준 배율. 1~4대 구간, 5대 이상은 4대 구간(85%) 고정 */
+    /** 장바구니 전체 대수(T) 기준 배율 */
     function volumeMultiplierFromTotal(totalQty) {
       const t = Math.max(totalQty, 1);
-      const tier = Math.min(t, 4);
-      return Math.max(0.5, 1 - (tier - 1) * 0.05);
+      if (t >= 10) return 0.70;
+      if (t === 9) return 0.72;
+      if (t === 8) return 0.74;
+      if (t === 7) return 0.77;
+      if (t === 6) return 0.80;
+      if (t === 5) return 0.83;
+      return Math.max(0.5, 1 - (t - 1) * 0.05);
     }
 
     function unitPriceForBaseAndTotal(baseWon, cartTotalQty) {
@@ -1730,13 +2313,7 @@
 
       const qBadge = document.createElement('div');
       qBadge.className = 'bk-order-quote-discount';
-      if (cartTotalQty >= 5 && sumBase > 0) {
-        qBadge.classList.add('bk-order-quote-discount--muted');
-        qBadge.textContent = '4대까지(전체 합산) 대당 할인 · 5대 이상은 아래 대량 견적';
-      } else if (cartTotalQty >= 5) {
-        qBadge.classList.add('bk-order-quote-discount--muted');
-        qBadge.textContent = '5대 이상은 대량 견적 안내';
-      } else if (sumBase > 0 && discountWon > 0) {
+      if (sumBase > 0 && discountWon > 0) {
         qBadge.textContent = `1대 기준가 대비 약 ${discountPct}% · ${formatWon(discountWon)} 절약`;
       } else if (sumBase > 0) {
         qBadge.classList.add('bk-order-quote-discount--muted');
@@ -1778,20 +2355,12 @@
       quote.appendChild(headRow);
       quote.appendChild(qAmt);
 
-      if (cartTotalQty >= 5) {
-        const bulkP = document.createElement('p');
-        bulkP.className = 'bk-cart-bulk-hint bk-cart-bulk-hint--in-quote';
-        bulkP.innerHTML =
-          '5대 이상이시면 사무실·다가구 등 <a href="bulk.html">대량 견적 페이지</a>에서 더 유리한 안내를 받을 수 있습니다.';
-        quote.appendChild(bulkP);
-      } else {
-        const urgent = document.createElement('p');
-        urgent.className = 'bk-order-quote-urgent';
-        urgent.innerHTML =
-          '<strong>지금 이 화면에서 예약 접수를 완료해야</strong> 위 견적·할인 조건이 적용됩니다. ' +
-          '<strong>접수 없이 나가거나 나중에 다시 찾아오시면</strong> 같은 금액·혜택을 받지 못할 수 있어요.';
-        quote.appendChild(urgent);
-      }
+      const urgent = document.createElement('p');
+      urgent.className = 'bk-order-quote-urgent';
+      urgent.innerHTML =
+        '<strong>지금 이 화면에서 예약 접수를 완료해야</strong> 위 견적·할인 조건이 적용됩니다. ' +
+        '<strong>접수 없이 나가거나 나중에 다시 찾아오시면</strong> 같은 금액·혜택을 받지 못할 수 있어요.';
+      quote.appendChild(urgent);
 
       if (hasUnknown) {
         const qNote = document.createElement('p');
@@ -1812,115 +2381,119 @@
       btn.className = 'bk-pick-card';
       btn.setAttribute('aria-label', `${v.name} 담기`);
 
-      const wrap = document.createElement('div');
-      wrap.className = 'bk-pick-wrap';
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'bk-pick-img-wrap';
       const img = document.createElement('img');
       img.src = v.src;
       img.alt = v.alt || v.name;
-      wrap.appendChild(img);
+      img.loading = 'lazy';
+      imgWrap.appendChild(img);
 
-      const meta = document.createElement('div');
-      meta.className = 'bk-pick-meta';
+      const info = document.createElement('div');
+      info.className = 'bk-pick-info';
       const nm = document.createElement('span');
       nm.className = 'bk-pick-name';
       nm.textContent = v.name;
-      const pr = document.createElement('span');
-      pr.className = 'bk-pick-price-row';
       const price = document.createElement('span');
       price.className = 'bk-pick-price';
       price.textContent = v.price;
-      const disc = document.createElement('span');
-      disc.className = 'bk-pick-discount';
-      disc.textContent = v.discount;
-      pr.appendChild(price);
-      pr.appendChild(disc);
-      meta.appendChild(nm);
-      meta.appendChild(pr);
+      info.appendChild(nm);
+      info.appendChild(price);
 
       const add = document.createElement('span');
       add.className = 'bk-pick-add';
       add.textContent = '+ 담기';
+      add.setAttribute('aria-hidden', 'true');
 
-      btn.appendChild(wrap);
-      btn.appendChild(meta);
+      btn.appendChild(imgWrap);
+      btn.appendChild(info);
       btn.appendChild(add);
       btn.addEventListener('click', () => addLineToCart(line));
       return btn;
     }
+
+    const TAB_GROUPS = [
+      { title: '벽걸이',    lines: ['벽걸이형'] },
+      { title: '스탠드',    lines: ['스탠드형 가정용', '스탠드형 업소용'] },
+      { title: '2in1',      lines: ['2in1 에어컨'] },
+      { title: '천장형',    lines: ['천장형 1WAY', '천장형 2WAY', '천장형 4WAY', '원형 360도'] },
+      { title: '잘 모르겠어요', lines: [PICK_UNKNOWN_LINE], direct: true },
+    ];
 
     function buildPickGrid() {
       if (!bkPickGrid) return;
       bkPickGrid.innerHTML = '';
       bkPickGrid.className = 'bk-pick-area';
 
-      const strip = document.createElement('div');
-      strip.className = 'bk-pick-strip';
-      strip.setAttribute('role', 'region');
-      strip.setAttribute('aria-label', '에어컨 종류별 담기');
+      const list = document.createElement('div');
+      list.className = 'bk-acc-list';
 
-      function appendGroup(title, lines) {
-        const group = document.createElement('div');
-        group.className = 'bk-pick-group';
-        const lab = document.createElement('span');
-        lab.className = 'bk-pick-group-label';
-        lab.textContent = title;
-        group.appendChild(lab);
-        lines.forEach((line) => {
+      function openItem(targetItem, targetBody) {
+        // 다른 항목 닫기
+        list.querySelectorAll('.bk-acc-item').forEach((el) => el.classList.remove('is-open'));
+        list.querySelectorAll('.bk-acc-body').forEach((el) => el.classList.remove('is-open'));
+        // 선택 항목 열기
+        targetItem.classList.add('is-open');
+        targetBody.classList.add('is-open');
+      }
+
+      TAB_GROUPS.forEach((g, idx) => {
+        const item = document.createElement('div');
+        item.className = 'bk-acc-item';
+
+        const header = document.createElement('button');
+        header.type = 'button';
+        header.className = 'bk-acc-header';
+
+        const dot = document.createElement('span');
+        dot.className = 'bk-acc-dot';
+
+        const title = document.createElement('span');
+        title.className = 'bk-acc-title';
+        title.textContent = g.title;
+
+        const chevron = document.createElement('span');
+        chevron.className = 'bk-acc-chevron';
+        chevron.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
+
+        header.appendChild(dot);
+        header.appendChild(title);
+        header.appendChild(chevron);
+
+        const body = document.createElement('div');
+        body.className = 'bk-acc-body';
+
+        const grid = document.createElement('div');
+        grid.className = 'bk-acc-grid';
+        g.lines.forEach((line) => {
           const card = createPickCard(line);
-          if (card) group.appendChild(card);
+          if (card) grid.appendChild(card);
         });
-        strip.appendChild(group);
-      }
+        body.appendChild(grid);
 
-      PICK_GROUPS.forEach((g) => appendGroup(g.title, g.lines));
-      appendGroup('기타', [PICK_UNKNOWN_LINE]);
+        if (g.direct) {
+          // 바로 담기 (잘 모르겠어요)
+          header.addEventListener('click', () => {
+            addLineToCart(g.lines[0]);
+          });
+        } else {
+          header.addEventListener('click', () => {
+            const isAlreadyOpen = item.classList.contains('is-open');
+            if (isAlreadyOpen) {
+              item.classList.remove('is-open');
+              body.classList.remove('is-open');
+            } else {
+              openItem(item, body);
+            }
+          });
+        }
 
-      bkPickGrid.appendChild(strip);
-      setupPickStripAutoScroll(strip);
-    }
+        item.appendChild(header);
+        item.appendChild(body);
+        list.appendChild(item);
+      });
 
-    function setupPickStripAutoScroll(strip) {
-      if (!strip) return;
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      let dir = 1;
-      let paused = false;
-      let resumeTimer = null;
-
-      function pause(ms) {
-        paused = true;
-        clearTimeout(resumeTimer);
-        resumeTimer = setTimeout(() => {
-          paused = false;
-        }, ms);
-      }
-
-      strip.addEventListener(
-        'pointerdown',
-        () => {
-          pause(3500);
-        },
-        { passive: true }
-      );
-      strip.addEventListener(
-        'wheel',
-        () => {
-          pause(3000);
-        },
-        { passive: true }
-      );
-
-      function tick() {
-        requestAnimationFrame(tick);
-        if (paused || document.hidden) return;
-        if (strip.scrollWidth <= strip.clientWidth + 2) return;
-        const max = strip.scrollWidth - strip.clientWidth;
-        strip.scrollLeft += dir * 0.45;
-        if (strip.scrollLeft >= max - 0.5) dir = -1;
-        else if (strip.scrollLeft <= 0.5) dir = 1;
-      }
-
-      requestAnimationFrame(tick);
+      bkPickGrid.appendChild(list);
     }
 
     function initFromUrl() {
@@ -1939,6 +2512,83 @@
     initFromUrl();
     refreshCtaSlots();
     setInterval(refreshCtaSlots, 60000);
+
+    /* ════ 멀티스텝 폼 ════ */
+    let currentStep = 1;
+
+    function updateStepIndicator(step) {
+      for (let i = 1; i <= 4; i++) {
+        const node = document.getElementById('bkNode' + i);
+        const lbl  = document.getElementById('bkLbl'  + i);
+        const conn = document.getElementById('bkConn' + i);
+        if (!node) continue;
+        node.classList.remove('is-active', 'is-done');
+        if (lbl) lbl.classList.remove('is-active', 'is-done');
+        if (i < step) {
+          node.textContent = '✓';
+          node.classList.add('is-done');
+          if (lbl) lbl.classList.add('is-done');
+        } else if (i === step) {
+          node.textContent = String(i);
+          node.classList.add('is-active');
+          if (lbl) lbl.classList.add('is-active');
+        } else {
+          node.textContent = String(i);
+        }
+        if (conn) conn.classList.toggle('is-done', i < step);
+      }
+    }
+
+    function showStepErr(step, msg) {
+      const el = document.getElementById('bkErr' + step);
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.add('visible');
+    }
+
+    function clearStepErr(step) {
+      const el = document.getElementById('bkErr' + step);
+      if (el) el.classList.remove('visible');
+    }
+
+    function goToStep(n) {
+      // 앞으로 이동 시 현재 스텝 유효성 검사
+      if (n > currentStep) {
+        if (currentStep === 1) {
+          const items = bookingCart.filter(x => x.qty > 0);
+          if (items.length === 0) {
+            showStepErr(1, '에어컨 종류를 카드에서 최소 1개 이상 담아주세요.');
+            return;
+          }
+          clearStepErr(1);
+        }
+        if (currentStep === 2) {
+          const nameVal  = document.getElementById('name').value.trim();
+          const phoneVal = document.getElementById('phone').value.trim();
+          if (!nameVal || !phoneVal) {
+            showStepErr(2, '이름과 연락처를 모두 입력해 주세요.');
+            return;
+          }
+          clearStepErr(2);
+        }
+        if (currentStep === 3) {
+          const addrVal = document.getElementById('address').value.trim();
+          if (!addrVal) {
+            showStepErr(3, '주소를 입력해 주세요.');
+            return;
+          }
+          clearStepErr(3);
+        }
+      }
+
+      document.getElementById('bkStep' + currentStep).classList.remove('is-active');
+      document.getElementById('bkStep' + n).classList.add('is-active');
+      currentStep = n;
+      updateStepIndicator(n);
+
+      const card = document.getElementById('bkFormCard');
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
     document.getElementById('phone').addEventListener('input', (e) => {
       let value = e.target.value.replace(/\D/g, '');
@@ -2012,7 +2662,7 @@
         result.className = 'bk-result error';
         result.innerHTML = '서버 연결에 실패했습니다. 전화로 문의해주세요.';
       } finally {
-        btn.textContent = '예약 신청하기';
+        btn.textContent = '예약 접수하기';
         btn.disabled = false;
         result.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
